@@ -1,38 +1,228 @@
-.App {
-  text-align: center;
+@font-face {
+  font-family: projectFont;
+  src: url('./assest/font/Poppins-Light.ttf');
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body{
+  background-color: rgb(240, 240, 240);
+  font-family: projectFont;
+  line-height: 160%;
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/*framework */
+.dailyspend--main--app{
+  margin: 1% auto;
+  max-width: 390px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  background-color: rgb(240, 243, 245);
+}
+.dailyspend--head{
+  background-color: rgb(235, 235, 240);
+}
+
+.dailyspend--add--item-block{
+  background-color: rgb(91, 126, 157);
+  height: 60px;
+  padding: 1rem 1rem;
+  border-radius: 0 14px;
+  border: 1px solid gray;
+  box-shadow: 4px 4px rgb(195, 207, 218);
+  display: flex;
+  flex-direction: row;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  gap: 0.45rem;
+  position: relative;
+}
+
+input{
+  width: 450px;
+  height: 20px;
+  padding: 5px 10px;
+  border: 1px solid gray;
+  border-radius: 3px;
+  outline: 0;
+  font-size: 13px;
+  letter-spacing:0.8px;
+  font-family:projectFont ;
+  font-weight: bold;
+}
+
+input:hover,button:hover{
+  cursor: pointer;
+}
+
+input:focus,button:focus
+{
+  border-bottom: 1.5px solid rgb(9, 9, 128);
+}
+
+button{
+  background-color: rgb(190, 191, 192);
+  border: none;
+  height: 30px;
+  border-radius: 4px;
+  width: 150px;
+  border: 2px solid rgb(162, 166, 162);
+  font-weight: 600;
+  font-family: projectFont;
+  font-size: 13px;
+  letter-spacing: 0.7px;
+}
+
+span>h4{
+  background-color: rgb(123, 33, 33);
+  width: 90px;
+  padding: 6px 15px;
   color: white;
+  border-radius: 13px 0;
+  font-size: bold;
+}
+p{
+  font-size: 10px;
+  align-items: flex-end;
+  text-align: left;
+  font-weight: 600;
 }
 
-.App-link {
-  color: #61dafb;
+
+/*
+dropdown list
+*/
+.spendList_display_screen{
+  /* width: 140px;
+  height: 140px;
+  padding: 5px 15px;
+  scroll-behavior: smooth;
+  font-size: 12px;
+  overflow: hidden;
+  position: absolute;
+  top: 50px;
+  background-color: gray; */
+  background-color: #F5F5F5;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 0 4px 0;
+    color: #3B3C3E;
+    font-size: 12px;
+    height: 180px;
+    font-weight: bold;
+    left: -1px;
+    padding: 10px 7px 5px;
+    width: 240px;
+    overflow: hidden;
+    position: absolute;
+    top: 65px;
+    left:20px;
+    overflow:scroll;
+    overflow-x:hidden;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.dailyspend--display--item{
+  background-color: #F5F5F5;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 0 4px 0;
+    color: #3B3C3E;
+    font-size: 12px;
+    height: 180px;
+    font-weight: bold;
+    left: -1px;
+    padding: 10px 7px 5px;
+    width: 100%;
+    overflow: hidden;
+    overflow:scroll;
+    overflow-x:hidden;
+}
+
+td{
+  border-bottom: 1px solid rgb(200, 198, 198);
+}
+
+tr:hover
+{
+  background-color: rgb(216, 215, 215);
+  padding: 15px 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+table{
+  width: 400px;
+  border: 1px solid rgb(232, 231, 231);
+  font-size: smaller;
+}
+
+.btn--push--local--db{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
+.btn--push--local--db>button{
+  margin-top: 10px;
+  background-color: rgb(238, 236, 236);
+  border: 1.4px solid rgb(164, 163, 163);
+  height: 28px;
+}
+
+.pushMenu{
+  width: 230px;
+  height: 30px;
+  background-color: rgb(235, 235, 235);
+  display: flex;
+  flex-direction: row;
+  gap: 0.2rem;
+}
+
+.pushMenu>div
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  padding: 0 0.5rem;
+  background-color: rgb(184, 184, 184);
+  border-radius: 2px;
+  border: 1.5px solid rgb(150, 150, 150);
+  font-size: 15px;
+  font-weight: 600;
+  color: rgb(72, 71, 71);
+  
+
+}
+.pushMenu>div>p{
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.pushMenu>div>p:hover{
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.pushMenu>div:hover
+{
+  cursor: pointer;
+  box-shadow: 3px 8px 10px 14px rgba(157, 156, 156, 0.1);
+  color: rgb(0, 0, 0);
+}
+.pushMenu>div{
+border: 1.2px solid rgb(71, 17, 17);
+}
+
+@media screen and (max-width: 450px)
+{
+  .dailyspend--add--item-block
+  {
+    margin: 2px;
+    flex-direction: column;
+    align-items: flex-end;
   }
-  to {
-    transform: rotate(360deg);
+  input{
+    width: 285px;
   }
 }
+
+
+
