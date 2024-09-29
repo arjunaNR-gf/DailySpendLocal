@@ -127,6 +127,7 @@ dropdown list
     border-radius: 4px 0 4px 0;
     color: #3B3C3E;
     font-size: 12px;
+    width: 100%;
     height: 180px;
     font-weight: bold;
     left: -1px;
@@ -218,17 +219,50 @@ border: 1.2px solid rgb(71, 17, 17);
   body{
     zoom: 97%;
   }
+
+  .dailyspend--main--app{
+    padding: 0.3rem 0.3rem;
+    margin: 1%;
+  }
   .dailyspend--add--item-block
   {
     margin: 2px;
     flex-direction: column;
     align-items: flex-end;
+    height: 120px;
   }
   input{
     width: 259px;
+    height: 35px;
   }
   .dailyspend--add--item-block{
     width: 285px;
+    gap: 1.5rem;
+  }
+  button{
+    height: 41px !important;
+  }
+
+  .pushMenu
+  {
+    border-top: 1px solid gray;
+    width: 100%;
+    padding: 1rem 0.1rem;
+    margin-top: 18%;
+    
+  }
+
+  table{
+    width: 265px;
+  }
+
+  .spendList_display_screen{
+    top: 50%;
+    width: 110px;
+    height: 150px;
+  }
+  .dailyspend--display--item{
+    width: 310px;
   }
 }
 

@@ -168,14 +168,16 @@ function App() {
           <button onClick={() => { push_Db() }}>Push DB</button> :
           <button onClick={(e) => { on_submit_item(e) }}>{btnText}</button>}
       </div>
-      <p>@dailyspend.com</p>
+     
 
       
           <div className='pushMenu'>
             <div className='show--localdb-data' onClick={()=>changePushMenu('finalpush')}><p>Storage DB</p></div>
             <div onClick={()=>changePushMenu('localPush')}><p>Data To Push</p></div>
           </div>
-      { pushMenu=='finalpush' && localDB.length > 0 ? <div className='dailyspend--display--item'>
+
+          <div className='display--item'>
+          { pushMenu=='finalpush' && localDB.length > 0 ? <div className='dailyspend--display--item'>
         <h4>Final Push Data</h4>
         <table>
           <tbody>
@@ -195,9 +197,8 @@ function App() {
         </div>
       </div> : ''}
 
-
-      {
-      pushMenu=='localPush' && db['spendByDay']?.length > 0 ? <div className='dailyspend--display--item'>
+       {
+        pushMenu=='localPush' && db['spendByDay']?.length > 0 ? <div className='dailyspend--display--item'>
         <h4>Push To Local</h4>
         <table>
           <tbody>
@@ -216,10 +217,12 @@ function App() {
         <div className='btn--push--local--db'>
           <button onClick={() => { push_to_local_db() }}>Local Push</button>
         </div>
-      </div> : 'Sorry! No Data To Display!!'
-      
-      }
+        </div> : 'Sorry! No Data To Display!!'
+       }
+          </div>
 
+       
+          <p>@dailyspend.com</p>
 
     </div>
 
