@@ -18,7 +18,7 @@ body{
   display: flex;
   flex-direction: column;
   background-color: rgb(240, 243, 245);
-  padding: 3px 3px;
+  padding: 3px 20px;
 }
 .dailyspend--head{
   background-color: rgb(235, 235, 240);
