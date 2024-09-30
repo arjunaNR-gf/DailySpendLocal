@@ -286,7 +286,12 @@ table {
   }
 
   table {
-    width: 270px;
+    width: 280px;
+
+  }
+
+  td{
+    padding: 3px 3px;
   }
 
   .spendList_display_screen {
@@ -296,6 +301,6 @@ table {
   }
 
   .dailyspend--display--item {
-    width: 310px;
+    width: 284px;
   }
 }
