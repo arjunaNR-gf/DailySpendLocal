@@ -23,6 +23,8 @@ body {
   background-color: rgb(240, 243, 245);
 }
 
+
+
 .dailyspend--head {
   width: 120%;
   display: flex;
@@ -110,15 +112,6 @@ p {
 dropdown list
 */
 .spendList_display_screen {
-  /* width: 140px;
-  height: 140px;
-  padding: 5px 15px;
-  scroll-behavior: smooth;
-  font-size: 12px;
-  overflow: hidden;
-  position: absolute;
-  top: 50px;
-  background-color: gray; */
   background-color: #F5F5F5;
   border: 1px solid #DDDDDD;
   border-radius: 4px 0 4px 0;
@@ -135,6 +128,10 @@ dropdown list
   left: 20px;
   overflow: scroll;
   overflow-x: hidden;
+}
+
+.spendList_display_screen::-webkit-scrollbar {
+  display: none;
 }
 
 .display--item>.dailyspend--display--item>h4{
@@ -263,16 +260,16 @@ table {
   .dailyspend--add--item-block {
     flex-direction: column;
     align-items: flex-end;
-    height: 120px;
+    height: 100px;
   }
 
   input {
     width: 259px;
-    height: 35px;
+    height: 32px;
   }
 
   .dailyspend--add--item-block {
-    width: 298px;
+    width: 268px;
     gap: 1.5rem;
   }
 
@@ -289,7 +286,7 @@ table {
   }
 
   table {
-    width: 265px;
+    width: 270px;
   }
 
   .spendList_display_screen {
@@ -299,6 +296,6 @@ table {
   }
 
   .dailyspend--display--item {
-    width: 320px;
+    width: 310px;
   }
 }
