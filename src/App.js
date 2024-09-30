@@ -5,7 +5,7 @@ import { toBeEmpty } from '@testing-library/jest-dom/dist/matchers';
 
 function App() {
 
-  const [btnText, setBtnText] = useState('submit')
+  const [btnText, setBtnText] = useState('SUBMIT')
   const [inputText, setInputText] = useState('date')
   const [inputID, setInputId] = useState('byDate')
   const [inputPlaceHolder, setPlaceHolder] = useState('Enter The' + inputID + '....')
@@ -26,20 +26,20 @@ function App() {
   { ID: 'ZT', Name: 'ZOMATO' },
   ])
 
-  const[localDB,setLocalDb] = useState([])
+  const [localDB, setLocalDb] = useState([])
 
-  const[pushMenu,setPushMenu] = useState('')
+  const [pushMenu, setPushMenu] = useState('')
 
   useEffect(() => {
   })
 
-  const fetch_local_db_data=()=>{
-    if(JSON.parse(localStorage?.getItem('spenddaily')) !=null ){
-      setLocalDb( JSON.parse(localStorage?.getItem('spenddaily')))
+  const fetch_local_db_data = () => {
+    if (JSON.parse(localStorage?.getItem('spenddaily')) != null) {
+      setLocalDb(JSON.parse(localStorage?.getItem('spenddaily')))
     }
   }
 
-  const changePushMenu =(menuName)=>{
+  const changePushMenu = (menuName) => {
     setPushMenu(menuName)
     fetch_local_db_data();
   }
@@ -136,74 +136,73 @@ function App() {
   }
 
   const push_to_local_db = () => {
-    for(let i= 0 ; i<localDB?.length;i++)
-    db['spendByDay'].push(localDB[i])
+    for (let i = 0; i < localDB?.length; i++)
+      db['spendByDay'].push(localDB[i])
     localStorage.setItem('spenddaily', JSON.stringify(db['spendByDay']))
     setTimeout(() => {
-      db['spendByDay']=[]
-      }, 30);
+      db['spendByDay'] = []
+    }, 30);
   }
 
   return (
 
     <div className='dailyspend--main--app'>
       <div className='dailyspend--head'>
-        <span className='title'>
-          <h4>Dailyspend Local  APP</h4>
-        </span>
+        <h4>DailySpend Local  APP</h4>
       </div>
 
       <div className='pushMenu'>
-            <button className='show--localdb-data' onClick={()=>changePushMenu('finalpush')}>VIEW</button>
-            <button onClick={()=>changePushMenu('localPush')}>PUSH</button>
-          </div>
+        <button className='show--localdb-data' onClick={() => changePushMenu('finalpush')}>VIEW</button>
+        <button onClick={() => changePushMenu('localPush')}>PUSH</button>
+      </div>
 
-          <div className='display--item'>
-          { pushMenu=='finalpush' && localDB.length > 0 ? <div className='dailyspend--display--item'>
+
+      <div className='display--item'>
+        {pushMenu == 'finalpush' && localDB.length > 0 ? <div className='dailyspend--display--item'>
           <h4>Data Ready For Push</h4>
           <table>
-          <tbody>
-            {
-             localDB.map((item, i) => {
-                return <tr>
-                  <td key={'item_local'+i}>{item.Item_Name}</td>
-                  <td  key={i+'item_local'+i}>{item.Item_Date}</td>
-                  <td  key={i+'item_local'+i}>{item.Spent_Price}</td>
-                </tr>
-              })
-            }
-          </tbody>
-        </table>
-        <div className='btn--push--local--db'>
-          <button onClick={() => { }}>PUSH</button>
-        </div>
-      </div> : ''}
-
-       {
-        pushMenu=='localPush' && db['spendByDay']?.length > 0 ? <div className='dailyspend--display--item'>
-        <h4>Push To Local</h4>
-        <table>
-          <tbody>
-            {
-              db['spendByDay'].map((item, i) => {
-                return <tr>
-                  <td>{item.Item_Name}</td>
-                  <td>{item.Item_Date}</td>
-                  <td>{item.Spent_Price}</td>
-                </tr>
-              })
-            }
-
-          </tbody>
-        </table>
-        <div className='btn--push--local--db'>
-          <button onClick={() => { push_to_local_db() }}>PUSH</button>
-        </div>
-        </div> : ''
-       }
+            <tbody>
+              {
+                localDB.map((item, i) => {
+                  return <tr>
+                    <td key={'item_local' + i}>{item.Item_Name}</td>
+                    <td key={i + 'item_local' + i}>{item.Item_Date}</td>
+                    <td key={i + 'item_local' + i}>{item.Spent_Price}</td>
+                  </tr>
+                })
+              }
+            </tbody>
+          </table>
+          <div className='btn--push--local--db'>
+            <button onClick={() => { }}>PUSH</button>
           </div>
+        </div> : ''}
 
-      
+        {
+          pushMenu == 'localPush' && db['spendByDay']?.length > 0 ? <div className='dailyspend--display--item'>
+            <h4>Push To Local</h4>
+            <table>
+              <tbody>
+                {
+                  db['spendByDay'].map((item, i) => {
+                    return <tr>
+                      <td>{item.Item_Name}</td>
+                      <td>{item.Item_Date}</td>
+                      <td>{item.Spent_Price}</td>
+                    </tr>
+                  })
+                }
+
+              </tbody>
+            </table>
+            <div className='btn--push--local--db'>
+              <button onClick={() => { push_to_local_db() }}>PUSH</button>
+            </div>
+          </div> : ''
+        }
+      </div>
+
+
 
       <div className='dailyspend--add--item-block'>
         <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
@@ -220,13 +219,13 @@ function App() {
           <button onClick={() => { push_Db() }}>PUSH</button> :
           <button onClick={(e) => { on_submit_item(e) }}>{btnText}</button>}
       </div>
-     
 
-      
-         
 
-       
-          <p>@dailyspend.com</p>
+
+
+
+
+      <p>@dailyspend.com</p>
 
     </div>
 

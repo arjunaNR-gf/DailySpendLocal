@@ -1,48 +1,58 @@
 @font-face {
   font-family: projectFont;
-  src: url('./assest/font/Poppins-Light.ttf');
+  src: url('./assest/font/Poppins-Medium.ttf');
+}
+
+* {
+  font-family: projectFont, sans-serif;
+  line-height: 160%;
+  font-size: 13.5px;
+  letter-spacing: 0.8px;
+  box-sizing: border-box;
+  line-height: 170%;
 }
 
 body {
   background-color: rgb(227, 226, 226);
-  font-family: projectFont;
-  line-height: 160%;
-  box-sizing: border-box;
-  margin: 2%;
 }
 
 /*framework */
 .dailyspend--main--app {
+  box-sizing: border-box;
   margin: 1% auto;
-  padding: 3px 20px;
+  padding: 0.525rem 0.525rem;
   max-width: 400px;
+  width: 100%;
   border-radius: 5px;
   border: 1px solid #a3bac3;
   display: flex;
   flex-direction: column;
   background-color: rgb(240, 243, 245);
+  overflow: hidden;
+  position: relative
 }
 
-
-
 .dailyspend--head {
-  width: 120%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-
-}
-span>h4 {
-  background-color: #a3bac3;
   width: 100%;
-  padding: 6px 15px;
+  height: 50px;
+  padding: 0.12rem;
+  border: 1.5px solid #04171f;
+  border-radius: 0.125rem 0;
+  background-color: #a3bac3;
+  border-left: 8.245rem solid#006989;
+  border-right: 1rem solid #e1e4ea;
+}
+
+.dailyspend--head>h4 {
+  width: 100%;
   color: rgb(15, 4, 4);
   border-radius: 13px 0;
-  font-size: bold;
-  padding: 1rem;
-  border-left: 1rem solid#006989;
-  border-right: 1rem solid #e1e4ea;
+  font-weight: bolder;
+  font-size: 16px;
+  padding: 0.234rem;
 }
 
 
@@ -64,15 +74,42 @@ span>h4 {
 
 input {
   width: 450px;
-  height: 20px;
+  height: 35px;
   padding: 5px 10px;
   border: 1px solid gray;
   border-radius: 3px;
   outline: 0;
   font-size: 13px;
   letter-spacing: 0.8px;
-  font-family: projectFont;
   font-weight: bold;
+}
+
+button {
+  color: rgb(239, 237, 237);
+  align-items: center;
+  border: 0.4px solid #E2E8F0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+  display: inline-flex;
+  font-family: projectFont;
+  font-size: 0.725rem;
+  font-weight: 700;
+  height: 35px;
+  justify-content: center;
+  line-height: 24px;
+  overflow-wrap: break-word;
+  padding: 14px 34px;
+  text-decoration: none;
+  width: auto;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  letter-spacing: 0.7px;
+  background-color: #006989 !important;
+  outline: none;
+
 }
 
 input:hover,
@@ -82,22 +119,10 @@ button:hover {
 
 input:focus,
 button:focus {
-  border-bottom: 1.5px solid rgb(212, 212, 228);
+  border-bottom: 1px solid rgb(163, 42, 42);
 }
 
-button {
-  background-color: #006989;
-  border: none;
-  height: 30px;
-  border-radius: 3px;
-  width: 150px;
-  border: 0.5px solid rgb(162, 166, 162);
-  font-weight: 600;
-  font-family: projectFont;
-  font-size: 13px;
-  letter-spacing: 0.7px;
-  color: rgb(231, 230, 230);
-}
+
 
 
 p {
@@ -113,28 +138,33 @@ dropdown list
 */
 .spendList_display_screen {
   background-color: #F5F5F5;
-  border: 1px solid #DDDDDD;
-  border-radius: 4px 0 4px 0;
+  border: 1px solid #d7cdcd;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  border-radius: 4px 0;
   color: #3B3C3E;
-  font-size: 12px;
-  height: 180px;
-  font-weight: bold;
-  left: -1px;
-  padding: 10px 7px 5px;
-  width: 240px;
+  height: 150px;
+  font-weight: 500;
+  font-size: 0.4235rem !important;
+  padding: 10px 7px 5px 6px;
+  width: 234px;
   overflow: hidden;
   position: absolute;
-  top: 65px;
-  left: 20px;
+  bottom: 50px;
+  left: 18px;
   overflow: scroll;
   overflow-x: hidden;
+}
+
+.spendList_display_screen>tr {
+  font-size: 0.726rem;
 }
 
 .spendList_display_screen::-webkit-scrollbar {
   display: none;
 }
 
-.display--item>.dailyspend--display--item>h4{
+.display--item>.dailyspend--display--item>h4 {
   padding: 10px;
   background-color: #c2d2da;
   width: auto;
@@ -156,11 +186,25 @@ dropdown list
   overflow: hidden;
   overflow: scroll;
   overflow-x: hidden;
-  
 }
 
+.dailyspend--display--item::-webkit-scrollbar {
+  display: none;
+}
+
+/* table related css*/
+table {
+  margin-top: 2%;
+  width: 100%;
+  border: 1px solid rgb(232, 231, 231);
+  font-size: smaller;
+}
+
+
 td {
-  border-bottom: 1px solid rgb(200, 198, 198);
+  border-bottom: 1px solid rgb(218, 218, 218);
+  padding: 3px 3px;
+  font-size: 10px !important;
 }
 
 tr:hover {
@@ -170,12 +214,7 @@ tr:hover {
   width: 100%;
 }
 
-table {
-  margin-top: 2%;
-  width: 380px;
-  border: 1px solid rgb(232, 231, 231);
-  font-size: smaller;
-}
+
 
 .btn--push--local--db {
   display: flex;
@@ -183,12 +222,6 @@ table {
   justify-content: end;
 }
 
-.btn--push--local--db>button {
-  margin-top: 10px;
-  background-color: #006989;
-  border: 1.4px solid rgb(164, 163, 163);
-  height: 28px;
-}
 
 .pushMenu {
   width: 100%;
@@ -199,36 +232,7 @@ table {
   margin-top: 15%;
 }
 
-.pushMenu>button {
 
-  width: 20%;
-  font-family: projectFont;
-
-  /* CSS */
-  color: rgb(239, 237, 237);
-  align-items: center;
-  border: 0.4px solid #E2E8F0;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  box-sizing: border-box;
-  display: inline-flex;
-  font-family: projectFont;
-  font-size: 0.6rem;
-  font-weight: 700;
-  height: 35px;
-  justify-content: center;
-  line-height: 24px;
-  overflow-wrap: break-word;
-  padding: 14px 24px;
-  text-decoration: none;
-  width: auto;
-  border-radius: 2px;
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  letter-spacing: 0.7px;
-
-}
 
 
 .pushMenu>div>p {
@@ -253,10 +257,11 @@ table {
 
 @media screen and (max-width: 450px) {
   body {
-    zoom: 97%;
+    zoom: 100%;
+    box-sizing: border-box;
   }
 
-  
+
   .dailyspend--add--item-block {
     flex-direction: column;
     align-items: flex-end;
@@ -264,43 +269,19 @@ table {
   }
 
   input {
-    width: 234px;
+    width: 100%;
     height: 32px;
   }
 
   .dailyspend--add--item-block {
-    width: 258px;
-    gap: 1.5rem;
-  }
-
-  button {
-    height: 41px !important;
-  }
-
-  .pushMenu {
-    border-bottom: 1px solid gray;
     width: 100%;
-    padding: 1rem 0.1rem;
-    margin-top: 15%;
-
-  }
-
-  table {
-    width: 280px;
-
-  }
-
-  td{
-    padding: 3px 3px;
+    padding: 10px;
+    gap: 1.5rem;
   }
 
   .spendList_display_screen {
     top: 50%;
-    width: 110px;
+    width: 150px;
     height: 150px;
-  }
-
-  .dailyspend--display--item {
-    width: 284px;
   }
 }
