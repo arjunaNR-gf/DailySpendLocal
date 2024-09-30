@@ -153,33 +153,15 @@ function App() {
         </span>
       </div>
 
-      <div className='dailyspend--add--item-block'>
-        <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
-        {dropdown_screen_on() == true ?
-          <div className='spendList_display_screen'>
-            {
-              SpentOnList.map((item, index) => {
-                return <tr key={index + 'item'} onClick={() => apply_pay_name(item.ID)}>{item.Name}</tr>
-              })
-            }
-          </div> : ''}
-
-        {push_ready_verification() == true ?
-          <button onClick={() => { push_Db() }}>Push DB</button> :
-          <button onClick={(e) => { on_submit_item(e) }}>{btnText}</button>}
-      </div>
-     
-
-      
-          <div className='pushMenu'>
-            <div className='show--localdb-data' onClick={()=>changePushMenu('finalpush')}><p>Storage DB</p></div>
-            <div onClick={()=>changePushMenu('localPush')}><p>Data To Push</p></div>
+      <div className='pushMenu'>
+            <button className='show--localdb-data' onClick={()=>changePushMenu('finalpush')}>VIEW</button>
+            <button onClick={()=>changePushMenu('localPush')}>PUSH</button>
           </div>
 
           <div className='display--item'>
           { pushMenu=='finalpush' && localDB.length > 0 ? <div className='dailyspend--display--item'>
-        <h4>Final Push Data</h4>
-        <table>
+          <h4>Data Ready For Push</h4>
+          <table>
           <tbody>
             {
              localDB.map((item, i) => {
@@ -193,7 +175,7 @@ function App() {
           </tbody>
         </table>
         <div className='btn--push--local--db'>
-          <button onClick={() => { }}>Final Push</button>
+          <button onClick={() => { }}>PUSH</button>
         </div>
       </div> : ''}
 
@@ -215,11 +197,33 @@ function App() {
           </tbody>
         </table>
         <div className='btn--push--local--db'>
-          <button onClick={() => { push_to_local_db() }}>Local Push</button>
+          <button onClick={() => { push_to_local_db() }}>PUSH</button>
         </div>
-        </div> : 'Sorry! No Data To Display!!'
+        </div> : ''
        }
           </div>
+
+      
+
+      <div className='dailyspend--add--item-block'>
+        <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
+        {dropdown_screen_on() == true ?
+          <div className='spendList_display_screen'>
+            {
+              SpentOnList.map((item, index) => {
+                return <tr key={index + 'item'} onClick={() => apply_pay_name(item.ID)}>{item.Name}</tr>
+              })
+            }
+          </div> : ''}
+
+        {push_ready_verification() == true ?
+          <button onClick={() => { push_Db() }}>PUSH</button> :
+          <button onClick={(e) => { on_submit_item(e) }}>{btnText}</button>}
+      </div>
+     
+
+      
+         
 
        
           <p>@dailyspend.com</p>
