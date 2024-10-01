@@ -1,9 +1,15 @@
-import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
-import { toBeEmpty } from '@testing-library/jest-dom/dist/matchers';
+import { pushSpendMoney } from './ServiceForBackEnd/Api/DailySpendLocalApi';
+
+
+
 
 function App() {
+
+  useEffect(() => {
+
+  }, [])
 
   const [btnText, setBtnText] = useState('SUBMIT')
   const [inputText, setInputText] = useState('date')
@@ -26,12 +32,49 @@ function App() {
   { ID: 'ZT', Name: 'ZOMATO' },
   ])
 
+  const [notification, setNotification] = useState({ activeStatus: false, subject: '' })
+
   const [localDB, setLocalDb] = useState([])
 
   const [pushMenu, setPushMenu] = useState('')
 
   useEffect(() => {
   })
+
+  const OnclickSubmit = () => {
+    if (item.Item_Name !== '' && item.Item_Date !== '' && item.Spent_Price !== '') {
+      let desID = SpentOnList.filter((itm) => itm.Name === item.Item_Name)[0].ID
+      const idata = { Amount: parseInt(item.Spent_Price), Date: new Date(item.Item_Date), Description: desID }
+
+
+      pushSpendMoney(idata).then(res => {
+        if (res.data.result === "Saved") {
+          setNotification((prevStatus) => ({
+            ...prevStatus,
+            activeStatus: true,
+            subject: 'Push is Successful!!!!!'
+          }))
+        }
+        else {
+          setNotification((prevStatus) => ({
+            ...prevStatus,
+            activeStatus: true,
+            subject: 'Error!!!'
+          }))
+        }
+      }).catch((err) => {
+        setNotification((prevStatus) => ({
+          ...prevStatus,
+          activeStatus: true,
+          subject: 'service not available'
+        }))
+      })
+    }
+    else {
+      setNotification({ activeStatus: true, subject: 'Please fill all details' })
+    }
+    // setNotification(true)
+  }
 
   const fetch_local_db_data = () => {
     if (JSON.parse(localStorage?.getItem('spenddaily')) != null) {
@@ -113,10 +156,11 @@ function App() {
     // db[guid_ID] = []
     db['spendByDay'] = db['spendByDay'] ?? []
     db['spendByDay'].push(item)
+    OnclickSubmit();
     //clearing the item  and set for next round][]
     setTimeout(() => {
       Clear_data()
-    }, 10);
+    }, 20);
   }
 
   const Change_Context = (txtPlaceHolder, txtInput, idInput,) => {
@@ -148,7 +192,12 @@ function App() {
 
     <div className='dailyspend--main--app'>
       <div className='dailyspend--head'>
-        <h4>DailySpend Local  APP</h4>
+        <div>
+
+        </div>
+        <div>
+          <h4>DailySpend Local  APP</h4>
+        </div>
       </div>
 
       <div className='pushMenu'>
@@ -206,6 +255,7 @@ function App() {
 
       <div className='dailyspend--add--item-block'>
         <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
+        
         {dropdown_screen_on() == true ?
           <div className='spendList_display_screen'>
             {
@@ -213,18 +263,16 @@ function App() {
                 return <tr key={index + 'item'} onClick={() => apply_pay_name(item.ID)}>{item.Name}</tr>
               })
             }
-          </div> : ''}
+           
+          </div>
+          
+          : ''}
+           <p>{notification.subject}</p>
 
         {push_ready_verification() == true ?
           <button onClick={() => { push_Db() }}>PUSH</button> :
           <button onClick={(e) => { on_submit_item(e) }}>{btnText}</button>}
       </div>
-
-
-
-
-
-
       <p>@dailyspend.com</p>
 
     </div>

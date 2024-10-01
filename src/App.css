@@ -10,6 +10,7 @@
   letter-spacing: 0.8px;
   box-sizing: border-box;
   line-height: 170%;
+  margin: 0;
 }
 
 body {
@@ -28,7 +29,6 @@ body {
   display: flex;
   flex-direction: column;
   background-color: rgb(240, 243, 245);
-  overflow: hidden;
   position: relative
 }
 
@@ -42,17 +42,36 @@ body {
   border: 1.5px solid #04171f;
   border-radius: 0.125rem 0;
   background-color: #a3bac3;
-  border-left: 8.245rem solid#006989;
-  border-right: 1rem solid #e1e4ea;
+  overflow: hidden;
+  /* border-left: 8.245rem solid#006989;
+  border-right: 1rem solid #e1e4ea; */
 }
 
-.dailyspend--head>h4 {
+.dailyspend--head>div:nth-child(1) {
+  width: 40%;
+  background-color: #006989;
+  height: inherit;
+
+}
+
+.dailyspend--head>div:nth-child(2) {
+
+  width: 60%;
+  background-color: #a3bac3;
+  height: inherit;
+  padding: 0 0.625rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.dailyspend--head>div:nth-child(2)>h4 {
   width: 100%;
   color: rgb(15, 4, 4);
   border-radius: 13px 0;
   font-weight: bolder;
-  font-size: 16px;
-  padding: 0.234rem;
+  font-size: 18px !important;
+
 }
 
 
@@ -81,7 +100,7 @@ input {
   outline: 0;
   font-size: 13px;
   letter-spacing: 0.8px;
-  font-weight: bold;
+
 }
 
 button {
@@ -140,7 +159,6 @@ dropdown list
   background-color: #F5F5F5;
   border: 1px solid #d7cdcd;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-
   border-radius: 4px 0;
   color: #3B3C3E;
   height: 150px;
@@ -261,11 +279,22 @@ tr:hover {
     box-sizing: border-box;
   }
 
+  .dailyspend--main--app{
+    height: 100vh;
+  }
 
   .dailyspend--add--item-block {
     flex-direction: column;
     align-items: flex-end;
-    height: 100px;
+    height: 115px;
+  }
+
+  .dailyspend--head>div:nth-child(1) {
+    width: 30%;
+  }
+
+  .dailyspend--head>div:nth-child(2) {
+    width: 70%;
   }
 
   input {
