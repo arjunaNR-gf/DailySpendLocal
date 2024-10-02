@@ -193,19 +193,25 @@ function App() {
     <div className='dailyspend--main--app'>
       <div className='dailyspend--head'>
         <div>
-
-        </div>
-        <div>
           <h4>DailySpend Local  APP</h4>
         </div>
-      </div>
-
-      <div className='pushMenu'>
-        <button className='show--localdb-data' onClick={() => changePushMenu('finalpush')}>VIEW</button>
-        <button onClick={() => changePushMenu('localPush')}>PUSH</button>
+        <div>
+        </div>
       </div>
 
 
+<div className='menu--main--header'>
+<div className='Menu'>
+        <ul>
+          <li onClick={()=>{window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/')}}>HOME</li>
+          <li onClick={() => changePushMenu('finalpush')}>VIEW</li>
+          <li onClick={() => changePushMenu('localPush')}>PUSH</li>
+
+        </ul>
+        {/* <button className='show--localdb-data' }>VIEW</button>
+        <button >PUSH</button> */}
+      </div>
+</div>
       <div className='display--item'>
         {pushMenu == 'finalpush' && localDB.length > 0 ? <div className='dailyspend--display--item'>
           <h4>Data Ready For Push</h4>
@@ -226,7 +232,6 @@ function App() {
             <button onClick={() => { }}>PUSH</button>
           </div>
         </div> : ''}
-
         {
           pushMenu == 'localPush' && db['spendByDay']?.length > 0 ? <div className='dailyspend--display--item'>
             <h4>Push To Local</h4>
@@ -241,7 +246,6 @@ function App() {
                     </tr>
                   })
                 }
-
               </tbody>
             </table>
             <div className='btn--push--local--db'>
@@ -251,23 +255,21 @@ function App() {
         }
       </div>
 
-
-
       <div className='dailyspend--add--item-block'>
         <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
-        
+
         {dropdown_screen_on() == true ?
           <div className='spendList_display_screen'>
             {
               SpentOnList.map((item, index) => {
-                return <tr key={index + 'item'} onClick={() => apply_pay_name(item.ID)}>{item.Name}</tr>
+                return <li key={index + 'item'} onClick={() => apply_pay_name(item.ID)}>{item.Name}</li>
               })
             }
-           
+
           </div>
-          
+
           : ''}
-           <p>{notification.subject}</p>
+        <p>{notification.subject}</p>
 
         {push_ready_verification() == true ?
           <button onClick={() => { push_Db() }}>PUSH</button> :
