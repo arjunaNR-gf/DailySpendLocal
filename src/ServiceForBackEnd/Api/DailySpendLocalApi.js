@@ -4,4 +4,8 @@ const pushSpendMoney = (data) => {
     return ClientApi.post('DailSpend', data)
 }
 
-export { pushSpendMoney }
+const getLastUpdateDailySpend=()=>{
+    return ClientApi.get('DailSpend/getLastUpdate')
+}
+
+export { pushSpendMoney,getLastUpdateDailySpend }

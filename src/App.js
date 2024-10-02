@@ -1,14 +1,32 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import { pushSpendMoney } from './ServiceForBackEnd/Api/DailySpendLocalApi';
+import { getLastUpdateDailySpend, pushSpendMoney } from './ServiceForBackEnd/Api/DailySpendLocalApi';
 
 
 
 
 function App() {
 
-  useEffect(() => {
+  const [lastupdateInfo,setLastUpdateInfo] = useState('')
 
+  useEffect(() => {
+    getLastUpdateDailySpend().then(res => {
+      setLastUpdateInfo(res.data)
+    }).catch((error) => {
+      if (error.message === 'ERR_NETWORK') {
+        setLastUpdate('offline')
+      }
+      else {
+        setLastUpdate('server offline')
+      }
+    }).catch((error) => {
+      if (error.message === 'ERR_NETWORK') {
+          setLastUpdate('offline')
+      }
+      else
+      {
+          console.log(error)
+      }})
   }, [])
 
   const [btnText, setBtnText] = useState('SUBMIT')
@@ -38,8 +56,7 @@ function App() {
 
   const [pushMenu, setPushMenu] = useState('')
 
-  useEffect(() => {
-  })
+ 
 
   const OnclickSubmit = () => {
     if (item.Item_Name !== '' && item.Item_Date !== '' && item.Spent_Price !== '') {
@@ -49,11 +66,20 @@ function App() {
 
       pushSpendMoney(idata).then(res => {
         if (res.data.result === "Saved") {
-          setNotification((prevStatus) => ({
-            ...prevStatus,
-            activeStatus: true,
-            subject: 'Push is Successful!!!!!'
-          }))
+          setTimeout(() => {
+            setNotification((prevStatus) => ({
+              ...prevStatus,
+              activeStatus: true,
+              subject: 'Added item Sucessfully.................!!!!!!'
+            }))
+          }, 1200);
+          setTimeout(() => {
+            setNotification((prevStatus) => ({
+              ...prevStatus,
+              activeStatus: false,
+              subject: ''
+            }))
+          }, 2500);
         }
         else {
           setNotification((prevStatus) => ({
@@ -199,19 +225,17 @@ function App() {
         </div>
       </div>
 
-
-<div className='menu--main--header'>
-<div className='Menu'>
-        <ul>
-          <li onClick={()=>{window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/')}}>HOME</li>
-          <li onClick={() => changePushMenu('finalpush')}>VIEW</li>
-          <li onClick={() => changePushMenu('localPush')}>PUSH</li>
-
-        </ul>
-        {/* <button className='show--localdb-data' }>VIEW</button>
+      <div className='menu--main--header'>
+        <div className='Menu'>
+          <ul>
+            <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}>HOME</li>
+            <li onClick={() => changePushMenu('finalpush')}>VIEW</li>
+            <li onClick={() => changePushMenu('localPush')}>PUSH</li>
+          </ul>
+          {/* <button className='show--localdb-data' }>VIEW</button>
         <button >PUSH</button> */}
+        </div>
       </div>
-</div>
       <div className='display--item'>
         {pushMenu == 'finalpush' && localDB.length > 0 ? <div className='dailyspend--display--item'>
           <h4>Data Ready For Push</h4>
@@ -256,6 +280,17 @@ function App() {
       </div>
 
       <div className='dailyspend--add--item-block'>
+        {notification.activeStatus == true ?
+          <div className='notification'>
+            <p>{notification.subject}</p>
+            <div className='rectangle'></div>
+          </div> : ''
+        }
+
+        <div className='display--lastupdate'>
+        <strong style={{ fontSize:'10px', padding: '0.6rem', color: 'white', backgroundColor: '#073d51',borderRadius:"19px" }}>Last Update was on {lastupdateInfo}</strong>
+        </div>
+        <div className='dailyspend--add--item'>
         <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
 
         {dropdown_screen_on() == true ?
@@ -269,14 +304,13 @@ function App() {
           </div>
 
           : ''}
-        <p>{notification.subject}</p>
 
         {push_ready_verification() == true ?
           <button onClick={() => { push_Db() }}>PUSH</button> :
           <button onClick={(e) => { on_submit_item(e) }}>{btnText}</button>}
       </div>
       <p>@dailyspend.com</p>
-
+      </div>
     </div>
 
   );
