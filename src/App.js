@@ -280,7 +280,7 @@ function App() {
       </div>
 
       <div className='dailyspend--add--item-block'>
-        {notification.activeStatus == false ?
+        {notification.activeStatus == true ?
           <div className='notification'>
             <p>{notification.subject}</p>
             <div className='rectangle'></div>
