@@ -7,7 +7,7 @@ import { getLastUpdateDailySpend, pushSpendMoney } from './ServiceForBackEnd/Api
 
 function App() {
 
-  const [lastupdateInfo,setLastUpdateInfo] = useState('')
+  const [lastupdateInfo, setLastUpdateInfo] = useState('')
 
   useEffect(() => {
     getLastUpdateDailySpend().then(res => {
@@ -21,12 +21,12 @@ function App() {
       }
     }).catch((error) => {
       if (error.message === 'ERR_NETWORK') {
-          setLastUpdate('offline')
+        setLastUpdate('offline')
       }
-      else
-      {
-          console.log(error)
-      }})
+      else {
+        console.log(error)
+      }
+    })
   }, [])
 
   const [btnText, setBtnText] = useState('SUBMIT')
@@ -56,7 +56,7 @@ function App() {
 
   const [pushMenu, setPushMenu] = useState('')
 
- 
+
 
   const OnclickSubmit = () => {
     if (item.Item_Name !== '' && item.Item_Date !== '' && item.Spent_Price !== '') {
@@ -287,29 +287,29 @@ function App() {
           </div> : ''
         }
 
-        <div className='display--lastupdate'>
-        <strong style={{ fontSize:'10px', padding: '0.6rem', color: 'white', backgroundColor: '#073d51',borderRadius:"19px" }}>Last Update was on {lastupdateInfo}</strong>
+        <div className='display--lastupdate' style={{ fontSize: '10px', padding: '0.3rem', color: 'white', backgroundColor: '#006989', borderRadius: "3px" }}>
+          Last Update was on {lastupdateInfo}
         </div>
         <div className='dailyspend--add--item'>
-        <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
+          <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
 
-        {dropdown_screen_on() == true ?
-          <div className='spendList_display_screen'>
-            {
-              SpentOnList.map((item, index) => {
-                return <li key={index + 'item'} onClick={() => apply_pay_name(item.ID)}>{item.Name}</li>
-              })
-            }
+          {dropdown_screen_on() == true ?
+            <div className='spendList_display_screen'>
+              {
+                SpentOnList.map((item, index) => {
+                  return <li key={index + 'item'} onClick={() => apply_pay_name(item.ID)}>{item.Name}</li>
+                })
+              }
 
-          </div>
+            </div>
 
-          : ''}
+            : ''}
 
-        {push_ready_verification() == true ?
-          <button onClick={() => { push_Db() }}>PUSH</button> :
-          <button onClick={(e) => { on_submit_item(e) }}>{btnText}</button>}
-      </div>
-      <p>@dailyspend.com</p>
+          {push_ready_verification() == true ?
+            <button onClick={() => { push_Db() }}>PUSH</button> :
+            <button onClick={(e) => { on_submit_item(e) }}>{btnText}</button>}
+        </div>
+        <p>@dailyspend.com</p>
       </div>
     </div>
 

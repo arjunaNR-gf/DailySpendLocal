@@ -397,15 +397,18 @@ ul {
 
   .dailyspend--main--app {
     height: 100vh;
+    padding: 0 0.3rem;
   }
 
   .dailyspend--add--item-block {
+    margin-top: 100%;
     flex-direction: column;
-    align-items: flex-end;
-    height: 115px;
-    padding: 0.5rem 0;
+    height: 235px;
+    padding: 0.4rem;
+    gap: 1.5rem;
+    }
 
-  }
+  
 
   .dailyspend--head>div:nth-child(1) {
     width: 70%;
@@ -416,19 +419,26 @@ ul {
   }
 
   input {
-    width: 100%;
+    width: 310px;
     height: 32px;
   }
 
-  .dailyspend--add--item-block {
-    width: 100%;
-    padding: 10px;
-    gap: 1.5rem;
+  .dailyspend--add--item{
+    display: flex;
+    flex-direction: column;
+    margin-top: 8%;
   }
+
+ 
 
   .spendList_display_screen {
     top: 50%;
     width: 150px;
     height: 150px;
+  }
+
+  .display--lastupdate
+  {
+    width: 100%;
   }
 }
