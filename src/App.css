@@ -78,7 +78,7 @@ body {
 
 }
 
-.dailyspend--add--item{
+.dailyspend--add--item {
   display: flex;
   flex-direction: row;
   gap: 1rem;
@@ -103,21 +103,20 @@ body {
   border-radius: 4px;
 }
 
-.display--lastupdate{
+.display--lastupdate {
   display: flex;
   flex-direction: row;
   width: 100%;
 
 }
 
-.notification
-{
+.notification {
   position: absolute;
   width: 300px;
   height: 30px;
   background-color: rgb(232, 231, 231);
   top: -39px;
-  right:200px;
+  right: 200px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -129,12 +128,12 @@ body {
   text-align: center;
 }
 
-.notification>p{
+.notification>p {
   color: #073948;
   font-size: 12px;
 }
 
-.rectangle{
+.rectangle {
   width: 15px;
   height: 15px;
   background-color: rgb(232, 231, 231);
@@ -183,7 +182,7 @@ button {
   -webkit-user-select: none;
   touch-action: manipulation;
   letter-spacing: 0.7px;
-  background-color: #006989  !important;
+  background-color: #006989 !important;
   outline: none;
 
 }
@@ -224,14 +223,14 @@ dropdown list
   width: 170px;
   overflow: hidden;
   position: absolute;
-  bottom: 75px;
-  left: 18px;
+  bottom: 69px;
+  left: 12px;
   overflow: scroll;
   overflow-x: hidden;
   text-transform: uppercase;
 }
 
-.spendList_display_screen>li{
+.spendList_display_screen>li {
   width: 100%;
   font-size: 8.5px !important;
   padding: 0.3rem 0.1rem;
@@ -239,11 +238,11 @@ dropdown list
   color: rgb(6, 21, 21);
   border-bottom: 0.5px solid rgb(255, 255, 255);
   letter-spacing: 1px;
- }
+}
 
- .spendList_display_screen>li:hover{
+.spendList_display_screen>li:hover {
   background-color: #a3bac3;
- }
+}
 
 .spendList_display_screen::-webkit-scrollbar {
   display: none;
@@ -284,7 +283,7 @@ table {
   font-size: smaller;
 }
 
-tr{
+tr {
   padding-bottom: 1rem;
 }
 
@@ -294,11 +293,21 @@ td {
   font-size: 10px !important;
 }
 
-tr:hover {
-  background-color: rgb(216, 215, 215);
-  padding: 15px 10px;
-  cursor: pointer;
-  width: 100%;
+td:nth-child(4) {
+  width: auto;
+
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+
+td>button {
+  width: 34px !important;
+  height: 20px !important;
+  padding: 0.1rem;
+  background-color: rgb(248, 248, 248) !important;
+  color: rgb(0, 0, 0);
 }
 
 
@@ -308,6 +317,13 @@ tr:hover {
   display: flex;
   flex-direction: row;
   justify-content: end;
+}
+
+.btn--push--local--db>button {
+  width: 80px;
+  height: 20px;
+  padding: 0 1.5rem;
+  background-color: #07485c !important;
 }
 
 
@@ -320,7 +336,7 @@ tr:hover {
   justify-content: end;
   gap: 0.4rem;
   border-bottom: 1px solid rgb(216, 216, 219);
-  background-color: #006989 ;
+  background-color: #006989;
   border-radius: 0 0px 3px 23px;
 }
 
@@ -380,7 +396,7 @@ ul {
   border: 1.2px solid rgb(71, 17, 17);
 }
 
-.menu--main--header{
+.menu--main--header {
   width: 100%;
   height: 30px;
   display: flex;
@@ -400,15 +416,19 @@ ul {
     padding: 0 0.3rem;
   }
 
+  .Menu{
+    width: 42%;
+  }
+
   .dailyspend--add--item-block {
-    margin-top: 110%;
+    margin-top: 80%;
     flex-direction: column;
     height: 235px;
     padding: 0.4rem;
     gap: 1.5rem;
-    }
+  }
 
-  
+
 
   .dailyspend--head>div:nth-child(1) {
     width: 70%;
@@ -420,33 +440,31 @@ ul {
 
   input {
     width: 310px;
-    height: 33px;
+    height: 37px;
     font-size: 11px;
     font-weight: 600;
     font-size: 11px;
 
   }
 
-  .dailyspend--add--item{
+  .dailyspend--add--item {
     display: flex;
     flex-direction: column;
     margin-top: 8%;
   }
 
   .spendList_display_screen {
-    top: -28%;
     width: 150px;
     height: 150px;
-    left: 8%;
+    top: -26%;
+    left: 4%;
   }
 
-  .display--lastupdate
-  {
+  .display--lastupdate {
     width: 100%;
   }
 
-  .notification
-  {
+  .notification {
     left: 36px;
     top: 40%;
   }

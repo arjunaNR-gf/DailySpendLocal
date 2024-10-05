@@ -45,7 +45,8 @@ function App() {
   const [inputPlaceHolder, setPlaceHolder] = useState('Enter The' + inputID + '....')
   const [item, setItem] = useState({ paymentDate: '', Item_Name: '', Spent_Price: '' })
   const [db, setDB] = useState([])
-  const [SpentOnList] = useState([{ ID: 'AMZ', Name: 'Amazon' },
+  const [SpentOnList] = useState([
+  { ID: 'AMZ', Name: 'Amazon' },
   { ID: 'EN', Name: 'ENTERTAINMENT' },
   { ID: 'FM', Name: 'FAMILY' },
   { ID: 'HT', Name: 'HOTEL' },
@@ -67,7 +68,7 @@ function App() {
   const [pushMenu, setPushMenu] = useState('')
 
 
-  useEffect(()=>{
+  useEffect(() => {
     getLastUpdateDailySpend().then(res => {
       setLastUpdateInfo(res.data)
     }).catch((error) => {
@@ -86,12 +87,12 @@ function App() {
       }
     })
     console.log("calling;;;;")
-  },[])
+  }, [])
 
 
   useEffect(() => {
     asyncgetOnlineStoreData()
-  }, [asyncgetOnlineStoreData])
+  }, [asyncgetOnlineStoreData,localDB])
 
   const OnclickSubmit = () => {
     if (item.Item_Name !== '' && item.paymentDate !== '' && item.Spent_Price !== '') {
@@ -142,7 +143,6 @@ function App() {
 
   const changePushMenu = (menuName) => {
     setPushMenu(menuName)
-    fetch_local_db_data();
   }
 
   const on_submit_item = (e) => {
@@ -151,7 +151,7 @@ function App() {
       swith_input()
       setTimeout(() => {
         setBtnText('submit')
-      }, (300))
+      }, (500))
     }
 
   }
@@ -246,44 +246,50 @@ function App() {
     }, 30);
   }
 
-  const pushToLocalSql =  (itemID) => {
-  const payDetails = localDB.filter(itm => itm.PayID == itemID)[0]
-  const payData = { Amount: parseInt(payDetails.Amount), Date: new Date(payDetails.paymentDate), Description: payDetails.Description }
-      pushSpendMoney(payData).then(async(res) => {
-        if (res.data.result === "Saved") {
-           const db = getDatabase(app)
-           const dbRef = ref(db,'paymentData/'+itemID);
-            await remove(dbRef)
+  const pushToLocalSql = (itemID) => {
+    const payDetails = localDB.filter(itm => itm.PayID == itemID)[0]
+    const payData = { Amount: parseInt(payDetails.Amount), Date: new Date(payDetails.paymentDate), Description: payDetails.Description }
+    pushSpendMoney(payData).then(async (res) => {
+      if (res.data.result === "Saved") {
+        const db = getDatabase(app)
+        const dbRef = ref(db, 'paymentData/' + itemID);
+        await remove(dbRef)
 
-          setTimeout(() => {
-            setNotification((prevStatus) => ({
-              ...prevStatus,
-              activeStatus: true,
-              subject: 'Sucessfully...............!!'
-            }))
-          }, 1200);
-          setTimeout(() => {
-            setNotification((prevStatus) => ({
-              ...prevStatus,
-              activeStatus: false,
-              subject: ''
-            }))
-          }, 2500);
-        }
-        else {
+        setTimeout(() => {
           setNotification((prevStatus) => ({
             ...prevStatus,
             activeStatus: true,
-            subject: 'Error!!!'
+            subject: 'Sucessfully...............!!'
           }))
-        }
-      }).catch((err) => {
+        }, 1200);
+        setTimeout(() => {
+          setNotification((prevStatus) => ({
+            ...prevStatus,
+            activeStatus: false,
+            subject: ''
+          }))
+        }, 2500);
+      }
+      else {
         setNotification((prevStatus) => ({
           ...prevStatus,
           activeStatus: true,
-          subject: 'service not available'
+          subject: 'Error!!!'
         }))
-      })
+      }
+    }).catch((err) => {
+      setNotification((prevStatus) => ({
+        ...prevStatus,
+        activeStatus: true,
+        subject: 'service not available'
+      }))
+    })
+  }
+
+  const DeleteFromFrDB = async (itmID) => {
+    const db = getDatabase(app)
+    const dbRef = ref(db, 'paymentData/' + itmID);
+    await remove(dbRef)
   }
 
   return (
@@ -301,8 +307,8 @@ function App() {
         <div className='Menu'>
           <ul>
             <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}>HOME</li>
-            <li onClick={() => changePushMenu('finalpush')}>VIEW</li>
-            <li onClick={() => changePushMenu('localPush')}>PUSH</li>
+            {localDB.length>0 &&<li onClick={() => changePushMenu('finalpush')}>VIEW</li>}
+            <li onClick={() => changePushMenu('localPush')}>PROFILE</li>
           </ul>
           {/* <button className='show--localdb-data' }>VIEW</button>
         <button >PUSH</button> */}
@@ -316,10 +322,11 @@ function App() {
               {
                 localDB.map((item, i) => {
                   return <tr>
-                    <td key={'desc' + item.PayID}>{item.Description}</td>
+                    <td key={'desc' + item.PayID}>{SpentOnList.filter(itm=>itm.ID==item.Description)[0].Name}</td>
                     <td key={'payment' + item.PayID}>{item.paymentDate}</td>
                     <td key={'amount' + item.PayID}>{item.Amount}</td>
-                    <td key={item.PayID + i + 'btn'}><button onClick={() => pushToLocalSql(item.PayID)}>P</button></td>
+                    <td key={item.PayID + i + 'btn'}><button onClick={() => pushToLocalSql(item.PayID)}>P</button>
+                      <button onClick={() => DeleteFromFrDB(item.PayID)}>D</button></td>
                   </tr>
                 })
               }
@@ -329,7 +336,7 @@ function App() {
             <button onClick={() => { }}>PUSH</button>
           </div>
         </div> : ''}
-        {
+        {/* {
           pushMenu == 'localPush' && db['spendByDay']?.length > 0 ? <div className='dailyspend--display--item'>
             <h4>Push To Local</h4>
             <table>
@@ -350,7 +357,7 @@ function App() {
               <button onClick={() => { push_to_local_db() }}>PUSH</button>
             </div>
           </div> : ''
-        }
+        } */}
       </div>
 
       <div className='dailyspend--add--item-block'>
