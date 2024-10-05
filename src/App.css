@@ -419,10 +419,11 @@ ul {
   .Menu{
     width: 48%;
     border-top: 1.5px solid rgb(212, 212, 212);
+    border-radius: 0 0 0 16px;
   }
 
   .dailyspend--add--item-block {
-    margin-top: 8%;
+    margin-top: 78%;
     flex-direction: column;
     height: 235px;
     padding: 0.4rem;
@@ -441,7 +442,7 @@ ul {
 
   input {
     width: 310px;
-    height: 37px;
+    height: 48px;
     font-size: 11px;
     font-weight: 600;
     font-size: 11px;
@@ -457,11 +458,12 @@ ul {
   .spendList_display_screen {
     width: 150px;
     height: 150px;
-    top: -26%;
-    left: 4%;
+    top: -22%;
+    left: 6%;
   }
 
   .display--lastupdate {
+    margin-top: 4px;
     width: 100%;
   }
 
