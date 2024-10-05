@@ -1,6 +1,9 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { getLastUpdateDailySpend, pushSpendMoney } from './ServiceForBackEnd/Api/DailySpendLocalApi';
+import { app } from './ServiceForBackEnd/FireBaseConfig/Configuration';
+import { getDatabase, push, ref, set,get } from 'firebase/database';
+
 
 
 
@@ -9,31 +12,27 @@ function App() {
 
   const [lastupdateInfo, setLastUpdateInfo] = useState('')
 
-  useEffect(() => {
-    getLastUpdateDailySpend().then(res => {
-      setLastUpdateInfo(res.data)
-    }).catch((error) => {
-      if (error.message === 'ERR_NETWORK') {
-        setLastUpdate('offline')
-      }
-      else {
-        setLastUpdate('server offline')
-      }
-    }).catch((error) => {
-      if (error.message === 'ERR_NETWORK') {
-        setLastUpdate('offline')
-      }
-      else {
-        console.log(error)
-      }
-    })
-  }, [])
+  async function asyncgetOnlineStoreData (){
+    const db = getDatabase(app)
+    const filepath = ref(db, "paymentData")
+    const getData =  await get(filepath)
+    if(getData.exists())
+    {
+     setLocalDb(Object.values(getData.val()))
+    }
+    else{
+      console.log("none there to display!!")
+    }
+  }
+
+
+   
 
   const [btnText, setBtnText] = useState('SUBMIT')
   const [inputText, setInputText] = useState('date')
   const [inputID, setInputId] = useState('byDate')
   const [inputPlaceHolder, setPlaceHolder] = useState('Enter The' + inputID + '....')
-  const [item, setItem] = useState({ Item_Date: '', Item_Name: '', Spent_Price: '' })
+  const [item, setItem] = useState({ paymentDate: '', Item_Name: '', Spent_Price: '' })
   const [db, setDB] = useState([])
   const [SpentOnList] = useState([{ ID: 'AMZ', Name: 'Amazon' },
   { ID: 'EN', Name: 'ENTERTAINMENT' },
@@ -57,44 +56,97 @@ function App() {
   const [pushMenu, setPushMenu] = useState('')
 
 
+  
+  useEffect(() => {
+    getLastUpdateDailySpend().then(res => {
+      setLastUpdateInfo(res.data)
+    }).catch((error) => {
+      if (error.message === 'ERR_NETWORK') {
+        setLastUpdate('offline')
+      }
+      else {
+        setLastUpdate('server offline')
+      }
+    }).catch((error) => {
+      if (error.message === 'ERR_NETWORK') {
+        setLastUpdate('offline')
+      }
+      else {
+        console.log(error)
+      }
+    })
+
+    asyncgetOnlineStoreData()
+
+  }, [asyncgetOnlineStoreData])
 
   const OnclickSubmit = () => {
-    if (item.Item_Name !== '' && item.Item_Date !== '' && item.Spent_Price !== '') {
+    if (item.Item_Name !== '' && item.paymentDate !== '' && item.Spent_Price !== '') {
       let desID = SpentOnList.filter((itm) => itm.Name === item.Item_Name)[0].ID
-      const idata = { Amount: parseInt(item.Spent_Price), Date: new Date(item.Item_Date), Description: desID }
-
-
-      pushSpendMoney(idata).then(res => {
-        if (res.data.result === "Saved") {
-          setTimeout(() => {
-            setNotification((prevStatus) => ({
-              ...prevStatus,
-              activeStatus: true,
-              subject: 'Added item Sucessfully.................!!!!!!'
-            }))
-          }, 1200);
-          setTimeout(() => {
-            setNotification((prevStatus) => ({
-              ...prevStatus,
-              activeStatus: false,
-              subject: ''
-            }))
-          }, 2500);
-        }
-        else {
+      // const idata = { Amount: parseInt(item.Spent_Price), Date: new Date(item.paymentDate), Description: desID }
+      
+      const db = getDatabase(app)
+      const filepath = push(ref(db, "paymentData"))
+      set(filepath, {  Amount: parseInt(item.Spent_Price), paymentDate: item.paymentDate, Description: desID  }).then(() => {
+        
+        setTimeout(() => {
           setNotification((prevStatus) => ({
             ...prevStatus,
             activeStatus: true,
-            subject: 'Error!!!'
+            subject: 'Added item Sucessfully.................!!!!!!'
           }))
-        }
-      }).catch((err) => {
+        }, 1200);
+        setTimeout(() => {
+          setNotification((prevStatus) => ({
+            ...prevStatus,
+            activeStatus: false,
+            subject: ''
+          }))
+        }, 2500);
+      }).catch(()=>{
         setNotification((prevStatus) => ({
-          ...prevStatus,
-          activeStatus: true,
-          subject: 'service not available'
-        }))
+                ...prevStatus,
+                activeStatus: true,
+                subject: 'Error!!!'
+              }))
       })
+
+
+     setTimeout(() => {
+      Clear_data()
+     }, 30);
+
+      // pushSpendMoney(idata).then(res => {
+      //   if (res.data.result === "Saved") {
+      //     setTimeout(() => {
+      //       setNotification((prevStatus) => ({
+      //         ...prevStatus,
+      //         activeStatus: true,
+      //         subject: 'Added item Sucessfully.................!!!!!!'
+      //       }))
+      //     }, 1200);
+      //     setTimeout(() => {
+      //       setNotification((prevStatus) => ({
+      //         ...prevStatus,
+      //         activeStatus: false,
+      //         subject: ''
+      //       }))
+      //     }, 2500);
+      //   }
+      //   else {
+      //     setNotification((prevStatus) => ({
+      //       ...prevStatus,
+      //       activeStatus: true,
+      //       subject: 'Error!!!'
+      //     }))
+      //   }
+      // }).catch((err) => {
+      //   setNotification((prevStatus) => ({
+      //     ...prevStatus,
+      //     activeStatus: true,
+      //     subject: 'service not available'
+      //   }))
+      // })
     }
     else {
       setNotification({ activeStatus: true, subject: 'Please fill all details' })
@@ -126,9 +178,9 @@ function App() {
 
   const swith_input = () => {
     let txt = ''
-    if (item.Item_Date == txt) {
+    if (item.paymentDate == txt) {
       setItem((prevSte) => ({
-        ...prevSte, Item_Date: fetch_input_val()
+        ...prevSte, paymentDate: fetch_input_val()
       }))
       setTimeout(() => {
         Change_Context('Enter The Item', 'text', 'byItem')
@@ -168,11 +220,11 @@ function App() {
   }
 
   const push_ready_verification = () => {
-    return item.Item_Name != '' && item.Item_Date != '' && item.Spent_Price != '';
+    return item.Item_Name != '' && item.paymentDate != '' && item.Spent_Price != '';
   }
 
   const dropdown_screen_on = () => {
-    return item.Item_Name == '' && item.Item_Date != '' && item.Spent_Price == '';
+    return item.Item_Name == '' && item.paymentDate != '' && item.Spent_Price == '';
   }
 
 
@@ -197,7 +249,7 @@ function App() {
   }
 
   const Clear_data = () => {
-    setItem({ Item_Date: '', Item_Name: '', Spent_Price: '' })
+    setItem({ paymentDate: '', Item_Name: '', Spent_Price: '' })
   }
 
   const apply_pay_name = (id) => {
@@ -244,9 +296,9 @@ function App() {
               {
                 localDB.map((item, i) => {
                   return <tr>
-                    <td key={'item_local' + i}>{item.Item_Name}</td>
-                    <td key={i + 'item_local' + i}>{item.Item_Date}</td>
-                    <td key={i + 'item_local' + i}>{item.Spent_Price}</td>
+                    <td key={'item_local' + i}>{item.Description}</td>
+                    <td key={i + 'item_local' + i}>{item.paymentDate}</td>
+                    <td key={i + 'item_local' + i}>{item.Amount}</td>
                   </tr>
                 })
               }
@@ -265,8 +317,8 @@ function App() {
                   db['spendByDay'].map((item, i) => {
                     return <tr>
                       <td>{item.Item_Name}</td>
-                      <td>{item.Item_Date}</td>
-                      <td>{item.Spent_Price}</td>
+                      <td>{item.paymentDate}</td>
+                      <td>{item.Amount}</td>
                     </tr>
                   })
                 }
