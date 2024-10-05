@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/DailySpendLocal/static/css/main.e71e23f6.css",
+    "main.css": "/DailySpendLocal/static/css/main.9ec9bc21.css",
     "main.js": "/DailySpendLocal/static/js/main.a76e09e1.js",
     "static/js/453.02d86ab2.chunk.js": "/DailySpendLocal/static/js/453.02d86ab2.chunk.js",
     "static/media/Poppins-Light.ttf": "/DailySpendLocal/static/media/Poppins-Light.7641a0f76ca9ef6c252c.ttf",
     "index.html": "/DailySpendLocal/index.html",
-    "main.e71e23f6.css.map": "/DailySpendLocal/static/css/main.e71e23f6.css.map",
+    "main.9ec9bc21.css.map": "/DailySpendLocal/static/css/main.9ec9bc21.css.map",
     "main.a76e09e1.js.map": "/DailySpendLocal/static/js/main.a76e09e1.js.map",
     "453.02d86ab2.chunk.js.map": "/DailySpendLocal/static/js/453.02d86ab2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e71e23f6.css",
+    "static/css/main.9ec9bc21.css",
     "static/js/main.a76e09e1.js"
   ]
 }
