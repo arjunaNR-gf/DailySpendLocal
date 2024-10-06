@@ -11,10 +11,11 @@ import { getDatabase, push, ref, set, get, remove } from 'firebase/database';
 function App() {
 
   const [lastupdateInfo, setLastUpdateInfo] = useState('')
+  const [profileData, setProfileData] = useState([])
 
   async function asyncgetOnlineStoreData() {
     const db = getDatabase(app)
-    const filepath = ref(db, "paymentData")
+    const filepath = ref(db, "DailySpend/paymentData")
     const getData = await get(filepath)
     if (getData.exists()) {
       const tempDB = getData.val()
@@ -36,6 +37,25 @@ function App() {
     }
   }
 
+  const firebaseFetchProfile = async () => {
+    const db = getDatabase(app);
+    const dbRef = ref(db, 'DailySpend/Profile/OverAllSpendMonth')
+    const getData = await get(dbRef)
+    if (getData.exists()) {
+      const tempDB = getData.val()
+
+      const tempData = Object.keys(tempDB).map((key, i) => {
+        return { ...tempDB[key] }
+      })
+      
+        setProfileData(Object.keys(tempData[0]).map((key,i)=>{
+          return {...tempData[0][key]}
+        }))
+
+        console.log(profileData)
+    }
+  }
+
 
 
 
@@ -46,19 +66,19 @@ function App() {
   const [item, setItem] = useState({ paymentDate: '', Item_Name: '', Spent_Price: '' })
   const [db, setDB] = useState([])
   const [SpentOnList] = useState([
-  { ID: 'AMZ', Name: 'Amazon' },
-  { ID: 'EN', Name: 'ENTERTAINMENT' },
-  { ID: 'FM', Name: 'FAMILY' },
-  { ID: 'HT', Name: 'HOTEL' },
-  { ID: 'INSRNS', Name: 'Insurence' },
-  { ID: 'LN', Name: 'LOAN' },
-  { ID: 'MT', Name: 'MARCHANT' },
-  { ID: 'RC', Name: 'REACHARGE' },
-  { ID: 'SC', Name: 'SNACKS' },
-  { ID: 'SP', Name: 'SHOPPING' },
-  { ID: 'TL', Name: 'TRAVEL' },
-  { ID: 'WP', Name: 'WEEKEND PARTY' },
-  { ID: 'ZT', Name: 'ZOMATO' },
+    { ID: 'AMZ', Name: 'Amazon' },
+    { ID: 'EN', Name: 'ENTERTAINMENT' },
+    { ID: 'FM', Name: 'FAMILY' },
+    { ID: 'HT', Name: 'HOTEL' },
+    { ID: 'INSRNS', Name: 'Insurence' },
+    { ID: 'LN', Name: 'LOAN' },
+    { ID: 'MT', Name: 'MARCHANT' },
+    { ID: 'RC', Name: 'REACHARGE' },
+    { ID: 'SC', Name: 'SNACKS' },
+    { ID: 'SP', Name: 'SHOPPING' },
+    { ID: 'TL', Name: 'TRAVEL' },
+    { ID: 'WP', Name: 'WEEKEND PARTY' },
+    { ID: 'ZT', Name: 'ZOMATO' },
   ])
 
   const [notification, setNotification] = useState({ activeStatus: false, subject: '' })
@@ -91,14 +111,15 @@ function App() {
 
 
   useEffect(() => {
-    asyncgetOnlineStoreData()
-  }, [asyncgetOnlineStoreData,localDB])
+    asyncgetOnlineStoreData();
+
+  }, [asyncgetOnlineStoreData, localDB, firebaseFetchProfile])
 
   const OnclickSubmit = () => {
     if (item.Item_Name !== '' && item.paymentDate !== '' && item.Spent_Price !== '') {
       let desID = SpentOnList.filter((itm) => itm.Name === item.Item_Name)[0].ID
       const db = getDatabase(app)
-      const filepath = push(ref(db, "paymentData"))
+      const filepath = push(ref(db, "DailySpend/paymentData"))
       set(filepath, { Amount: parseInt(item.Spent_Price), paymentDate: item.paymentDate, Description: desID }).then(() => {
 
         setTimeout(() => {
@@ -143,6 +164,9 @@ function App() {
 
   const changePushMenu = (menuName) => {
     setPushMenu(menuName)
+    if (menuName == 'profile') {
+      firebaseFetchProfile();
+    }
   }
 
   const on_submit_item = (e) => {
@@ -252,7 +276,7 @@ function App() {
     pushSpendMoney(payData).then(async (res) => {
       if (res.data.result === "Saved") {
         const db = getDatabase(app)
-        const dbRef = ref(db, 'paymentData/' + itemID);
+        const dbRef = ref(db, 'DailySpend/paymentData/' + itemID);
         await remove(dbRef)
 
         setTimeout(() => {
@@ -288,7 +312,7 @@ function App() {
 
   const DeleteFromFrDB = async (itmID) => {
     const db = getDatabase(app)
-    const dbRef = ref(db, 'paymentData/' + itmID);
+    const dbRef = ref(db, 'DailySpend/paymentData/' + itmID);
     await remove(dbRef)
   }
 
@@ -307,8 +331,8 @@ function App() {
         <div className='Menu'>
           <ul>
             <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}>HOME</li>
-            {localDB.length>0 &&<li onClick={() => changePushMenu('finalpush')}>VIEW</li>}
-            <li onClick={() => changePushMenu('localPush')}>PROFILE</li>
+            {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}>VIEW</li>}
+            <li onClick={() => changePushMenu('profile')}>PROFILE</li>
           </ul>
           {/* <button className='show--localdb-data' }>VIEW</button>
         <button >PUSH</button> */}
@@ -322,7 +346,7 @@ function App() {
               {
                 localDB.map((item, i) => {
                   return <tr>
-                    <td key={'desc' + item.PayID}>{SpentOnList.filter(itm=>itm.ID==item.Description)[0].Name}</td>
+                    <td key={'desc' + item.PayID}>{SpentOnList.filter(itm => itm.ID == item.Description)[0].Name}</td>
                     <td key={'payment' + item.PayID}>{item.paymentDate}</td>
                     <td key={'amount' + item.PayID}>{item.Amount}</td>
                     <td key={item.PayID + i + 'btn'}><button onClick={() => pushToLocalSql(item.PayID)}>P</button>
@@ -336,28 +360,41 @@ function App() {
             <button onClick={() => { }}>PUSH</button>
           </div>
         </div> : ''}
-        {/* {
-          pushMenu == 'localPush' && db['spendByDay']?.length > 0 ? <div className='dailyspend--display--item'>
-            <h4>Push To Local</h4>
+        {
+          pushMenu == 'profile' && profileData?.length > 0 ? <div className='dailyspend--display--item'>
+            <h4>Money Spent Data</h4>
             <table>
+              <thead>
+
+                <th>
+                  YEAR
+                </th>
+                <th>
+                  MONTH
+                </th>
+                <th>
+                  MONEY
+                </th>
+              </thead>
               <tbody>
                 {
-                  db['spendByDay'].map((item, i) => {
+                  profileData.map((item, i) => {
+                    if(item.month != 'YEAR')
                     return <tr>
-                      <td key={item.PayID + 'i'}>{item.Item_Name}</td>
-                      <td key={item.PayID + 'i'}>{item.paymentDate}</td>
-                      <td key={item.PayID + 'i'}>{item.Amount}</td>
-                      <td key={item.PayID + 'i'}><button onClick={() => pushToLocalSql(item.PayID)}>P</button></td>
+                      <td key={"Year" + i}>{item.year}</td>
+                      <td key={"Month" + i}>{item.month}</td>
+                      <td key={"Money" + i}>{item.money}</td>
+                     
                     </tr>
                   })
                 }
               </tbody>
             </table>
-            <div className='btn--push--local--db'>
+            {/* <div className='btn--push--local--db'>
               <button onClick={() => { push_to_local_db() }}>PUSH</button>
-            </div>
+            </div> */}
           </div> : ''
-        } */}
+        }
       </div>
 
       <div className='dailyspend--add--item-block'>
