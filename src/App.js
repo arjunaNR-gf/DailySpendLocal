@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { getLastUpdateDailySpend, pushSpendMoney } from './ServiceForBackEnd/Api/DailySpendLocalApi';
 import { app } from './ServiceForBackEnd/FireBaseConfig/Configuration';
 import { getDatabase, push, ref, set, get, remove } from 'firebase/database';
+import { FB_API, Get_sync } from './ServiceForBackEnd/FireBaseConfig/FirebaseService';
+
 
 
 
@@ -10,12 +12,27 @@ import { getDatabase, push, ref, set, get, remove } from 'firebase/database';
 
 function App() {
 
+  const [btnText, setBtnText] = useState('SUBMIT')
+  const [inputText, setInputText] = useState('date')
+  const [inputID, setInputId] = useState('byDate')
+  const [inputPlaceHolder, setPlaceHolder] = useState('Enter The' + inputID + '....')
+  const [item, setItem] = useState({ paymentDate: '', Item_Name: '', Spent_Price: '' })
+  const [db, setDB] = useState([])
+  const [notification, setNotification] = useState({ activeStatus: false, subject: '' })
+
+  const [localDB, setLocalDb] = useState([])
+
+  const [pushMenu, setPushMenu] = useState('')
+  const [paymentMenu, setPaymentMenu] = useState([])
+
   const [lastupdateInfo, setLastUpdateInfo] = useState('')
   const [profileData, setProfileData] = useState([])
 
+
+
   async function asyncgetOnlineStoreData() {
     const db = getDatabase(app)
-    const filepath = ref(db, "DailySpend/paymentData")
+    const filepath = ref(db, FB_API.payment_Address)
     const getData = await get(filepath)
     if (getData.exists()) {
       const tempDB = getData.val()
@@ -25,67 +42,54 @@ function App() {
         })
       )
     }
-    //  Object.keys(tempData).map(id=>{
-    //    return {...tempData[id],payID:id}})
-    //      setLocalDb(Object.values(getData.val()))
-    //      console.log(tempData.map((item,i)=>{
-    //       return (item)
-    //      }),';;data')
-    //     }
+
     else {
       console.log("none there to display!!")
     }
   }
 
+
   const firebaseFetchProfile = async () => {
     const db = getDatabase(app);
-    const dbRef = ref(db, 'DailySpend/Profile/OverAllSpendMonth')
+    const dbRef = ref(db, FB_API.profile_Address)
     const getData = await get(dbRef)
     if (getData.exists()) {
       const tempDB = getData.val()
-
+      console.log(tempDB)
       const tempData = Object.keys(tempDB).map((key, i) => {
         return { ...tempDB[key] }
       })
-      
-        setProfileData(Object.keys(tempData[0]).map((key,i)=>{
-          return {...tempData[0][key]}
-        }))
 
-        console.log(profileData)
+      setProfileData(Object.keys(tempData[0]).map((key, i) => {
+        return { ...tempData[0][key] }
+      }))
+
     }
   }
 
+  const PaymentMenu_Sync = async () => {
+    const dbData = await Get_sync(FB_API.paymentList_Address)
+    if (dbData.exists()) {
+      const tempData = dbData.val()
+      const tempAry = Object.keys(tempData).map(key => {
+        return { ...tempData[key] }
+      })
+
+      setPaymentMenu(Object.keys(tempAry[0]).map(key => {
+        return { ...tempAry[0][key] }
+      }))
+    }
+    else {
+      console.log('0')
+    }
+
+    // const data = await get_Firebase_sync(PaymenuListDetailsAdd)
 
 
-
-  const [btnText, setBtnText] = useState('SUBMIT')
-  const [inputText, setInputText] = useState('date')
-  const [inputID, setInputId] = useState('byDate')
-  const [inputPlaceHolder, setPlaceHolder] = useState('Enter The' + inputID + '....')
-  const [item, setItem] = useState({ paymentDate: '', Item_Name: '', Spent_Price: '' })
-  const [db, setDB] = useState([])
-  const [SpentOnList] = useState([
-    { ID: 'AMZ', Name: 'Amazon' },
-    { ID: 'EN', Name: 'ENTERTAINMENT' },
-    { ID: 'FM', Name: 'FAMILY' },
-    { ID: 'HT', Name: 'HOTEL' },
-    { ID: 'INSRNS', Name: 'Insurence' },
-    { ID: 'LN', Name: 'LOAN' },
-    { ID: 'MT', Name: 'MARCHANT' },
-    { ID: 'RC', Name: 'REACHARGE' },
-    { ID: 'SC', Name: 'SNACKS' },
-    { ID: 'SP', Name: 'SHOPPING' },
-    { ID: 'TL', Name: 'TRAVEL' },
-    { ID: 'WP', Name: 'WEEKEND PARTY' },
-    { ID: 'ZT', Name: 'ZOMATO' },
-  ])
-
-  const [notification, setNotification] = useState({ activeStatus: false, subject: '' })
-
-  const [localDB, setLocalDb] = useState([])
-
-  const [pushMenu, setPushMenu] = useState('')
+    //   const tempDB = data.val()
+    //   const tempData = Object.values(tempDB).map((key, i) => { return{tempDB} })
+    //   console.log(tempData,'tempdata...')
+  }
 
 
   useEffect(() => {
@@ -112,14 +116,15 @@ function App() {
 
   useEffect(() => {
     asyncgetOnlineStoreData();
-
-  }, [asyncgetOnlineStoreData, localDB, firebaseFetchProfile])
+    PaymentMenu_Sync();
+  }, [asyncgetOnlineStoreData, PaymentMenu_Sync])
 
   const OnclickSubmit = () => {
     if (item.Item_Name !== '' && item.paymentDate !== '' && item.Spent_Price !== '') {
-      let desID = SpentOnList.filter((itm) => itm.Name === item.Item_Name)[0].ID
+
+      let desID = paymentMenu.filter((itm) => itm.paymentDesc === item.Item_Name)[0].paymentID
       const db = getDatabase(app)
-      const filepath = push(ref(db, "DailySpend/paymentData"))
+      const filepath = push(ref(db, FB_API.payment_Address))
       set(filepath, { Amount: parseInt(item.Spent_Price), paymentDate: item.paymentDate, Description: desID }).then(() => {
 
         setTimeout(() => {
@@ -156,16 +161,14 @@ function App() {
     // setNotification(true)
   }
 
-  const fetch_local_db_data = () => {
-    if (JSON.parse(localStorage?.getItem('spenddaily')) != null) {
-      setLocalDb(JSON.parse(localStorage?.getItem('spenddaily')))
-    }
-  }
+
 
   const changePushMenu = (menuName) => {
     setPushMenu(menuName)
     if (menuName == 'profile') {
       firebaseFetchProfile();
+    } else {
+      asyncgetOnlineStoreData()
     }
   }
 
@@ -214,14 +217,6 @@ function App() {
     return document.getElementById(inputID).value
   }
 
-  function uuidv4() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxx'
-      .replace(/[xy]/g, function (c) {
-        const r = Math.random() * 16 | 0,
-          v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-      });
-  }
 
   const push_ready_verification = () => {
     return item.Item_Name != '' && item.paymentDate != '' && item.Spent_Price != '';
@@ -236,8 +231,8 @@ function App() {
     //pushing data to arry to set ready before pushing to local db
     // let guid_ID = uuidv4();
     // db[guid_ID] = []
-    db['spendByDay'] = db['spendByDay'] ?? []
-    db['spendByDay'].push(item)
+    // db['spendByDay'] = db['spendByDay'] ?? []
+    // db['spendByDay'].push(item)
     OnclickSubmit();
     //clearing the item  and set for next round][]
     setTimeout(() => {
@@ -257,18 +252,11 @@ function App() {
   }
 
   const apply_pay_name = (id) => {
+    console.log(id, 'id id did did ')
     document.getElementById('byItem').value =
-      SpentOnList.filter((item, index) => { if (item.ID == id) { return item } })[0].Name
+      paymentMenu.filter((item, index) => { if (item.paymentID == id) { return item } })[0].paymentDesc
   }
 
-  const push_to_local_db = () => {
-    for (let i = 0; i < localDB?.length; i++)
-      db['spendByDay'].push(localDB[i])
-    localStorage.setItem('spenddaily', JSON.stringify(db['spendByDay']))
-    setTimeout(() => {
-      db['spendByDay'] = []
-    }, 30);
-  }
 
   const pushToLocalSql = (itemID) => {
     const payDetails = localDB.filter(itm => itm.PayID == itemID)[0]
@@ -276,7 +264,7 @@ function App() {
     pushSpendMoney(payData).then(async (res) => {
       if (res.data.result === "Saved") {
         const db = getDatabase(app)
-        const dbRef = ref(db, 'DailySpend/paymentData/' + itemID);
+        const dbRef = ref(db, FB_API.payment_Address + '/' + itemID);
         await remove(dbRef)
 
         setTimeout(() => {
@@ -312,7 +300,7 @@ function App() {
 
   const DeleteFromFrDB = async (itmID) => {
     const db = getDatabase(app)
-    const dbRef = ref(db, 'DailySpend/paymentData/' + itmID);
+    const dbRef = ref(db, FB_API.payment_Address + '/' + itmID);
     await remove(dbRef)
   }
 
@@ -345,8 +333,9 @@ function App() {
             <tbody>
               {
                 localDB.map((item, i) => {
+                  console.log(item, 'djhashd hdja')
                   return <tr>
-                    <td key={'desc' + item.PayID}>{SpentOnList.filter(itm => itm.ID == item.Description)[0].Name}</td>
+                    <td key={'desc' + item.PayID}>{paymentMenu.filter(itm => itm.paymentID == item.Description)[0].paymentDesc}</td>
                     <td key={'payment' + item.PayID}>{item.paymentDate}</td>
                     <td key={'amount' + item.PayID}>{item.Amount}</td>
                     <td key={item.PayID + i + 'btn'}><button onClick={() => pushToLocalSql(item.PayID)}>P</button>
@@ -379,13 +368,13 @@ function App() {
               <tbody>
                 {
                   profileData.map((item, i) => {
-                    if(item.month != 'YEAR')
-                    return <tr>
-                      <td key={"Year" + i}>{item.year}</td>
-                      <td key={"Month" + i}>{item.month}</td>
-                      <td key={"Money" + i}>{item.money}</td>
-                     
-                    </tr>
+                    if (item.month != 'YEAR')
+                      return <tr>
+                        <td key={"Year" + i}>{item.year}</td>
+                        <td key={"Month" + i}>{item.month}</td>
+                        <td key={"Money" + i}>{item.money}</td>
+
+                      </tr>
                   })
                 }
               </tbody>
@@ -414,8 +403,8 @@ function App() {
           {dropdown_screen_on() == true ?
             <div className='spendList_display_screen'>
               {
-                SpentOnList.map((item, index) => {
-                  return <li key={index + 'item'} onClick={() => apply_pay_name(item.ID)}>{item.Name}</li>
+                paymentMenu.map((item, index) => {
+                  return <li key={index + 'item'} onClick={() => apply_pay_name(item.paymentID)}>{item.paymentDesc}</li>
                 })
               }
 
