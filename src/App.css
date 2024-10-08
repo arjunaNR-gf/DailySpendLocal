@@ -248,7 +248,9 @@ dropdown list
   display: none;
 }
 
+
 .display--item>.dailyspend--display--item>h4 {
+  width: 200px;
   padding: 10px;
   background-color: #c2d2da;
   width: auto;
@@ -262,7 +264,7 @@ dropdown list
   color: #38393f;
   font-size: 12px;
   width: 100%;
-  height: 180px;
+  height: 240px;
   font-weight: bold;
   left: -1px;
   padding: 10px 7px 5px;
@@ -278,9 +280,14 @@ dropdown list
 
 /* table related css*/
 table {
+  padding: 1rem 1rem;
   margin-top: 6%;
   width: 100%;
   font-size: smaller;
+  background-color: #017a9f;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  border-radius: 4px;
+  color: rgb(255, 255, 255);
 }
 
 tr {
@@ -288,22 +295,25 @@ tr {
 }
 
 td {
-  border-bottom: 1px solid rgb(218, 218, 218);
-  padding: 3px 3px;
+  border-bottom: 1px solid rgb(147, 142, 142);
+  padding: 6px 5px;
   font-size: 10px !important;
-  text-align: center;
 }
 th{
   border-bottom: 1px solid rgb(67, 65, 65);
-  text-align: center;
-  font-size: 11px;
+  text-align: left;
+  font-size: 12px;
   font-weight: 600 !important;
-  color: #081013;
+  color: #c3c3c3;
+}
+
+tr:nth-last-child(1)>th:nth-last-child(1)
+{
+  border: none;
 }
 
 td:nth-child(4) {
   width: auto;
-
   display: flex;
   flex-direction: row;
   gap: 8px;

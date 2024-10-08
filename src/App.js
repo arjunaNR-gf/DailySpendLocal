@@ -266,7 +266,7 @@ function App() {
         const db = getDatabase(app)
         const dbRef = ref(db, FB_API.payment_Address + '/' + itemID);
         await remove(dbRef)
-
+       
         setTimeout(() => {
           setNotification((prevStatus) => ({
             ...prevStatus,
@@ -280,6 +280,7 @@ function App() {
             activeStatus: false,
             subject: ''
           }))
+          asyncgetOnlineStoreData()
         }, 2500);
       }
       else {
@@ -330,10 +331,25 @@ function App() {
         {pushMenu == 'finalpush' && localDB.length > 0 ? <div className='dailyspend--display--item'>
           <h4>Data Ready For Push</h4>
           <table>
+          <thead>
+
+                <th>
+                  Payment Desc
+                </th>
+                <th>
+                  Date Of Spend
+                </th>
+                <th>
+                  Money(RS)
+                </th>
+
+                <th>
+                  Action
+                </th>
+              </thead>
             <tbody>
               {
                 localDB.map((item, i) => {
-                  console.log(item, 'djhashd hdja')
                   return <tr>
                     <td key={'desc' + item.PayID}>{paymentMenu.filter(itm => itm.paymentID == item.Description)[0].paymentDesc}</td>
                     <td key={'payment' + item.PayID}>{item.paymentDate}</td>
