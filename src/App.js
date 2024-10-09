@@ -22,7 +22,7 @@ function App() {
 
   const [localDB, setLocalDb] = useState([])
 
-  const [pushMenu, setPushMenu] = useState('')
+  const [pushMenu, setPushMenu] = useState('profile')
   const [paymentMenu, setPaymentMenu] = useState([])
 
   const [lastupdateInfo, setLastUpdateInfo] = useState('')
@@ -117,7 +117,8 @@ function App() {
   useEffect(() => {
     asyncgetOnlineStoreData();
     PaymentMenu_Sync();
-  }, [asyncgetOnlineStoreData, PaymentMenu_Sync])
+    firebaseFetchProfile();
+  }, [asyncgetOnlineStoreData, PaymentMenu_Sync,firebaseFetchProfile])
 
   const OnclickSubmit = () => {
     if (item.Item_Name !== '' && item.paymentDate !== '' && item.Spent_Price !== '') {
@@ -322,6 +323,7 @@ function App() {
             <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}>HOME</li>
             {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}>VIEW</li>}
             <li onClick={() => changePushMenu('profile')}>PROFILE</li>
+            <li onClick={() => changePushMenu('payment')}>PAYMENT</li>
           </ul>
           {/* <button className='show--localdb-data' }>VIEW</button>
         <button >PUSH</button> */}
@@ -402,7 +404,9 @@ function App() {
         }
       </div>
 
-      <div className='dailyspend--add--item-block'>
+      {
+        pushMenu == 'payment' ? 
+        <div className='dailyspend--add--item-block'>
         {notification.activeStatus == true ?
           <div className='notification'>
             <p>{notification.subject}</p>
@@ -434,6 +438,11 @@ function App() {
         </div>
         <p>@dailyspend.com</p>
       </div>
+        : ''
+
+      }
+
+     
     </div>
 
   );
