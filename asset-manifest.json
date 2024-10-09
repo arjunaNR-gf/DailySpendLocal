@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/DailySpendLocal/static/css/main.b2df5d1c.css",
-    "main.js": "/DailySpendLocal/static/js/main.449e2eff.js",
+    "main.css": "/DailySpendLocal/static/css/main.3aa43fe2.css",
+    "main.js": "/DailySpendLocal/static/js/main.8e2add2a.js",
     "static/js/453.02d86ab2.chunk.js": "/DailySpendLocal/static/js/453.02d86ab2.chunk.js",
     "static/media/Poppins-Light.ttf": "/DailySpendLocal/static/media/Poppins-Light.7641a0f76ca9ef6c252c.ttf",
     "index.html": "/DailySpendLocal/index.html",
-    "main.b2df5d1c.css.map": "/DailySpendLocal/static/css/main.b2df5d1c.css.map",
-    "main.449e2eff.js.map": "/DailySpendLocal/static/js/main.449e2eff.js.map",
+    "main.3aa43fe2.css.map": "/DailySpendLocal/static/css/main.3aa43fe2.css.map",
+    "main.8e2add2a.js.map": "/DailySpendLocal/static/js/main.8e2add2a.js.map",
     "453.02d86ab2.chunk.js.map": "/DailySpendLocal/static/js/453.02d86ab2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b2df5d1c.css",
-    "static/js/main.449e2eff.js"
+    "static/css/main.3aa43fe2.css",
+    "static/js/main.8e2add2a.js"
   ]
 }
