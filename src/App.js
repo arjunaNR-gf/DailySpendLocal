@@ -356,8 +356,8 @@ function App() {
                     <td key={'desc' + item.PayID}>{paymentMenu.filter(itm => itm.paymentID == item.Description)[0].paymentDesc}</td>
                     <td key={'payment' + item.PayID}>{item.paymentDate}</td>
                     <td key={'amount' + item.PayID}>{item.Amount}</td>
-                    <td key={item.PayID + i + 'btn'}><button onClick={() => pushToLocalSql(item.PayID)}>P</button>
-                      <button onClick={() => DeleteFromFrDB(item.PayID)}>D</button></td>
+                    <td key={item.PayID + i + 'btn'}><button onClick={() => pushToLocalSql(item.PayID)}>P</button></td>
+                    {/*<button onClick={() => DeleteFromFrDB(item.PayID)}>D</button></td>*/}
                   </tr>
                 })
               }
