@@ -4,7 +4,7 @@ import { getLastUpdateDailySpend, pushSpendMoney } from './ServiceForBackEnd/Api
 import { app } from './ServiceForBackEnd/FireBaseConfig/Configuration';
 import { getDatabase, push, ref, set, get, remove } from 'firebase/database';
 import { FB_API, Get_sync } from './ServiceForBackEnd/FireBaseConfig/FirebaseService';
-
+import Dropdown from './Component/Dropdown/Dropdown'
 
 
 
@@ -20,6 +20,7 @@ function App() {
   const [db, setDB] = useState([])
   const [notification, setNotification] = useState({ activeStatus: false, subject: '' })
 
+
   const [localDB, setLocalDb] = useState([])
 
   const [pushMenu, setPushMenu] = useState('profile')
@@ -27,6 +28,11 @@ function App() {
 
   const [lastupdateInfo, setLastUpdateInfo] = useState('')
   const [profileData, setProfileData] = useState([])
+
+  const [tableView, setTableView] = useState('')
+
+  const [profileView, setProfileView] = useState({ selectedYear: '', selectedMonth: '', ViewData: [] })
+
 
 
 
@@ -47,6 +53,8 @@ function App() {
       console.log("none there to display!!")
     }
   }
+  const DailySpendInfo_fun = async () => {
+  }
 
 
   const firebaseFetchProfile = async () => {
@@ -55,16 +63,24 @@ function App() {
     const getData = await get(dbRef)
     if (getData.exists()) {
       const tempDB = getData.val()
-      console.log(tempDB)
       const tempData = Object.keys(tempDB).map((key, i) => {
         return { ...tempDB[key] }
       })
-
       setProfileData(Object.keys(tempData[0]).map((key, i) => {
         return { ...tempData[0][key] }
       }))
-
+      !inputval_flag() && ProfileViewLoad();
     }
+    DailySpendInfo_fun()
+  }
+
+
+
+  const ProfileViewLoad = () => {
+    setBtnText('serach')
+    inputval.year == '' ?
+      setProfileView({ ViewData: Array.from(new Set(profileData.map((item, i) => { return item.year }))) })
+      : setProfileView({ ViewData: Array.from(new Set(profileData.map((item, i) => { if (item.year == inputval.year) return item.month }))) })
   }
 
   const PaymentMenu_Sync = async () => {
@@ -118,7 +134,7 @@ function App() {
     asyncgetOnlineStoreData();
     PaymentMenu_Sync();
     firebaseFetchProfile();
-  }, [asyncgetOnlineStoreData, PaymentMenu_Sync,firebaseFetchProfile])
+  }, [asyncgetOnlineStoreData, PaymentMenu_Sync, firebaseFetchProfile])
 
   const OnclickSubmit = () => {
     if (item.Item_Name !== '' && item.paymentDate !== '' && item.Spent_Price !== '') {
@@ -267,7 +283,7 @@ function App() {
         const db = getDatabase(app)
         const dbRef = ref(db, FB_API.payment_Address + '/' + itemID);
         await remove(dbRef)
-       
+
         setTimeout(() => {
           setNotification((prevStatus) => ({
             ...prevStatus,
@@ -306,6 +322,89 @@ function App() {
     await remove(dbRef)
   }
 
+  const [inputval, setInputVal] = useState({ year: '', month: '' })
+
+  const inputval_flag = () => {
+    return inputval.year != '' && inputval.month != ''
+  }
+
+  const InputHandler = (name, val) => setInputVal((prevState) => ({ ...prevState, [name]: val }))
+
+  const InputName = () => { return inputval.year == '' ? 'year' : 'month' }
+
+
+  const InputSelVal = () => { return inputval.year == '' ? inputval.year : inputval.month }
+
+  const InputArry = () => { return profileView.ViewData }
+
+  const search_dailyspend_details = async () => {
+    if (inputval_flag()) {
+      const getData = await Get_sync(FB_API.daiilyspendInfo_Address)
+      if (getData.exists()) {
+        const tempDailydata = getData.val()
+        const tempDataD = Object.keys(tempDailydata).map((key, i) => {
+          return { ...tempDailydata[key] }
+        })
+
+        const tempD = Object.keys(tempDataD[0]).map((key, i) => {
+          return { ...tempDataD[0][key] }
+        })
+
+        setProfileView((prevState) => ({
+          ...prevState, ViewData: Object.values(tempD).filter((item, i) => {
+            setBtnText('Refresh')
+            if (
+              (new Date(item.dateOfSpend)).toLocaleString('default', { month: 'long' }).toLocaleLowerCase()
+              ==
+              inputval.month.toLowerCase()) {
+              return {
+                description: item.description,
+                money: item.money,
+                dateOfSpend: dateFormat_change(item.dateOfSpend),
+                lastupdate: dateFormat_change(item.lastupdate)
+              }
+            }
+          })
+        }))
+
+        // tempD.map((item, i) => {
+        //     console.log(item.year,item.month,inputval.year,inputval.month)
+        //   //  return item.Description, (new Date(tempD[i].dateOfSpend)).toLocaleString('default', { month: 'long' })
+
+        // })
+
+
+
+        // setProfileView((prevState) => ({
+        //   ...prevState, ViewData: []
+        //   }))
+
+
+
+        // tempD.map((item, i) => {
+        //     console.log(item.year,item.month,inputval.year,inputval.month)
+        //   //  return item.Description, (new Date(tempD[i].dateOfSpend)).toLocaleString('default', { month: 'long' })
+
+        // })
+      }
+    }
+  }
+
+  const dateFormat_change = (str) => {
+
+    const dt = new Date(str)
+    const month = dt.getMonth() + 1; // months from 1-12
+    const day = dt.getDate();
+    const year = dt.getFullYear();
+    return day + "-" + month + "-" + year;
+
+  }
+
+  const paymentmenu_refresh =() =>{
+    setInputVal({ year: '', month: '' })
+  }
+
+
   return (
 
     <div className='dailyspend--main--app'>
@@ -333,22 +432,22 @@ function App() {
         {pushMenu == 'finalpush' && localDB.length > 0 ? <div className='dailyspend--display--item'>
           <h4>Data Ready For Push</h4>
           <table>
-          <thead>
+            <thead>
 
-                <th>
-                  Payment Desc
-                </th>
-                <th>
-                  Date Of Spend
-                </th>
-                <th>
-                  Money(RS)
-                </th>
+              <th>
+                Payment Desc
+              </th>
+              <th>
+                Date Of Spend
+              </th>
+              <th>
+                Money(RS)
+              </th>
 
-                <th>
-                  Action
-                </th>
-              </thead>
+              <th>
+                Action
+              </th>
+            </thead>
             <tbody>
               {
                 localDB.map((item, i) => {
@@ -368,81 +467,105 @@ function App() {
           </div>
         </div> : ''}
         {
-          pushMenu == 'profile' && profileData?.length > 0 ? <div className='dailyspend--display--item'>
-            <h4>Money Spent Data</h4>
-            <table>
-              <thead>
+          pushMenu == 'profile' && profileData?.length > 0 ?
+            <div className='dailyspend--display--item'>
+              <div className='select--menu'>
 
-                <th>
-                  YEAR
-                </th>
-                <th>
-                  MONTH
-                </th>
-                <th>
-                  MONEY
-                </th>
-              </thead>
-              <tbody>
-                {
-                  profileData.map((item, i) => {
-                    if (item.month != 'YEAR')
-                      return <tr>
-                        <td key={"Year" + i}>{item.year}</td>
-                        <td key={"Month" + i}>{item.month}</td>
-                        <td key={"Money" + i}>{item.money}</td>
+                <Dropdown
+                  placeholder="select value"
+                  size= { inputval_flag() == false ? "full" : "small" }
+                  name={InputName()}
+                  value={InputSelVal()}
+                  onClickmeth={InputHandler}
+                  dataAry={InputArry()}
+                />
 
-                      </tr>
-                  })
-                }
-              </tbody>
-            </table>
-            {/* <div className='btn--push--local--db'>
-              <button onClick={() => { push_to_local_db() }}>PUSH</button>
-            </div> */}
-          </div> : ''
+              {inputval_flag()==true &&  
+              <button onClick={btnText !='Refresh' ? () => search_dailyspend_details() : () => paymentmenu_refresh()}>
+                { btnText}
+                </button>}
+                <div className='select--menu--selects'>
+                  {inputval.year && <div>Year : {inputval.year}</div>}
+                  {inputval.month && <div>Month : {inputval.month}</div>}
+                </div>
+
+
+                {/* <div className='spendList_display_screen profiledate'>
+                  {
+                    profileView.ViewData.map((item, index) => {
+                      return <li key={index + 'item'} onClick={() => apply_pay_name(item.paymentID)}>{item}</li>
+                    })
+                  }
+
+                </div> */}
+              </div>
+              {  inputval_flag()==true && 
+                <div>
+                  <table>
+                    <thead>
+                      <th> Description </th>
+                      <th> Money</th>
+                      <th> dateOfSpend</th>
+                      <th> Last Update</th>
+                    </thead>
+                    <tbody>
+                      {
+                        profileView.ViewData.map((item, i) => {
+                          if (item.month != 'YEAR')
+                            return <tr>
+                              <td key={"desc" + i}>{item.description}</td>
+                              <td key={"money" + i}>{item.money}</td>
+                              <td key={"dateofspend" + i}>{item.dateOfSpend}</td>
+                              <td key={"lastupdate" + i}>{item.lastupdate}</td>
+                            </tr>
+                        })
+                      }
+                    </tbody>
+                  </table>
+
+                </div>
+              }
+            </div>
+            : ''
         }
       </div>
 
       {
-        pushMenu == 'payment' ? 
-        <div className='dailyspend--add--item-block'>
-        {notification.activeStatus == true ?
-          <div className='notification'>
-            <p>{notification.subject}</p>
-            <div className='rectangle'></div>
-          </div> : ''
-        }
+        pushMenu == 'payment' ?
+          <div className='dailyspend--add--item-block'>
+            {notification.activeStatus == true ?
+              <div className='notification'>
+                <p>{notification.subject}</p>
+                <div className='rectangle'></div>
+              </div> : ''
+            }
 
-        <div className='display--lastupdate' style={{ fontSize: '10px', padding: '0.3rem', color: 'white', backgroundColor: '#006989', borderRadius: "3px" }}>
-          Last Update was on {lastupdateInfo}
-        </div>
-        <div className='dailyspend--add--item'>
-          <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
-
-          {dropdown_screen_on() == true ?
-            <div className='spendList_display_screen'>
-              {
-                paymentMenu.map((item, index) => {
-                  return <li key={index + 'item'} onClick={() => apply_pay_name(item.paymentID)}>{item.paymentDesc}</li>
-                })
-              }
-
+            <div className='display--lastupdate' style={{ fontSize: '10px', padding: '0.3rem', color: 'white', backgroundColor: '#006989', borderRadius: "3px" }}>
+              Last Update was on {lastupdateInfo}
             </div>
+            <div className='dailyspend--add--item'>
+              <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
 
-            : ''}
+              {dropdown_screen_on() == true ?
+                <div className='spendList_display_screen'>
+                  {
+                    paymentMenu.map((item, index) => {
+                      return <li key={index + 'item'} onClick={() => apply_pay_name(item.paymentID)}>{item.paymentDesc}</li>
+                    })
+                  }
 
-          {push_ready_verification() == true ?
-            <button onClick={() => { push_Db() }}>PUSH</button> :
-            <button onClick={(e) => { on_submit_item(e) }}>{btnText}</button>}
-        </div>
-        <p>@dailyspend.com</p>
-      </div>
-        : ''
+                </div>
 
+                : ''}
+
+              {push_ready_verification() == true ?
+                <button onClick={() => { push_Db() }}>PUSH</button> :
+                <button onClick={(e) => { on_submit_item(e) }}>{btnText}</button>}
+            </div>
+            <p>@dailyspend.com</p>
+          </div>
+          : ''
       }
-
-     
     </div>
 
   );

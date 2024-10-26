@@ -6,7 +6,8 @@ import { app } from "./Configuration"
 const FB_API = {
     profile_Address: 'DailySpend/Profile/OverAllSpendMonth',
     payment_Address: 'DailySpend/Payment/PaymentDetails',
-    paymentList_Address: 'DailySpend/Payment/DropDownList'
+    paymentList_Address: 'DailySpend/Payment/DropDownList',
+    daiilyspendInfo_Address : 'DailySpend/Profile/DailyspendInfo'
 }
 
 const FirebaseDbConfig = (path) => {
