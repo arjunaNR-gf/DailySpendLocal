@@ -275,7 +275,6 @@ dropdown list
 
 .display--item>.dailyspend--display--item>h4 {
   width: 200px;
-  min-height: 600px;
   padding: 10px;
   background-color: #c2d2da;
   width: auto;
@@ -545,10 +544,12 @@ ul {
     height: auto;
   }
   .select--menu{
+    width: 100%;
     padding-bottom: 4.5rem;
     display: flex;
     flex-direction: row;
-   align-items: baseline;
+    align-items: baseline;
+    justify-content: space-between;
 
   }
 

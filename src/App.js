@@ -490,14 +490,14 @@ function App() {
                 </div>
 
                 <div className='select--menu--selects'>
-                {inputval.year && <div>Year : {inputval.year}</div>}
-                {inputval.month && <div>Month : {inputval.month}</div>}
-              </div>
+                  {inputval.year && <div>Year : {inputval.year}</div>}
+                  {inputval.month && <div>Month : {inputval.month}</div>}
+                </div>
 
               </div>
 
 
-             
+
 
 
               {/* <div className='spendList_display_screen profiledate'>
@@ -509,74 +509,74 @@ function App() {
 
                 </div> */}
 
-              {inputval_flag() == true &&
-                <div>
-                  <table>
-                    <thead>
-                      <th> Description </th>
-                      <th> Money</th>
-                      <th> dateOfSpend</th>
-                      <th> Last Update</th>
-                    </thead>
-                    <tbody>
-                      {
-                        profileView.ViewData.map((item, i) => {
-                          if (item.month != 'YEAR')
-                            return <tr>
-                              <td key={"desc" + i}>{item.description}</td>
-                              <td key={"money" + i}>{item.money}</td>
-                              <td key={"dateofspend" + i}>{item.dateOfSpend}</td>
-                              <td key={"lastupdate" + i}>{item.lastupdate}</td>
-                            </tr>
-                        })
-                      }
-                    </tbody>
-                  </table>
+              {profileView.ViewData.length > 1 &&
+                < div >
+                <table>
+                  <thead>
+                    <th> Description </th>
+                    <th> Money</th>
+                    <th> dateOfSpend</th>
+                    <th> Last Update</th>
+                  </thead>
+                  <tbody>
+                    {
+                      profileView.ViewData.map((item, i) => {
+                        if (item.month != 'YEAR')
+                          return <tr>
+                            <td key={"desc" + i}>{item.description}</td>
+                            <td key={"money" + i}>{item.money}</td>
+                            <td key={"dateofspend" + i}>{item.dateOfSpend}</td>
+                            <td key={"lastupdate" + i}>{item.lastupdate}</td>
+                          </tr>
+                      })
+                    }
+                  </tbody>
+                </table>
 
                 </div>
               }
-            </div>
-            : ''
-        }
       </div>
+      : ''
+        }
+    </div>
 
       {
-        pushMenu == 'payment' ?
-          <div className='dailyspend--add--item-block'>
-            {notification.activeStatus == true ?
-              <div className='notification'>
-                <p>{notification.subject}</p>
-                <div className='rectangle'></div>
-              </div> : ''
-            }
+    pushMenu == 'payment' ?
+      <div className='dailyspend--add--item-block'>
+        {notification.activeStatus == true ?
+          <div className='notification'>
+            <p>{notification.subject}</p>
+            <div className='rectangle'></div>
+          </div> : ''
+        }
 
-            <div className='display--lastupdate' style={{ fontSize: '10px', padding: '0.3rem', color: 'white', backgroundColor: '#006989', borderRadius: "3px" }}>
-              Last Update was on {lastupdateInfo}
+        <div className='display--lastupdate' style={{ fontSize: '10px', padding: '0.3rem', color: 'white', backgroundColor: '#006989', borderRadius: "3px" }}>
+          Last Update was on {lastupdateInfo}
+        </div>
+        <div className='dailyspend--add--item'>
+          <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
+
+          {dropdown_screen_on() == true ?
+            <div className='spendList_display_screen'>
+              {
+                paymentMenu.map((item, index) => {
+                  return <li key={index + 'item'} onClick={() => apply_pay_name(item.paymentID)}>{item.paymentDesc}</li>
+                })
+              }
+
             </div>
-            <div className='dailyspend--add--item'>
-              <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
 
-              {dropdown_screen_on() == true ?
-                <div className='spendList_display_screen'>
-                  {
-                    paymentMenu.map((item, index) => {
-                      return <li key={index + 'item'} onClick={() => apply_pay_name(item.paymentID)}>{item.paymentDesc}</li>
-                    })
-                  }
+            : ''}
 
-                </div>
-
-                : ''}
-
-              {push_ready_verification() == true ?
-                <button onClick={() => { push_Db() }}>PUSH</button> :
-                <button onClick={(e) => { on_submit_item(e) }}>{btnText}</button>}
-            </div>
-            <p>@dailyspend.com</p>
-          </div>
-          : ''
-      }
-    </div>
+          {push_ready_verification() == true ?
+            <button onClick={() => { push_Db() }}>PUSH</button> :
+            <button onClick={(e) => { on_submit_item(e) }}>{btnText}</button>}
+        </div>
+        <p>@dailyspend.com</p>
+      </div>
+      : ''
+  }
+    </div >
 
   );
 }
