@@ -509,7 +509,7 @@ function App() {
 
                 </div> */}
 
-              {profileView.ViewData.length > 1 &&
+              {(profileView.ViewData.length > 1 && inputval_flag() ) &&
                 < div >
                 <table>
                   <thead>

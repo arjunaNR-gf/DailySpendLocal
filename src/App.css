@@ -465,6 +465,9 @@ ul {
 }
 
 @media screen and (max-width: 450px) {
+  *{
+    font-size: 12px;
+  }
 
   .select--menu--main{
     display: flex;
@@ -557,5 +560,9 @@ ul {
   {
     width: 100%;
     background-color: #006989;
+  }
+
+  .select--menu>button{
+    width: 10px;
   }
 }
