@@ -400,7 +400,7 @@ function App() {
 
   }
 
-  const paymentmenu_refresh =() =>{
+  const paymentmenu_refresh = () => {
     setInputVal({ year: '', month: '' })
   }
 
@@ -469,28 +469,38 @@ function App() {
         {
           pushMenu == 'profile' && profileData?.length > 0 ?
             <div className='dailyspend--display--item'>
-              <div className='select--menu'>
 
-                <Dropdown
-                  placeholder="select value"
-                  size= { inputval_flag() == false ? "full" : "small" }
-                  name={InputName()}
-                  value={InputSelVal()}
-                  onClickmeth={InputHandler}
-                  dataAry={InputArry()}
-                />
+              <div className='select--menu--main'>
+                <div className='select--menu'>
 
-              {inputval_flag()==true &&  
-              <button onClick={btnText !='Refresh' ? () => search_dailyspend_details() : () => paymentmenu_refresh()}>
-                { btnText}
-                </button>}
-                <div className='select--menu--selects'>
-                  {inputval.year && <div>Year : {inputval.year}</div>}
-                  {inputval.month && <div>Month : {inputval.month}</div>}
+                  <Dropdown
+                    placeholder="select value"
+                    size={inputval_flag() == false ? "full" : "small"}
+                    name={InputName()}
+                    value={InputSelVal()}
+                    onClickmeth={InputHandler}
+                    dataAry={InputArry()}
+                  />
+
+                  {inputval_flag() == true &&
+                    <button onClick={btnText != 'Refresh' ? () => search_dailyspend_details() : () => paymentmenu_refresh()}>
+                      {btnText}
+                    </button>
+                  }
                 </div>
 
+                <div className='select--menu--selects'>
+                {inputval.year && <div>Year : {inputval.year}</div>}
+                {inputval.month && <div>Month : {inputval.month}</div>}
+              </div>
 
-                {/* <div className='spendList_display_screen profiledate'>
+              </div>
+
+
+             
+
+
+              {/* <div className='spendList_display_screen profiledate'>
                   {
                     profileView.ViewData.map((item, index) => {
                       return <li key={index + 'item'} onClick={() => apply_pay_name(item.paymentID)}>{item}</li>
@@ -498,8 +508,8 @@ function App() {
                   }
 
                 </div> */}
-              </div>
-              {  inputval_flag()==true && 
+
+              {inputval_flag() == true &&
                 <div>
                   <table>
                     <thead>

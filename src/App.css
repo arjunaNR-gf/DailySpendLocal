@@ -451,7 +451,27 @@ ul {
   justify-content: end;
 }
 
+
+.select--menu--main
+{
+  display: flex;
+  flex-direction: row;
+  background-color: #006989;
+}
+
+.select--menu,.select--menu--selects{
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+}
+
 @media screen and (max-width: 450px) {
+
+  .select--menu--main{
+    display: flex;
+    flex-direction: column;
+  }
+
   body {
     zoom: 100%;
     box-sizing: border-box;
@@ -519,5 +539,22 @@ ul {
   .notification {
     left: 36px;
     top: 40%;
+  }
+
+  .select--menu--main{
+    height: auto;
+  }
+  .select--menu{
+    padding-bottom: 4.5rem;
+    display: flex;
+    flex-direction: row;
+   align-items: baseline;
+
+  }
+
+  .select--menu--selects
+  {
+    width: 100%;
+    background-color: #006989;
   }
 }

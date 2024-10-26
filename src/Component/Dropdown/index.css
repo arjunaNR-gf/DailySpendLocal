@@ -20,7 +20,7 @@
     position: absolute;
     line-height: 200%;
     background-color: rgb(245, 245, 245);
-    margin-top: 20%;
+    margin-top: 12%;
     font-size: 11px;
     overflow:scroll;
     overflow-x:hidden;
@@ -91,4 +91,17 @@ input:hover{
     .sel{
         font-size: 14px;
     }
+}
+
+@media screen and (max-width: 420px) {
+
+    .sel{
+        font-size: 13px;
+    }
+
+    .drop--down--list--dispaly
+    {
+        margin-top: 27%;
+    }
+
 }
