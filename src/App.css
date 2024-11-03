@@ -1,6 +1,6 @@
 @font-face {
   font-family: projectFont;
-  src: url('./assest/font/Poppins-Light.ttf');
+  src: url('./assest/font/Silka-Regular-&-Italic/Silka_Regular_&_Italic_Desktop/Silka-Regular.otf');
 }
 
 * {
@@ -173,7 +173,7 @@ button {
   justify-content: center;
   line-height: 24px;
   overflow-wrap: break-word;
-  padding: 14px 34px;
+  padding: 14px 24px;
   text-decoration: none;
   width: auto;
   border-radius: 5px;
@@ -235,6 +235,7 @@ dropdown list
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-content: end;
 }
 .select--menu--selects{
   width: 50%;
@@ -454,15 +455,28 @@ ul {
 .select--menu--main
 {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background-color: #006989;
 }
 
 .select--menu,.select--menu--selects{
-  width: 60%;
+  width: 100%;
   display: flex;
   flex-direction: row;
 }
+
+.select--menu--selects>div
+{
+  font-size: 10.5px !important;
+  border-right: 2.8px solid rgb(230, 212, 212) ;
+  border-radius: 2rem;
+  padding: 0 .325rem;
+}
+
+.select--menu--selects:nth-last-child(){
+  border-right: none ;
+}
+
 
 @media screen and (max-width: 450px) {
   *{

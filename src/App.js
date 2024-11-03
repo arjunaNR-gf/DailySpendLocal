@@ -23,7 +23,7 @@ function App() {
 
   const [localDB, setLocalDb] = useState([])
 
-  const [pushMenu, setPushMenu] = useState('profile')
+  const [pushMenu, setPushMenu] = useState('payment')
   const [paymentMenu, setPaymentMenu] = useState([])
 
   const [lastupdateInfo, setLastUpdateInfo] = useState('')
@@ -50,7 +50,7 @@ function App() {
     }
 
     else {
-      console.log("none there to display!!")
+      console.log("none there to display!!", profileData.ViewData)
     }
   }
   const DailySpendInfo_fun = async () => {
@@ -71,6 +71,8 @@ function App() {
       }))
       !inputval_flag() && ProfileViewLoad();
     }
+
+    // console.log(profileData[0].money,'ehloloo')
     DailySpendInfo_fun()
   }
 
@@ -126,7 +128,6 @@ function App() {
         console.log(error)
       }
     })
-    console.log("calling;;;;")
   }, [])
 
 
@@ -316,13 +317,9 @@ function App() {
     })
   }
 
-  const DeleteFromFrDB = async (itmID) => {
-    const db = getDatabase(app)
-    const dbRef = ref(db, FB_API.payment_Address + '/' + itmID);
-    await remove(dbRef)
-  }
 
-  const [inputval, setInputVal] = useState({ year: '', month: '' })
+
+  const [inputval, setInputVal] = useState({ year: '', month: '', totalSpend: '' })
 
   const inputval_flag = () => {
     return inputval.year != '' && inputval.month != ''
@@ -367,6 +364,10 @@ function App() {
           })
         }))
 
+
+
+        TotalSpend_Orangement()
+
         // tempD.map((item, i) => {
         //     console.log(item.year,item.month,inputval.year,inputval.month)
         //   //  return item.Description, (new Date(tempD[i].dateOfSpend)).toLocaleString('default', { month: 'long' })
@@ -388,6 +389,16 @@ function App() {
         // })
       }
     }
+  }
+
+  const TotalSpend_Orangement = () => {
+    profileData.filter((item, index) => {
+      if (item.month == inputval.month) {
+        return setInputVal(prevestate => ({
+          ...prevestate, totalSpend: item.money
+        }))
+      }
+    })
   }
 
   const dateFormat_change = (str) => {
@@ -429,51 +440,51 @@ function App() {
         </div>
       </div>
       <div className='display--item'>
-        {pushMenu == 'finalpush' && localDB.length > 0 ? <div className='dailyspend--display--item'>
-          <h4>Data Ready For Push</h4>
-          <table>
-            <thead>
+        {pushMenu == 'finalpush' && localDB.length > 0 ?
+          <div className='dailyspend--display--item'>
+            <h4>Data Ready For Push</h4>
+            <table>
+              <thead>
 
-              <th>
-                Payment Desc
-              </th>
-              <th>
-                Date Of Spend
-              </th>
-              <th>
-                Money(RS)
-              </th>
+                <th>
+                  Payment Desc
+                </th>
+                <th>
+                  Date Of Spend
+                </th>
+                <th>
+                  Money(RS)
+                </th>
 
-              <th>
-                Action
-              </th>
-            </thead>
-            <tbody>
-              {
-                localDB.map((item, i) => {
-                  return <tr>
-                    <td key={'desc' + item.PayID}>{paymentMenu.filter(itm => itm.paymentID == item.Description)[0].paymentDesc}</td>
-                    <td key={'payment' + item.PayID}>{item.paymentDate}</td>
-                    <td key={'amount' + item.PayID}>{item.Amount}</td>
-                    <td key={item.PayID + i + 'btn'}><button onClick={() => pushToLocalSql(item.PayID)}>P</button></td>
-                    {/*<button onClick={() => DeleteFromFrDB(item.PayID)}>D</button></td>*/}
-                  </tr>
-                })
-              }
-            </tbody>
-          </table>
-          <div className='btn--push--local--db'>
-            <button onClick={() => { }}>PUSH</button>
+                <th>
+                  Action
+                </th>
+              </thead>
+              <tbody>
+                {
+                  localDB.map((item, i) => {
+                    return <tr>
+                      <td key={'desc' + item.PayID}>{paymentMenu.filter(itm => itm.paymentID == item.Description)[0].paymentDesc}</td>
+                      <td key={'payment' + item.PayID}>{item.paymentDate}</td>
+                      <td key={'amount' + item.PayID}>{item.Amount}</td>
+                      <td key={item.PayID + i + 'btn'}><button onClick={() => pushToLocalSql(item.PayID)}>P</button></td>
+                      {/*<button onClick={() => DeleteFromFrDB(item.PayID)}>D</button></td>*/}
+                    </tr>
+                  })
+                }
+              </tbody>
+            </table>
+            <div className='btn--push--local--db'>
+              <button onClick={() => { }}>PUSH</button>
+            </div>
           </div>
-        </div> : ''}
-        {
+          :
           pushMenu == 'profile' && profileData?.length > 0 ?
             <div className='dailyspend--display--item'>
 
               <div className='select--menu--main'>
                 <div className='select--menu'>
-
-                  <Dropdown
+                  {btnText != 'Refresh' && <Dropdown
                     placeholder="select value"
                     size={inputval_flag() == false ? "full" : "small"}
                     name={InputName()}
@@ -481,6 +492,7 @@ function App() {
                     onClickmeth={InputHandler}
                     dataAry={InputArry()}
                   />
+                  }
 
                   {inputval_flag() == true &&
                     <button onClick={btnText != 'Refresh' ? () => search_dailyspend_details() : () => paymentmenu_refresh()}>
@@ -492,6 +504,7 @@ function App() {
                 <div className='select--menu--selects'>
                   {inputval.year && <div>Year : {inputval.year}</div>}
                   {inputval.month && <div>Month : {inputval.month}</div>}
+                  {inputval.totalSpend && <div>Spend :{inputval.totalSpend}</div>}
                 </div>
 
               </div>
@@ -509,73 +522,70 @@ function App() {
 
                 </div> */}
 
-              {(profileView.ViewData.length > 1 && inputval_flag() ) &&
+              {(profileView.ViewData.length > 1 && inputval_flag()) &&
                 < div >
-                <table>
-                  <thead>
-                    <th> Description </th>
-                    <th> Money</th>
-                    <th> dateOfSpend</th>
-                    <th> Last Update</th>
-                  </thead>
-                  <tbody>
-                    {
-                      profileView.ViewData.map((item, i) => {
-                        if (item.month != 'YEAR')
-                          return <tr>
-                            <td key={"desc" + i}>{item.description}</td>
-                            <td key={"money" + i}>{item.money}</td>
-                            <td key={"dateofspend" + i}>{item.dateOfSpend}</td>
-                            <td key={"lastupdate" + i}>{item.lastupdate}</td>
-                          </tr>
-                      })
-                    }
-                  </tbody>
-                </table>
+                  <table>
+                    <thead>
+                      <th> Description </th>
+                      <th> Money</th>
+                      <th> dateOfSpend</th>
+                      <th> Last Update</th>
+                    </thead>
+                    <tbody>
+                      {
+                        profileView.ViewData.map((item, i) => {
+                          if (item.month != 'YEAR')
+                            return <tr>
+                              <td key={"desc" + i}>{item.description}</td>
+                              <td key={"money" + i}>{item.money}</td>
+                              <td key={"dateofspend" + i}>{item.dateOfSpend}</td>
+                              <td key={"lastupdate" + i}>{item.lastupdate}</td>
+                            </tr>
+                        })
+                      }
+                    </tbody>
+                  </table>
 
                 </div>
               }
-      </div>
-      : ''
-        }
-    </div>
-
-      {
-    pushMenu == 'payment' ?
-      <div className='dailyspend--add--item-block'>
-        {notification.activeStatus == true ?
-          <div className='notification'>
-            <p>{notification.subject}</p>
-            <div className='rectangle'></div>
-          </div> : ''
-        }
-
-        <div className='display--lastupdate' style={{ fontSize: '10px', padding: '0.3rem', color: 'white', backgroundColor: '#006989', borderRadius: "3px" }}>
-          Last Update was on {lastupdateInfo}
-        </div>
-        <div className='dailyspend--add--item'>
-          <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
-
-          {dropdown_screen_on() == true ?
-            <div className='spendList_display_screen'>
-              {
-                paymentMenu.map((item, index) => {
-                  return <li key={index + 'item'} onClick={() => apply_pay_name(item.paymentID)}>{item.paymentDesc}</li>
-                })
-              }
-
             </div>
+            :
+            pushMenu == 'payment' ?
+              <div className='dailyspend--add--item-block'>
+                {notification.activeStatus == true ?
+                  <div className='notification'>
+                    <p>{notification.subject}</p>
+                    <div className='rectangle'></div>
+                  </div> : ''
+                }
 
-            : ''}
+                <div className='display--lastupdate' style={{ fontSize: '10px', padding: '0.3rem', color: 'white', backgroundColor: '#006989', borderRadius: "3px" }}>
+                  Last Update was on {lastupdateInfo}
+                </div>
+                <div className='dailyspend--add--item'>
+                  <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
 
-          {push_ready_verification() == true ?
-            <button onClick={() => { push_Db() }}>PUSH</button> :
-            <button onClick={(e) => { on_submit_item(e) }}>{btnText}</button>}
-        </div>
-        <p>@dailyspend.com</p>
+                  {dropdown_screen_on() == true ?
+                    <div className='spendList_display_screen'>
+                      {
+                        paymentMenu.map((item, index) => {
+                          return <li key={index + 'item'} onClick={() => apply_pay_name(item.paymentID)}>{item.paymentDesc}</li>
+                        })
+                      }
+
+                    </div>
+
+                    : ''}
+
+                  {push_ready_verification() == true ?
+                    <button onClick={() => { push_Db() }}>PUSH</button> :
+                    <button onClick={(e) => { on_submit_item(e) }}>{btnText}</button>}
+                </div>
+                <p>@dailyspend.com</p>
+              </div>
+              : ''
+        }
       </div>
-      : ''
-  }
     </div >
 
   );
