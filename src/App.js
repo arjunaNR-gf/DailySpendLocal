@@ -43,8 +43,10 @@ function App() {
     if (getData.exists()) {
       const tempDB = getData.val()
       setLocalDb(
-        Object.keys(tempDB).map(id => {
+        (Object.keys(tempDB).map(id => {
           return { ...tempDB[id], PayID: id }
+        })).sort(function (a, b) {
+          return new Date(a.paymentDate) - new Date(b.paymentDate);
         })
       )
     }
