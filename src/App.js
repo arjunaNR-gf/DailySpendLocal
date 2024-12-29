@@ -81,11 +81,44 @@ function App() {
 
 
   const ProfileViewLoad = () => {
+    const monthTest = [
+      "JAN", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
+    ]
+    const orrangedAry = [];
+    profileData.map((item, i) => {
+      if (item.month != 'year' && item.year == inputval.year) {
+       orrangedAry[monthTest.indexOf(item.month)] = item.month
+      }
+    }
+    )
+   
+    
+    
+
+
+
     setBtnText('serach')
+    // const monthtest = []
     inputval.year == '' ?
       setProfileView({ ViewData: Array.from(new Set(profileData.map((item, i) => { return item.year }))) })
-      : setProfileView({ ViewData: Array.from(new Set(profileData.map((item, i) => { if (item.year == inputval.year) return item.month }))) })
+      :
+      setProfileView({ ViewData:orrangedAry})
+    //  console.log(profileData.map((item) => { if (item.year == inputval.year) {return item.month} }),'heloo')
+    // monthtest[profileData.map((item) => { if (item.year == inputval.year) { item.month} })] =
+    // profileData.map((item) => { if (item.year == inputval.year) { item.month} })
+    //   console.log(monthtest,'ghhgg')
+
+
+
   }
+
+
+  const findMonth = () => {
+    console.log('helo find month')
+  }
+
+
+
 
   const PaymentMenu_Sync = async () => {
     const dbData = await Get_sync(FB_API.paymentList_Address)
@@ -564,6 +597,7 @@ function App() {
                 <div className='display--lastupdate' style={{ fontSize: '10px', padding: '0.3rem', color: 'white', backgroundColor: '#006989', borderRadius: "3px" }}>
                   Last Update was on {lastupdateInfo}
                 </div>
+                
                 <div className='dailyspend--add--item'>
                   <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
 
