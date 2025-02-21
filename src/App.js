@@ -287,23 +287,8 @@ function App() {
 
   }
 
-  const dropdown_screen_on = () => {
-    return item.Item_Name == '' && item.paymentDate != '' && item.Spent_Price == '';
-  }
 
 
-  const push_Db = () => {
-    //pushing data to arry to set ready before pushing to local db
-    // let guid_ID = uuidv4();
-    // db[guid_ID] = []
-    // db['spendByDay'] = db['spendByDay'] ?? []
-    // db['spendByDay'].push(item)
-    OnclickSubmit();
-    //clearing the item  and set for next round][]
-    setTimeout(() => {
-      Clear_data()
-    }, 20);
-  }
 
   const Change_Context = (txtPlaceHolder, txtInput, idInput,) => {
     document.getElementById(inputID).value = '';
@@ -316,11 +301,6 @@ function App() {
     setItem({ paymentDate: '', Item_Name: '', Spent_Price: '' })
   }
 
-  const apply_pay_name = (id) => {
-    console.log(id, 'id id did did ')
-    document.getElementById('byItem').value =
-      paymentMenu.filter((item, index) => { if (item.paymentID == id) { return item } })[0].paymentDesc
-  }
 
 
   const pushToLocalSql = (itemID) => {
@@ -410,30 +390,7 @@ function App() {
             }
           })
         }))
-
-
-
         TotalSpend_Orangement()
-
-        // tempD.map((item, i) => {
-        //     console.log(item.year,item.month,inputval.year,inputval.month)
-        //   //  return item.Description, (new Date(tempD[i].dateOfSpend)).toLocaleString('default', { month: 'long' })
-
-        // })
-
-
-
-        // setProfileView((prevState) => ({
-        //   ...prevState, ViewData: []
-        //   }))
-
-
-
-        // tempD.map((item, i) => {
-        //     console.log(item.year,item.month,inputval.year,inputval.month)
-        //   //  return item.Description, (new Date(tempD[i].dateOfSpend)).toLocaleString('default', { month: 'long' })
-
-        // })
       }
     }
   }

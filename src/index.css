@@ -2,3 +2,11 @@ body {
   margin: 0;
 }
 
+:root
+{
+  --header-backgroundcolor:#cfcf71;
+  --header--menu-bck:rgb(31, 47, 54);
+  --payment--block--bck:rgb(35, 55, 63);
+  --footer--font-bck:rgb(223, 221, 221);
+}
+

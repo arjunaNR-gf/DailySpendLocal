@@ -10,7 +10,7 @@ const PayUpdate = () => {
     const [inputID, setInputId] = useState('byDate')
     const [inputPlaceHolder, setPlaceHolder] = useState('Enter The' + inputID + '....')
     const [item, setItem] = useState({ paymentDate: '', Item_Name: '', Spent_Price: '' })
-    const [innerNavigationFlag, setinnerNavigationFlag] = useState("paymentDate")
+    //const [innerNavigationFlag, setinnerNavigationFlag] = useState("paymentDate")
 
     const [paymentMenu, setPaymentMenu] = useState([])
 
