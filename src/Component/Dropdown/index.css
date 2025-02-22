@@ -37,6 +37,7 @@
     line-height: 200%;
     z-index: 1000;
     font-size: 11px;
+    margin-top: 52px;
 
 }
 .drop--down--list--dispaly span{
@@ -101,7 +102,7 @@ input:hover{
 
     .drop--down--list--dispaly
     {
-        margin-top: 17%;
+        margin-top: 19%;
     }
 
 }

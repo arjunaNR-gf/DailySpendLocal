@@ -1,4 +1,5 @@
 import './App.css';
+import './AppMobile.css'
 import { useEffect, useState } from 'react';
 import { getLastUpdateDailySpend, pushSpendMoney } from './ServiceForBackEnd/Api/DailySpendLocalApi';
 import { app } from './ServiceForBackEnd/FireBaseConfig/Configuration';
@@ -373,7 +374,7 @@ function App() {
       <div className='display--item'>
         {pushMenu == 'finalpush' && localDB.length > 0 ?
           <div className='dailyspend--display--item'>
-            <h4>Data Ready For Push</h4>
+            <h4>View The Data Before Submit</h4>
             <table>
               <thead>
 
@@ -469,8 +470,8 @@ function App() {
                             return <tr>
                               <td key={"desc" + i}>{item.description}</td>
                               <td key={"money" + i}>{item.money}</td>
-                              <td key={"dateofspend" + i}>{item.dateOfSpend}</td>
-                              <td key={"lastupdate" + i}>{item.lastupdate}</td>
+                              <td key={"dateofspend" + i}>{new Date(item.dateOfSpend).toLocaleDateString()}</td>
+                              <td key={"lastupdate" + i}>{new Date(item.lastupdate).toLocaleString()}</td>
                             </tr>
                         })
                       }

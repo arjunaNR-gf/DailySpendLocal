@@ -38,7 +38,7 @@ body {
   flex-direction: row;
   align-items: center;
   width: 100%;
-  height: 50px;
+  height: 65px;
   border: 0.5px solid #04171f;
   border-radius: 0.125rem 0;
   background-color: yellow;
@@ -230,7 +230,7 @@ button {
   font-family: poppins;
   font-size: 0.695rem;
   font-weight: 700;
-  height: 50px;
+  height: 38px;
   justify-content: center;
   line-height: 24px;
   overflow-wrap: break-word;
@@ -297,21 +297,25 @@ dropdown list
   flex-direction: row;
   justify-content: space-between;
   align-content: end;
+  height: 50px;
 }
 
 .select--menu--selects {
   width: 50%;
-  color: rgb(229, 219, 219);
+  color: rgb(17, 8, 8);
+  background-color: rgb(193, 193, 93);
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
   text-transform: lowercase;
+  height: 30px;
+  border-radius: 0 0 3px 4px;
 }
 
 .select--menu {
   padding: 0.1rem 0.3rem;
-  height: 40px;
+  height: 60px;
   background-color: var(--header--menu-bck);
   position: relative;
 
@@ -337,16 +341,20 @@ dropdown list
 
 
 .display--item>.dailyspend--display--item>h4 {
+  text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   width: 200px;
   padding: 10px;
-  background-color: #c2d2da;
+  color: black;
+  font-size: 11px;
+  background-color: rgb(180, 180, 97);
   width: auto;
 }
 
 .dailyspend--display--item {
   display: flex;
   flex-direction: column;
-  background-color: #a3bac3;
+  background-color: #14465a;
   margin-top: 7%;
   border: 1px solid #bab9b9;
   border-radius: 4px 0 4px 0;
@@ -361,7 +369,7 @@ dropdown list
   overflow: hidden;
   overflow: scroll;
   overflow-x: hidden;
-  min-height: 160px;
+  min-height: 190px;
 }
 
 .dailyspend--display--item::-webkit-scrollbar {
@@ -374,10 +382,13 @@ table {
   margin-top: 6%;
   width: 100%;
   font-size: smaller;
-  background-color: #ffffff;
+  background-color:rgb(7, 57, 77);
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   border-radius: 4px;
-  color: rgb(20, 8, 8);
+  color: rgb(226, 226, 226);
+  border-collapse:collapse ;
+  border: 1px solid rgb(167, 167, 87);
+  
 }
 
 tr {
@@ -387,15 +398,16 @@ tr {
 td {
   border-bottom: 1px solid rgb(147, 142, 142);
   padding: 6px 5px;
-  font-size: 10px !important;
+  font-size: 9px !important;
 }
 
 th {
-  border-bottom: 1px solid rgb(67, 65, 65);
+  border-bottom: 1px solid rgb(186, 186, 94);
   text-align: left;
-  font-size: 12px;
+  font-size: 13.3px;
   font-weight: 600 !important;
-  color: #c3c3c3;
+  color: #ffffff;
+  padding: 7px 4px;
 }
 
 tr:nth-last-child(1)>th:nth-last-child(1) {
@@ -539,114 +551,3 @@ ul {
 }
 
 
-@media screen and (max-width: 450px) {
-  * {
-    font-size: 13.44px;
-    line-height: 200%;
-  }
-
-  .select--menu--main {
-    display: flex;
-    flex-direction: column;
-  }
-
-  body {
-    box-sizing: border-box;
-  }
-
-  .dailyspend--main--app {
-    height: 100vh;
-    padding: 0 0.3rem;
-  }
-
-  .Menu {
-    width: auto;
-    border-top: 1.5px solid rgb(212, 212, 212);
-    border-radius: 0 0 0 12px;
-    padding: 0.4rem 0.4rem;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-    letter-spacing: 1px;
-  }
-
-  .dailyspend--add--item-block {
-    position: relative;
-    margin-top: 100%;
-    flex-direction: column;
-    height: 275px;
-    padding: 0.5rem;
-    gap: 1.5rem;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px 12px;
-    padding: 10px 2px;
-  }
-
-
-
-  .dailyspend--head>div:nth-child(1) {
-    width: 70%;
-  }
-
-  .dailyspend--head>div:nth-child(2) {
-    width: 30%;
-  }
-
-  input {
-    width: 310px;
-    height: 48px;
-    font-size: 14px;
-    font-weight: bolder;
-
-
-  }
-
-  .dailyspend--add--item {
-    line-height: 300%  ;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .spendList_display_screen {
-    width: 305px;
-    height: 150px;
-    top: -139%;
-  }
-
-  .display--lastupdate {
-    width: 100%;
-    height: 100px;
-    padding: 10px 10px;
-    border: 1px solid yellow;
-  }
-
-  .notification {
-   right: 0;
-  }
-
-  .select--menu--main {
-    height: auto;
-  }
-
-  .select--menu {
-    width: 100%;
-    padding-bottom: 4.5rem;
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    justify-content: space-between;
-
-  }
-
-  .select--menu--selects {
-    width: 100%;
-    background-color: #006989;
-  }
-
-  .select--menu>button {
-    width: 10px;
-  }
-
-  button
-  {
-    font-size: 13px;
-    text-shadow: 1px 1px 19px rgb(100, 108, 108)
-   }
-}

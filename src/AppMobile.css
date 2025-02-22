@@ -1,0 +1,114 @@
+@media screen and (max-width: 450px) {
+    * {
+      font-size: 13.44px;
+      line-height: 200%;
+    }
+  
+    .select--menu--main {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    body {
+      box-sizing: border-box;
+    }
+  
+    .dailyspend--main--app {
+      height: 100vh;
+      padding: 0 0.3rem;
+    }
+  
+    .Menu {
+      width: auto;
+      height: 45px;
+      border-top: 1.5px solid rgb(212, 212, 212);
+      border-radius: 0 0 0 12px;
+      padding: 0.4rem 0.4rem;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+      letter-spacing: 1px;
+      margin-top: 17px;
+    }
+  
+    .dailyspend--add--item-block {
+      position: relative;
+      margin-top: 100%;
+      flex-direction: column;
+      height: 275px;
+      padding: 0.5rem;
+      gap: 1.5rem;
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px 12px;
+      padding: 10px 2px;
+    }
+  
+  
+  
+    .dailyspend--head>div:nth-child(1) {
+      width: 70%;
+    }
+  
+    .dailyspend--head>div:nth-child(2) {
+      width: 30%;
+    }
+  
+    input {
+      width: 310px;
+      height: 48px;
+      font-size: 14px;
+      font-weight: bolder;
+  
+  
+    }
+  
+    .dailyspend--add--item {
+      line-height: 300%  ;
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .spendList_display_screen {
+      width: 305px;
+      height: 150px;
+      top: -139%;
+    }
+  
+    .display--lastupdate {
+      width: 100%;
+      height: 100px;
+      padding: 10px 10px;
+      border: 1px solid yellow;
+    }
+  
+    .notification {
+     right: 0;
+    }
+  
+    .select--menu--main {
+      height: auto;
+    }
+  
+    .select--menu {
+      width: 100%;
+      padding-bottom: 4.5rem;
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      justify-content: space-between;
+  
+    }
+  
+    .select--menu--selects {
+      width: 100%;
+      background-color: rgb(169, 169, 89);
+      color: black;
+    }
+  
+    .select--menu>button {
+      width: 80px;
+    }
+  
+    button
+    {
+      font-size: 13px;
+      text-shadow: 1px 1px 19px rgb(100, 108, 108)
+     }
+  }

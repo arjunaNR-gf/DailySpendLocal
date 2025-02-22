@@ -6,8 +6,8 @@ body {
 :root
 {
   --header-backgroundcolor:#cfcf71;
-  --header--menu-bck:rgb(31, 47, 54);
-  --payment--block--bck:rgb(35, 55, 63);
+  --header--menu-bck:rgb(4, 40, 56);
+  --payment--block--bck:rgb(7, 57, 77);
   --footer--font-bck:rgb(223, 221, 221);
   --input--bck--color:rgb(221, 231, 234);
   --input--font--color:black;
