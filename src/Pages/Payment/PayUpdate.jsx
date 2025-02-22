@@ -169,7 +169,7 @@ const PayUpdate = (profileData) => {
                         activeStatus: false,
                         subject: ''
                     }))
-                }, 2900);
+                }, 3900);
             }).catch(() => {
                 setNotification((prevStatus) => ({
                     ...prevStatus,
