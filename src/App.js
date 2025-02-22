@@ -7,6 +7,7 @@ import { getDatabase, push, ref, set, get, remove } from 'firebase/database';
 import { FB_API, Get_sync } from './ServiceForBackEnd/FireBaseConfig/FirebaseService';
 import Dropdown from './Component/Dropdown/Dropdown'
 import PayUpdate from './Pages/Payment/PayUpdate';
+import ProfilePage from './Pages/Profile/ProfilePage';
 
 
 
@@ -412,75 +413,7 @@ function App() {
           </div>
           :
           pushMenu == 'profile' && profileData?.length > 0 ?
-            <div className='dailyspend--display--item'>
-
-              <div className='select--menu--main'>
-                <div className='select--menu'>
-                  {btnText != 'Refresh' && <Dropdown
-                    placeholder="select value"
-                    size={inputval_flag() == false ? "full" : "small"}
-                    name={InputName()}
-                    value={InputSelVal()}
-                    onClickmeth={InputHandler}
-                    dataAry={InputArry()}
-                  />
-                  }
-
-                  {inputval_flag() == true &&
-                    <button onClick={btnText != 'Refresh' ? () => search_dailyspend_details() : () => paymentmenu_refresh()}>
-                      {btnText}
-                    </button>
-                  }
-                </div>
-
-                <div className='select--menu--selects'>
-                  {inputval.year && <div>Year : {inputval.year}</div>}
-                  {inputval.month && <div>Month : {inputval.month}</div>}
-                  {inputval.totalSpend && <div>Spend :{inputval.totalSpend}</div>}
-                </div>
-
-              </div>
-
-
-
-
-
-              {/* <div className='spendList_display_screen profiledate'>
-                  {
-                    profileView.ViewData.map((item, index) => {
-                      return <li key={index + 'item'} onClick={() => apply_pay_name(item.paymentID)}>{item}</li>
-                    })
-                  }
-
-                </div> */}
-
-              {(profileView.ViewData.length > 1 && inputval_flag()) &&
-                < div >
-                  <table>
-                    <thead>
-                      <th> Description </th>
-                      <th> Money</th>
-                      <th> dateOfSpend</th>
-                      <th> Last Update</th>
-                    </thead>
-                    <tbody>
-                      {
-                        profileView.ViewData.map((item, i) => {
-                          if (item.month != 'YEAR')
-                            return <tr>
-                              <td key={"desc" + i}>{item.description}</td>
-                              <td key={"money" + i}>{item.money}</td>
-                              <td key={"dateofspend" + i}>{new Date(item.dateOfSpend).toLocaleDateString()}</td>
-                              <td key={"lastupdate" + i}>{new Date(item.lastupdate).toLocaleString()}</td>
-                            </tr>
-                        })
-                      }
-                    </tbody>
-                  </table>
-
-                </div>
-              }
-            </div>
+           <ProfilePage /> 
             :
             pushMenu == 'payment' ?
               <PayUpdate profileData={profileView.ViewData}  />

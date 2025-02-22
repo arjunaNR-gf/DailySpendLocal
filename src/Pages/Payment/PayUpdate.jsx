@@ -15,6 +15,8 @@ const PayUpdate = (profileData) => {
     const [lastupdateInfo, setLastUpdateInfo] = useState()
     const [flag,setflag] = useState(0)
 
+    
+    
 
     const lastupdateFun = async () => {
         const getDataForLstupt = await Get_sync(FB_API.daiilyspendInfo_Address)
@@ -51,6 +53,7 @@ const PayUpdate = (profileData) => {
             setflag(1);
             PaymentMenu_Sync();
             lastupdateFun();
+            console.log('payment menu useeffecr@')
         }
          
         
