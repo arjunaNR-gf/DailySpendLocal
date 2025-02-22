@@ -1,11 +1,11 @@
 @font-face {
-  font-family: projectFont;
+  font-family: poppins;
   src: url('./assest/font/Poppins-Light.ttf');
 }
 
 * {
-  font-family: projectFont,sans-serif;
-  line-height: 160%;
+  font-family: poppins, sans-serif;
+  line-height: 360%;
   font-size: 13.2px;
   letter-spacing: 0.8px;
   box-sizing: border-box;
@@ -14,7 +14,9 @@
 }
 
 body {
-  background-color: rgb(227, 226, 226);
+  background: rgb(228, 228, 228);
+  margin: 0 -2000px;
+  padding: 0 2000px;
 }
 
 /*framework */
@@ -29,7 +31,8 @@ body {
   display: flex;
   flex-direction: column;
   background-color: rgb(240, 243, 245);
-  position: relative
+  position: relative;
+  height: 500px;
 }
 
 .dailyspend--head {
@@ -84,12 +87,14 @@ body {
   display: flex;
   flex-direction: row;
   gap: 1rem;
+  position: relative;
+
 }
 
 
 .dailyspend--add--item-block {
   position: relative;
-  margin-top: 15%;
+  margin-top: 43%;
   background-color: var(--payment--block--bck);
   width: 100%;
   height: 135px;
@@ -108,17 +113,25 @@ body {
 .display--lastupdate {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   background-color: var(--header-backgroundcolor);
+  height: 30px;
+  font-size: 10px;
+  padding: 4px 8px;
+  border-radius: 3px;
+  margin-bottom: 1rem;
+  font-weight: 600;
 
 }
 
 .notification {
   position: absolute;
-  width: 300px;
+  width: 330px;
   height: 40px;
-  background-color: rgb(232, 231, 231);
-  top: -45px;
+  background-color: rgb(251, 255, 251);
+  top: -75px;
   right: 0;
   display: flex;
   flex-direction: row;
@@ -126,15 +139,51 @@ body {
   justify-content: center;
   padding: 1rem;
   border-radius: 0.3rem;
-  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-  border: 1px solid rgb(45, 45, 38);
+
+  box-shadow: 0 0 40px 20px rgba(232, 233, 235, 0.5); 
+  border: 1px solid rgb(12, 223, 223);
   text-align: center;
+  gap: 1rem;
+  letter-spacing: 0.9px;
+  overflow: hidden;
+  transition: background-color 1s ease;
+}
+
+
+
+.notification--icon {
+  width: 20px;
+  height: 20px;
+  background-image: url('https://img.myloview.com/stickers/ok-vector-icon-flat-green-symbol-check-mark-icon-design-confirmations-the-choice-notification-700-207362265.jpg');
+  background-size: cover;
+  background-position: contain;
+  object-fit: contain;
+  opacity: 0;
+  /* Start as invisible */
+  animation: fadeIn 5s ease forwards;
+  /* Apply the fade-in animation */
 }
 
 .notification>p {
   color: #0c2026;
-  font-size: 12px;
+  font-size: 11.6px;
+  font-family: Arial, Helvetica, sans-serif;
+  animation: fadeIn 2s ease forwards;
 }
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    /* Start from invisible */
+  }
+
+  100% {
+    opacity: 1;
+    /* End at fully visible */
+  }
+}
+
+
 
 .rectangle {
   width: 15px;
@@ -150,17 +199,21 @@ body {
 }
 
 input {
-  width: 412px;
-  height: 35px;
+  font-family: poppins;
+  width: 330px;
+  height: 50px;
   padding: 5px 10px;
-  border: 1.2px solid rgb(109, 105, 105);
+  border: 1.2px solid cyan;
   border-radius: 3px;
   outline: 0;
-  font-size: 13.3px;
-  font-weight: bold;
+  font-size: 13.6px;
+  text-align: center;
+  font-weight: 600;
   letter-spacing: 0.7px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  text-shadow: 2px 2px 2px rgb(218, 248, 248);
+  text-shadow: 1px 1px 1px rgb(239, 233, 233);
+  background-color: var(--input--bck--color);
+  color: var(--input--font--color);
 }
 
 .payment--input {
@@ -172,14 +225,14 @@ input {
 button {
   color: rgb(239, 237, 237);
   align-items: center;
-  border: 0.4px solid #E2E8F0;
+  border: 0.4px solid #a6bedd;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   box-sizing: border-box;
   display: inline-flex;
-  font-family: projectFont;
+  font-family: poppins;
   font-size: 0.695rem;
   font-weight: 700;
-  height: 35px;
+  height: 50px;
   justify-content: center;
   line-height: 24px;
   overflow-wrap: break-word;
@@ -223,19 +276,18 @@ p {
 dropdown list
 */
 .spendList_display_screen {
-  background-color: #ffffff;
-  border: 1px solid #cbc7c7;
-  box-shadow: 0 4px 14px -20px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  background-color:rgb(180, 180, 118);
+  border: 1px solid rgb(230, 241, 241);
+  box-shadow: 4px 14px 14px 30px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   border-radius: 4px 0;
   height: 150px;
   font-weight: 600;
   font-size: 0.32rem !important;
   padding: 10px 7px 5px 6px;
-  width: 170px;
+  width: 330px;
   overflow: hidden;
   position: absolute;
-  bottom: 69px;
-  left: 12px;
+  bottom: 54px;
   overflow: scroll;
   overflow-x: hidden;
   text-transform: uppercase;
@@ -273,7 +325,7 @@ dropdown list
   padding: 0.3rem 0.1rem;
   border-right: none;
   color: rgb(6, 21, 21);
-  border-bottom: 0.5px solid rgb(255, 255, 255);
+
   letter-spacing: 1px;
 }
 
@@ -491,7 +543,7 @@ ul {
 
 @media screen and (max-width: 450px) {
   * {
-    font-size: 12px;
+    font-size: 13.44px;
   }
 
   .select--menu--main {
@@ -518,12 +570,14 @@ ul {
   }
 
   .dailyspend--add--item-block {
-    margin-top: 40%;
+    position: relative;
+    margin-top: 100%;
     flex-direction: column;
-    height: 175px;
+    height: 215px;
     padding: 0.4rem;
     gap: 1.5rem;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+    padding: 10px 2px;
   }
 
 
@@ -546,26 +600,25 @@ ul {
   }
 
   .dailyspend--add--item {
+    line-height: 300%  ;
     display: flex;
     flex-direction: column;
-    margin-top: 16%;
   }
 
   .spendList_display_screen {
     width: 305px;
     height: 150px;
-    top: -47%;
-    left: 4%;
+    top: -139%;
   }
 
   .display--lastupdate {
-    margin-top: 4px;
     width: 100%;
+    padding: 10px 10px;
+    border: 1px solid yellow;
   }
 
   .notification {
-    left: 36px;
-    top: 40%;
+   right: 0;
   }
 
   .select--menu--main {

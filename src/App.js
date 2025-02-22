@@ -18,7 +18,7 @@ function App() {
   const [inputID, setInputId] = useState('byDate')
   const [inputPlaceHolder, setPlaceHolder] = useState('Enter The' + inputID + '....')
   const [item, setItem] = useState({ paymentDate: '', Item_Name: '', Spent_Price: '' })
-  const [db, setDB] = useState([])
+
   const [notification, setNotification] = useState({ activeStatus: false, subject: '' })
   const [innerNavigationFlag, setinnerNavigationFlag] = useState("paymentDate")
 
@@ -31,13 +31,13 @@ function App() {
   const [lastupdateInfo, setLastUpdateInfo] = useState('')
   const [profileData, setProfileData] = useState([])
 
-  const [tableView, setTableView] = useState('')
+
 
   const [profileView, setProfileView] = useState({ selectedYear: '', selectedMonth: '', ViewData: [] })
 
 
 
-
+//used to fecth data for view menu
   async function asyncgetOnlineStoreData() {
     const db = getDatabase(app)
     const filepath = ref(db, FB_API.payment_Address)
@@ -51,10 +51,6 @@ function App() {
           return new Date(a.paymentDate) - new Date(b.paymentDate);
         })
       )
-    }
-
-    else {
-      console.log("none there to display!!", profileData.ViewData)
     }
   }
   const DailySpendInfo_fun = async () => {
@@ -75,8 +71,6 @@ function App() {
       }))
       !inputval_flag() && ProfileViewLoad();
     }
-
-    // console.log(profileData[0].money,'ehloloo')
     DailySpendInfo_fun()
   }
 
@@ -110,10 +104,7 @@ function App() {
   }
 
 
-  const findMonth = () => {
-    console.log('helo find month')
-  }
-
+ 
 
 
 
@@ -163,56 +154,15 @@ function App() {
   }, [])
 
 
+
+
+
+
   useEffect(() => {
     asyncgetOnlineStoreData();
     PaymentMenu_Sync();
     firebaseFetchProfile();
   }, [asyncgetOnlineStoreData, PaymentMenu_Sync, firebaseFetchProfile])
-
-  const OnclickSubmit = () => {
-    if (item.Item_Name !== '' && item.paymentDate !== '' && item.Spent_Price !== '') {
-
-      let desID = paymentMenu.filter((itm) => itm.paymentDesc === item.Item_Name)[0].paymentID
-      const db = getDatabase(app)
-      const filepath = push(ref(db, FB_API.payment_Address))
-      set(filepath, { Amount: parseInt(item.Spent_Price), paymentDate: item.paymentDate, Description: desID }).then(() => {
-
-        setTimeout(() => {
-          setNotification((prevStatus) => ({
-            ...prevStatus,
-            activeStatus: true,
-            subject: 'Added item Sucessfully.................!!!!!!'
-          }))
-        }, 1200);
-        setTimeout(() => {
-          setNotification((prevStatus) => ({
-            ...prevStatus,
-            activeStatus: false,
-            subject: ''
-          }))
-        }, 2500);
-      }).catch(() => {
-        setNotification((prevStatus) => ({
-          ...prevStatus,
-          activeStatus: true,
-          subject: 'Error!!!'
-        }))
-      })
-
-
-      setTimeout(() => {
-        Clear_data()
-      }, 30);
-      setBtnText('Next..')
-
-    }
-    else {
-      setNotification({ activeStatus: true, subject: 'Please fill all details' })
-    }
-    // setNotification(true)
-  }
-
-
 
   const changePushMenu = (menuName) => {
     setPushMenu(menuName)
@@ -223,18 +173,7 @@ function App() {
     }
   }
 
-  const on_submit_item = (e) => {
-    console.log(item, 'items are...')
-    if (fetch_input_val() != '') {
-      setBtnText('Processing...')
-      swith_input()
-      setTimeout(() => {
-        if(item.paymentDate != '' && item.Item_Name === '') setBtnText('Next..')
-          if(item.Item_Name != '') setBtnText('SUBMIT')
-      }, (200))
-    }
-
-  }
+  
 
   const swith_input = () => {
     let txt = ''
@@ -271,21 +210,6 @@ function App() {
   }
 
 
-  const push_ready_verification = () => {
-    return item.Item_Name != '' && item.paymentDate != '' && item.Spent_Price != '';
-  }
-
-  const PaymentMenu_Next = () => {
-    setTimeout(() => {
-      console.log(item, 'itemfgjslkjl')
-      console.log(item.paymentDate != '', item.paymentDate, "helloMenu")
-    }, 400);
-
-    if (innerNavigationFlag == "paymentDate") return item.paymentDate != '' && setinnerNavigationFlag("paymentName");
-    if (innerNavigationFlag == "paymentName") return item.Item_Name != '' && setinnerNavigationFlag("paymentAmount");
-    // if (innerNavigationFlag == "paymentName") return item.paymentDate != '' && setinnerNavigationFlag("paymentAmount");
-
-  }
 
 
 
@@ -301,16 +225,18 @@ function App() {
     setItem({ paymentDate: '', Item_Name: '', Spent_Price: '' })
   }
 
-
+  const RemoveItemFromFB= async(itemID)=>{
+    const db = getDatabase(app)
+    const dbRef = ref(db, FB_API.payment_Address + '/' + itemID);
+    await remove(dbRef)
+  }
 
   const pushToLocalSql = (itemID) => {
     const payDetails = localDB.filter(itm => itm.PayID == itemID)[0]
     const payData = { Amount: parseInt(payDetails.Amount), Date: new Date(payDetails.paymentDate), Description: payDetails.Description }
     pushSpendMoney(payData).then(async (res) => {
       if (res.data.result === "Saved") {
-        const db = getDatabase(app)
-        const dbRef = ref(db, FB_API.payment_Address + '/' + itemID);
-        await remove(dbRef)
+        RemoveItemFromFB(itemID)
 
         setTimeout(() => {
           setNotification((prevStatus) => ({
@@ -374,6 +300,7 @@ function App() {
           return { ...tempDataD[0][key] }
         })
 
+       
         setProfileView((prevState) => ({
           ...prevState, ViewData: Object.values(tempD).filter((item, i) => {
             setBtnText('Refresh')
@@ -472,7 +399,7 @@ function App() {
                       <td key={'payment' + item.PayID}>{item.paymentDate}</td>
                       <td key={'amount' + item.PayID}>{item.Amount}</td>
                       <td key={item.PayID + i + 'btn'}><button onClick={() => pushToLocalSql(item.PayID)}>P</button>
-                      <button onClick={() => DeleteFromFrDB(item.PayID)}>D</button></td>
+                      <button onClick={() => RemoveItemFromFB(item.PayID)}>D</button></td>
                     </tr>
                   })
                 }
@@ -555,7 +482,7 @@ function App() {
             </div>
             :
             pushMenu == 'payment' ?
-              <PayUpdate />
+              <PayUpdate profileData={profileView.ViewData}  />
               : ''
         }
       </div>

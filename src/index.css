@@ -1,5 +1,6 @@
 body {
   margin: 0;
+
 }
 
 :root
@@ -8,5 +9,7 @@ body {
   --header--menu-bck:rgb(31, 47, 54);
   --payment--block--bck:rgb(35, 55, 63);
   --footer--font-bck:rgb(223, 221, 221);
+  --input--bck--color:rgb(221, 231, 234);
+  --input--font--color:black;
 }
 

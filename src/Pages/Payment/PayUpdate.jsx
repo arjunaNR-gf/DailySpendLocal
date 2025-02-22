@@ -4,62 +4,27 @@ import { app } from '../../ServiceForBackEnd/FireBaseConfig/Configuration';
 import { getDatabase, push, ref, set, get, remove } from 'firebase/database';
 import { FB_API, Get_sync } from '../../ServiceForBackEnd/FireBaseConfig/FirebaseService';
 
-const PayUpdate = () => {
+const PayUpdate = (profileData) => {
     const [btnText, setBtnText] = useState('NEXT..')
     const [inputText, setInputText] = useState('date')
     const [inputID, setInputId] = useState('byDate')
     const [inputPlaceHolder, setPlaceHolder] = useState('Enter The' + inputID + '....')
     const [item, setItem] = useState({ paymentDate: '', Item_Name: '', Spent_Price: '' })
     //const [innerNavigationFlag, setinnerNavigationFlag] = useState("paymentDate")
-
     const [paymentMenu, setPaymentMenu] = useState([])
-
-    const [lastupdateInfo, setLastUpdateInfo] = useState('')
-
-   
-    useEffect(() => {
-        PaymentMenu_Sync();
-    }, [])
+    const [lastupdateInfo, setLastUpdateInfo] = useState()
+    const [flag,setflag] = useState(0)
 
 
+    const lastupdateFun = async () => {
+        const getDataForLstupt = await Get_sync(FB_API.daiilyspendInfo_Address)
+        const tempConvertToVal = getDataForLstupt.val();
+        const tempAry = Object.keys(tempConvertToVal).map(key => {
+            return { ...tempConvertToVal[key] }
+        })
+       setLastUpdateInfo( new Date(tempAry.sort()[0][0].lastupdate).toString())
 
-    const swith_input = () => {
-        let txt = ''
-        if (item.paymentDate == txt) {
-          setItem((prevSte) => ({
-            ...prevSte, paymentDate: fetch_input_val()
-          }))
-          setTimeout(() => {
-            Change_Context('Enter The Item', 'text', 'byItem')
-          }, 10);
-        }
-    
-        else if (item.Item_Name == txt) {
-          setItem((prevSte) => ({
-            ...prevSte, Item_Name: fetch_input_val()
-          }))
-          setTimeout(() => {
-            Change_Context('Enter The price', 'text', 'byPrice')
-          }, 10);
-        }
-    
-        else if (item.Spent_Price == txt) {
-          setItem((prevSte) => ({
-            ...prevSte, Spent_Price: fetch_input_val()
-          }))
-          setTimeout(() => {
-            Change_Context('Enter The Date', 'date', 'byDate')
-          }, 10);
-        }
-      }
-
-
-      const Change_Context = (txtPlaceHolder, txtInput, idInput,) => {
-        document.getElementById(inputID).value = '';
-        setPlaceHolder(txtPlaceHolder)
-        setInputText(txtInput)
-        setInputId(idInput)
-      }
+    }
 
     const PaymentMenu_Sync = async () => {
         const dbData = await Get_sync(FB_API.paymentList_Address)
@@ -78,9 +43,63 @@ const PayUpdate = () => {
         }
     }
 
+
+    useEffect(() => {
+        if(flag ==false)
+        {
+         
+            setflag(1);
+            PaymentMenu_Sync();
+            lastupdateFun();
+        }
+         
+        
+    }, [PaymentMenu_Sync, lastupdateFun])
+
+
+
+    const swith_input = () => {
+        let txt = ''
+        if (item.paymentDate == txt) {
+            setItem((prevSte) => ({
+                ...prevSte, paymentDate: fetch_input_val()
+            }))
+            setTimeout(() => {
+                Change_Context('Enter The Item', 'text', 'byItem')
+            }, 10);
+        }
+
+        else if (item.Item_Name == txt) {
+            setItem((prevSte) => ({
+                ...prevSte, Item_Name: fetch_input_val()
+            }))
+            setTimeout(() => {
+                Change_Context('Enter The price', 'text', 'byPrice')
+            }, 10);
+        }
+
+        else if (item.Spent_Price == txt) {
+            setItem((prevSte) => ({
+                ...prevSte, Spent_Price: fetch_input_val()
+            }))
+            setTimeout(() => {
+                Change_Context('Enter The Date', 'date', 'byDate')
+            }, 10);
+        }
+    }
+
+
+    const Change_Context = (txtPlaceHolder, txtInput, idInput,) => {
+        document.getElementById(inputID).value = '';
+        setPlaceHolder(txtPlaceHolder)
+        setInputText(txtInput)
+        setInputId(idInput)
+    }
+
+
     const fetch_input_val = () => {
         return document.getElementById(inputID).value
-      }
+    }
 
 
     const apply_pay_name = (id) => {
@@ -123,7 +142,7 @@ const PayUpdate = () => {
         }, 20);
     }
 
-    const [notification, setNotification] = useState({ activeStatus: false, subject: '' })
+    const [notification, setNotification] = useState({ activeStatus: false, subject: 'Payment Info Added Successfully....!' })
 
     const Clear_data = () => {
         setItem({ paymentDate: '', Item_Name: '', Spent_Price: '' })
@@ -143,14 +162,14 @@ const PayUpdate = () => {
                         activeStatus: true,
                         subject: 'Added item Sucessfully.................!!!!!!'
                     }))
-                }, 1200);
+                }, 1800);
                 setTimeout(() => {
                     setNotification((prevStatus) => ({
                         ...prevStatus,
                         activeStatus: false,
                         subject: ''
                     }))
-                }, 2500);
+                }, 2900);
             }).catch(() => {
                 setNotification((prevStatus) => ({
                     ...prevStatus,
@@ -179,13 +198,14 @@ const PayUpdate = () => {
             <div className='dailyspend--add--item-block'>
                 {notification.activeStatus == true ?
                     <div className='notification'>
+                  
                         <p>{notification.subject}</p>
+                        <div className='notification--icon'></div>
                         <div className='rectangle'></div>
                     </div> : ''
                 }
 
-                <div className='display--lastupdate' 
-                style={{ fontSize: '10px', padding: '0.3rem', color: 'black', borderRadius: "3px" }}>
+                <div className='display--lastupdate'>
                     Last Update was on {lastupdateInfo}
                 </div>
 
