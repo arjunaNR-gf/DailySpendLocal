@@ -22,7 +22,7 @@ const PayUpdate = (profileData) => {
         const tempAry = Object.keys(tempConvertToVal).map(key => {
             return { ...tempConvertToVal[key] }
         })
-       setLastUpdateInfo( new Date(tempAry.sort()[0][0].lastupdate).toString())
+       setLastUpdateInfo( new Date(tempAry.sort()[0][0].lastupdate).toLocaleString())
 
     }
 
@@ -162,7 +162,7 @@ const PayUpdate = (profileData) => {
                         activeStatus: true,
                         subject: 'Added item Sucessfully.................!!!!!!'
                     }))
-                }, 1800);
+                }, 100);
                 setTimeout(() => {
                     setNotification((prevStatus) => ({
                         ...prevStatus,
