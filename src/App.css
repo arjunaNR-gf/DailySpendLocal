@@ -643,4 +643,10 @@ ul {
   .select--menu>button {
     width: 10px;
   }
+
+  button
+  {
+    font-size: 13px;
+    text-shadow: 1px 1px 19px rgb(100, 108, 108)
+   }
 }
