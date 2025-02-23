@@ -6,6 +6,7 @@ import { app } from '../../ServiceForBackEnd/FireBaseConfig/Configuration';
 import { getDatabase, push, ref, set, get, remove } from 'firebase/database';
 import { FB_API, Get_sync } from '../../ServiceForBackEnd/FireBaseConfig/FirebaseService';
 import Dropdown from '../../Component/Dropdown/Dropdown'
+import { settings } from 'firebase/analytics';
 
 
 const ProfilePage = () => {
@@ -44,6 +45,9 @@ const ProfilePage = () => {
                 return { ...tempData[0][key] }
             }))
         }
+        setTimeout(() => {
+            ProfileViewYearORMonthLoad();
+        }, 20);
     }
 
     const firebase_Fecth_DailySpend = async () => {
@@ -76,17 +80,20 @@ const ProfilePage = () => {
                 })
             }))
         }
+        TotalSpend_PerMonth();
     }
 
 
     //fetch data by argument
     const search_dailyspend_details = async () => {
-        firebaseFetchProfile();
 
-        ProfileViewYearORMonthLoad();
-        firebase_Fecth_DailySpend();
-        TotalSpend_PerMonth();
-        !inputval_flag() && setBtnText('Search')
+         firebaseFetchProfile();
+        // firebaseFetchProfile();
+
+        // ProfileViewYearORMonthLoad();
+        // firebase_Fecth_DailySpend();
+        // TotalSpend_PerMonth();
+        // !inputval_flag() && setBtnText('Search')
     }
 
     const inputval_flag = () => {
@@ -95,11 +102,7 @@ const ProfilePage = () => {
 
     //set up input handler 
     const InputHandler = (name, val) => {
-        setflag(1)
         setInputVal((prevState) => ({ ...prevState, [name]: val }))
-        setTimeout(() => {
-          setflag(0)
-        }, 10);
     }
 
     //it will set the input type mean ID 
@@ -131,6 +134,9 @@ const ProfilePage = () => {
             }))
             :
             setProfileView((PrevState) => ({ ...PrevState, ViewYearorMonth: orrangedAry }))
+            setTimeout(() => {
+                firebase_Fecth_DailySpend();
+            }, 20);
     }
 
 
