@@ -13,7 +13,7 @@ const ProfilePage = () => {
 
     const [btnText, setBtnText] = useState('')
 
-    const [inputval, setInputVal] = useState({ year: '2025', month: 'February', totalSpend: '' })
+    const [inputval, setInputVal] = useState({ year: '2025', month: 'February', Total:0 ,totalSpend: '' })
 
     const [flag, setflag] = useState(0)
 
@@ -149,6 +149,16 @@ const ProfilePage = () => {
                 }))
             }
         })
+        let sum=0;
+        profileData.filter((item, index) => {
+            if ( item.year === inputval.year) {
+                sum += parseInt(item.money)
+                return setInputVal(prevestate => ({
+                    ...prevestate, Total: sum
+                }))
+            }
+        })
+
     }
 
     const dateFormat_change = (str) => {
@@ -202,8 +212,9 @@ const ProfilePage = () => {
                     {inputval_flag() &&
                         <div className='select--menu--selects'>
                             <div className='display--spend--monthyearspend'>  {inputval.year && <div>Year : {inputval.year}</div>}</div>
+                            <div className='display--spend--monthyearspend'>  {inputval.Total && <div>Total/Y : {inputval.Total}</div>}</div>
                             <div className='display--spend--monthyearspend'>  {inputval.month && <div>Month : {inputval.month.toUpperCase()}</div>}</div>
-                            <div className='display--spend--monthyearspend'>  {inputval.totalSpend && <div>Spend :{inputval.totalSpend}</div>}</div>
+                            <div className='display--spend--monthyearspend'>  {inputval.totalSpend && <div>Spend/M :{inputval.totalSpend}</div>}</div>
                         </div>
                     }
 
