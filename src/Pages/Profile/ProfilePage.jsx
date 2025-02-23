@@ -151,15 +151,18 @@ const ProfilePage = () => {
 
     const paymentmenu_refresh = () => {
         setProfileView({ selectedYear: '', selectedMonth: '', ViewYearorMonth: [], ViewData: [] })
-        setInputVal({ year: '', month: '', totalSpend: '' })
-        search_dailyspend_details();
+        setTimeout(() => {
+            setInputVal({ year: '', month: '', totalSpend: '' })
+            search_dailyspend_details();
+        }, 50);
+      
 
     }
 
 
     useEffect(() => {
         search_dailyspend_details();
-    }, [search_dailyspend_details,])
+    }, [search_dailyspend_details])
 
 
 
