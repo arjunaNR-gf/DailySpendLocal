@@ -197,8 +197,8 @@ body {
 
 input {
   font-family: poppins;
-  width: 330px;
-  height: 50px;
+  width: 401px;
+  height: 45px;
   padding: 5px 10px;
   border: 1.2px solid cyan;
   border-radius: 3px;
@@ -292,10 +292,12 @@ dropdown list
 
 .select--menu {
   font-size: 10px !important;
+  padding: 0.5rem 0.5rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-content: end;
+  align-items: center;
+
   height: 50px;
 }
 

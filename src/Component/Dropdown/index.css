@@ -14,8 +14,8 @@
 }
 
 .drop--down--list--dispaly{
-    width: 105%;
-    height: 100px;
+    width: 100%;
+    height: 120px;
     padding: 1rem;
     position: absolute;
     line-height: 200%;
@@ -25,9 +25,10 @@
     overflow:scroll;
     overflow-x:hidden;
     border-radius: 7px ;
-    border: 1.4px solid rgb(167, 165, 165);
+    border: 1.4px solid rgb(196, 243, 243);
     box-shadow: 2px 6px 5px -2px rgba(0,0,0,0.75);
     text-transform: uppercase;
+    font-family: poppins;
 }
 
 .drop--down--list--dispaly {
@@ -36,13 +37,15 @@
     align-items: start;
     line-height: 200%;
     z-index: 1000;
-    font-size: 11px;
-    margin-top: 52px;
+    font-size: 10px !important;
+    margin-top: 44px;
 
 }
 .drop--down--list--dispaly span{
-    font-size: 11px;
-    line-height: 200%;
+    font-size: 8.5px;
+    line-height: 260%;
+    font-weight: 600;
+    font-family: poppins;
 }
 
 .drop--down--list--dispaly span:hover{
@@ -51,13 +54,13 @@
 }
 
 .drop--down--input--icon{
+    margin-top: -10px;
     width: 100%;
     display: flex;
     align-items: center;
-    background-color: rgb(166, 225, 246);
     position: relative;
-    padding: 0 1rem;
-    border: 1.6px solid rgb(86, 86, 86);
+    padding: 0.1 0.1rem;
+    border: 1.6px solid rgb(17, 222, 222);
     border-radius: 5px;
 }
 

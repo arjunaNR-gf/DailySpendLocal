@@ -1,8 +1,9 @@
 import './../../App.css'
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { app } from '../../ServiceForBackEnd/FireBaseConfig/Configuration';
 import { getDatabase, push, ref, set, get, remove } from 'firebase/database';
 import { FB_API, Get_sync } from '../../ServiceForBackEnd/FireBaseConfig/FirebaseService';
+import Dropdown from '../../Component/Dropdown/Dropdown';
 
 const PayUpdate = (profileData) => {
     const [btnText, setBtnText] = useState('NEXT..')
@@ -13,10 +14,9 @@ const PayUpdate = (profileData) => {
     //const [innerNavigationFlag, setinnerNavigationFlag] = useState("paymentDate")
     const [paymentMenu, setPaymentMenu] = useState([])
     const [lastupdateInfo, setLastUpdateInfo] = useState()
-    const [flag,setflag] = useState(0)
+    const [listActive, setListActive] = useState(false);
+    const [flag, setflag] = useState(0)
 
-    con
-    
 
     const lastupdateFun = async () => {
         const getDataForLstupt = await Get_sync(FB_API.daiilyspendInfo_Address)
@@ -24,7 +24,7 @@ const PayUpdate = (profileData) => {
         const tempAry = Object.keys(tempConvertToVal).map(key => {
             return { ...tempConvertToVal[key] }
         })
-       setLastUpdateInfo( new Date(tempAry.sort()[0][0].lastupdate).toLocaleString())
+        setLastUpdateInfo(new Date(tempAry.sort()[0][0].lastupdate).toLocaleString())
 
     }
 
@@ -45,18 +45,17 @@ const PayUpdate = (profileData) => {
         }
     }
 
-
     useEffect(() => {
-        if(flag ==false)
-        {
-         
+
+        if (flag == false) {
+
             setflag(1);
             PaymentMenu_Sync();
             lastupdateFun();
-            console.log('payment menu useeffecr@')
         }
-         
-        
+        dropdown_screen_on();
+
+
     }, [PaymentMenu_Sync, lastupdateFun])
 
 
@@ -89,6 +88,7 @@ const PayUpdate = (profileData) => {
                 Change_Context('Enter The Date', 'date', 'byDate')
             }, 10);
         }
+        console.log(item)
     }
 
 
@@ -106,13 +106,17 @@ const PayUpdate = (profileData) => {
 
 
     const apply_pay_name = (id) => {
-        console.log(id, 'id id did did ')
         document.getElementById('byItem').value =
             paymentMenu.filter((item, index) => { if (item.paymentID == id) { return item } })[0].paymentDesc
     }
 
     const dropdown_screen_on = () => {
-        return item.Item_Name == '' && item.paymentDate != '' && item.Spent_Price == '';
+
+        if (item.Item_Name == '' && item.paymentDate != '' && item.Spent_Price == '') {
+            return setListActive(true)
+        }
+
+        setListActive(false)
     }
 
     const push_ready_verification = () => {
@@ -120,19 +124,20 @@ const PayUpdate = (profileData) => {
     }
 
     const on_submit_item = (e) => {
-        console.log(item, 'items are...')
         if (fetch_input_val() != '') {
-            setBtnText('Processing...')
+            setBtnText('Next...')
             swith_input()
             setTimeout(() => {
                 if (item.paymentDate != '' && item.Item_Name === '') setBtnText('Next..')
                 if (item.Item_Name != '') setBtnText('SUBMIT')
             }, (200))
         }
+
     }
 
 
     const push_Db = () => {
+        console.log('entered')
         //pushing data to arry to set ready before pushing to local db
         // let guid_ID = uuidv4();
         // db[guid_ID] = []
@@ -201,7 +206,7 @@ const PayUpdate = (profileData) => {
             <div className='dailyspend--add--item-block'>
                 {notification.activeStatus == true ?
                     <div className='notification'>
-                  
+
                         <p>{notification.subject}</p>
                         <div className='notification--icon'></div>
                         <div className='rectangle'></div>
@@ -212,20 +217,27 @@ const PayUpdate = (profileData) => {
                     Last Update was on {lastupdateInfo}
                 </div>
 
-                <div  className='dailyspend--add--item payment--input'>
-                    <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
+                <div className='dailyspend--add--item payment--input'>
 
-                    {dropdown_screen_on() == true ?
-                        <div className='spendList_display_screen'>
-                            {
-                                paymentMenu.map((item, index) => {
-                                    return <li key={index + 'item'} onClick={() => apply_pay_name(item.paymentID)}>{item.paymentDesc}</li>
-                                })
-                            }
 
-                        </div>
+                  
+              
+                        {listActive == true ? <Dropdown size="full" dataAry={paymentMenu} inputID={inputID} placeholder={inputPlaceHolder} onClickmeth={apply_pay_name} onClickNormal={false} />
+                            :
+                            <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
 
-                        : ''}
+                        }
+                    {/* 
+                        // <div ref={selectDrpDownDivref} className='spendList_display_screen'>
+                        //     {
+                        //         paymentMenu.map((item, index) => {
+                        //             return <li key={index + 'item'} onClick={() => apply_pay_name(item.paymentID)}>{item.paymentDesc}</li>
+                        //         })
+                        //     }
+
+                        // </div>} */}
+
+
 
                     {push_ready_verification() == true ?
                         <button onClick={() => { push_Db() }}>PUSH</button> :
