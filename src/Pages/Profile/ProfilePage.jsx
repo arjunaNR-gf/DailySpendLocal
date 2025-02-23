@@ -16,9 +16,18 @@ const ProfilePage = () => {
 
     const [profileData, setProfileData] = useState([])
 
-    const [profileView, setProfileView] = useState({ selectedYear: '', selectedMonth: '', ViewData: [] })
+    const [profileView, setProfileView] = useState({
+        selectedYear: '', selectedMonth: '',
+        ViewYearorMonth: [], ViewData: [{
+            description: '',
+            money: '',
+            dateOfSpend: '',
+            lastupdate: ''
+        }]
+    })
 
 
+    //this fecth only year/month/money not all 
     const firebaseFetchProfile = async () => {
         const db = getDatabase(app);
         const dbRef = ref(db, FB_API.profile_Address)
@@ -28,78 +37,72 @@ const ProfilePage = () => {
             const tempData = Object.keys(tempDB).map((key, i) => {
                 return { ...tempDB[key] }
             })
+
             setProfileData(Object.keys(tempData[0]).map((key, i) => {
                 return { ...tempData[0][key] }
             }))
-            !inputval_flag() && ProfileViewYearORMonthLoad();
+        }
 
+    }
+
+    const firebase_Fecth_DailySpend = async () => {
+
+        const getData = await Get_sync(FB_API.daiilyspendInfo_Address)
+        if (getData.exists()) {
+            const tempDailydata = getData.val()
+            const tempDataD = Object.keys(tempDailydata).map((key, i) => {
+                return { ...tempDailydata[key] }
+            })
+
+            const tempD = Object.keys(tempDataD[0]).map((key, i) => {
+                return { ...tempDataD[0][key] }
+            })
+            setBtnText('Refresh')
+
+            setProfileView((prevState) => ({
+                ...prevState, ViewData: Object.values(tempD).filter((item, i) => {
+
+                    if (
+                        (new Date(item.dateOfSpend)).toLocaleString('default', { month: 'long' }).toLocaleLowerCase()
+                        ==
+                        inputval.month.toLowerCase() && new Date(item.dateOfSpend).getFullYear() == inputval.year) {
+                        return {
+                            description: item.description,
+                            money: item.money,
+                            dateOfSpend: dateFormat_change(item.dateOfSpend),
+                            lastupdate: dateFormat_change(item.lastupdate)
+                        }
+                    }
+                })
+            }))
         }
     }
 
 
     //fetch data by argument
-
     const search_dailyspend_details = async () => {
-
-        if (inputval_flag()) {
-            const getData = await Get_sync(FB_API.daiilyspendInfo_Address)
-            if (getData.exists()) {
-                const tempDailydata = getData.val()
-                const tempDataD = Object.keys(tempDailydata).map((key, i) => {
-                    return { ...tempDailydata[key] }
-                })
-
-                const tempD = Object.keys(tempDataD[0]).map((key, i) => {
-                    return { ...tempDataD[0][key] }
-                })
-                setBtnText('Refresh')
-
-                setProfileView((prevState) => ({
-                    ...prevState, ViewData: Object.values(tempD).filter((item, i) => {
-
-                        if (
-                            (new Date(item.dateOfSpend)).toLocaleString('default', { month: 'long' }).toLocaleLowerCase()
-                            ==
-                            inputval.month.toLowerCase()) {
-                            return {
-                                description: item.description,
-                                money: item.money,
-                                dateOfSpend: dateFormat_change(item.dateOfSpend),
-                                lastupdate: dateFormat_change(item.lastupdate)
-                            }
-                        }
-                    })
-                }))
-
-                TotalSpend_Orangement()
-            }
-        }
-        else {
-            setBtnText('Search')
-            firebaseFetchProfile();
-            ProfileViewYearORMonthLoad();
-        }
-
+        firebase_Fecth_DailySpend();
+        ProfileViewYearORMonthLoad();
+        firebaseFetchProfile();
+        TotalSpend_PerMonth();
+        !inputval_flag() &&   setBtnText('Search')        
     }
-
-
-    useEffect(() => {
-        search_dailyspend_details();
-    }, [search_dailyspend_details])
-
 
     const inputval_flag = () => {
         return inputval.year != '' && inputval.month != ''
     }
 
-
+    //set up input handler 
     const InputHandler = (name, val) => setInputVal((prevState) => ({ ...prevState, [name]: val }))
 
+    //it will set the input type mean ID 
     const InputName = () => { return inputval.year == '' ? 'year' : 'month' }
 
+    //it will set the input value based on ID and null value present
     const InputSelVal = () => { return inputval.year == '' ? inputval.year : inputval.month }
 
-    const InputArry = () => { return profileView.ViewData }
+    //this will fill the data with values
+    const InputArry = () => { return profileView.ViewYearorMonth }
 
 
     const ProfileViewYearORMonthLoad = () => {
@@ -107,19 +110,32 @@ const ProfilePage = () => {
             "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
         ]
         const orrangedAry = [];
+
         profileData.map((item, i) => {
-            if (item.month != 'year' && item.year == inputval.year) {
+            if (item.year == inputval.year) {
                 orrangedAry[monthTest.indexOf(item.month)] = item.month
             }
-        }
-        )
+        })
 
         inputval.year == '' ?
-            setProfileView({ ViewData: Array.from(new Set(profileData.map((item, i) => { return item.year }))) })
+            setProfileView((PrevState) => ({
+                ...PrevState,
+                ViewYearorMonth: Array.from(new Set(profileData.map((item, i) => { return item.year })))
+            }))
             :
-            setProfileView({ ViewData: orrangedAry })
+            setProfileView((PrevState) => ({ ...PrevState, ViewYearorMonth: orrangedAry }))
+    }
 
 
+    const TotalSpend_PerMonth = () => {
+
+        profileData.filter((item, index) => {
+            if (item.month.toLocaleLowerCase() === inputval.month.toLocaleLowerCase() && item.year === inputval.year) {
+                return setInputVal(prevestate => ({
+                    ...prevestate, totalSpend: item.money
+                }))
+            }
+        })
     }
 
     const dateFormat_change = (str) => {
@@ -133,23 +149,19 @@ const ProfilePage = () => {
     }
 
 
-    const TotalSpend_Orangement = () => {
-        profileData.filter((item, index) => {
-            if (item.month == inputval.month) {
-                return setInputVal(prevestate => ({
-                    ...prevestate, totalSpend: item.money
-                }))
-            }
-        })
-    }
-
     const paymentmenu_refresh = () => {
-        setInputVal({ year: '', month: '' })
-        setTimeout(() => {
-            search_dailyspend_details();
-        }, 300);
+        setProfileView({ selectedYear: '', selectedMonth: '', ViewYearorMonth: [], ViewData: [] })
+        setInputVal({ year: '', month: '', totalSpend: '' })
+        search_dailyspend_details();
 
     }
+
+
+    useEffect(() => {
+        search_dailyspend_details();
+    }, [search_dailyspend_details,])
+
+
 
     return (
         <>
@@ -157,7 +169,7 @@ const ProfilePage = () => {
 
                 <div className='select--menu--main'>
                     <div className='select--menu'>
-                        {btnText != 'Refresh' && <Dropdown
+                        <Dropdown
                             placeholder="select value"
                             size={inputval_flag() == false ? "full" : "small"}
                             name={InputName()}
@@ -165,7 +177,7 @@ const ProfilePage = () => {
                             onClickmeth={InputHandler}
                             dataAry={InputArry()}
                         />
-                        }
+
 
                         {inputval_flag() == true &&
                             <button onClick={btnText != 'Refresh' ? () => search_dailyspend_details() : () => paymentmenu_refresh()}>
@@ -174,16 +186,18 @@ const ProfilePage = () => {
                         }
                     </div>
 
-                    <div className='select--menu--selects'>
-                        {inputval.year && <div>Year : {inputval.year}</div>}
-                        {inputval.month && <div>Month : {inputval.month}</div>}
-                        {inputval.totalSpend && <div>Spend :{inputval.totalSpend}</div>}
-                    </div>
+                    {inputval_flag() &&
+                        <div className='select--menu--selects'>
+                            <div className='display--spend--monthyearspend'>  {inputval.year && <div>Year : {inputval.year}</div>}</div>
+                            <div className='display--spend--monthyearspend'>  {inputval.month && <div>Month : {inputval.month.toUpperCase()}</div>}</div>
+                            <div className='display--spend--monthyearspend'>  {inputval.totalSpend && <div>Spend :{inputval.totalSpend}</div>}</div>
+                        </div>
+                    }
 
                 </div>
 
 
-                {(profileView.ViewData.length > 1 && inputval_flag()) &&
+                {inputval_flag() &&
                     < div >
                         <table>
                             <thead>

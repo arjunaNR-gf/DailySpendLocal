@@ -15,7 +15,7 @@ const PayUpdate = (profileData) => {
     const [lastupdateInfo, setLastUpdateInfo] = useState()
     const [flag,setflag] = useState(0)
 
-    
+    con
     
 
     const lastupdateFun = async () => {
@@ -212,7 +212,7 @@ const PayUpdate = (profileData) => {
                     Last Update was on {lastupdateInfo}
                 </div>
 
-                <div className='dailyspend--add--item payment--input'>
+                <div  className='dailyspend--add--item payment--input'>
                     <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
 
                     {dropdown_screen_on() == true ?

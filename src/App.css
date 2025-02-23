@@ -6,7 +6,6 @@
 * {
   font-family: poppins, sans-serif;
   line-height: 360%;
-  font-size: 13.2px;
   letter-spacing: 0.8px;
   box-sizing: border-box;
   line-height: 170%;
@@ -292,7 +291,7 @@ dropdown list
 }
 
 .select--menu {
-  font: 11px !important;
+  font-size: 10px !important;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -303,14 +302,26 @@ dropdown list
 .select--menu--selects {
   width: 50%;
   color: rgb(17, 8, 8);
-  background-color: rgb(193, 193, 93);
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  text-transform: lowercase;
-  height: 30px;
-  border-radius: 0 0 3px 4px;
+  height: 43px;
+
+
+}
+
+.display--spend--monthyearspend
+{
+  font-size: 11.5px !important;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: none;
+  width: inherit;
+  height: inherit;
+  background-color: rgb(148, 148, 73);
 }
 
 .select--menu {
@@ -327,7 +338,6 @@ dropdown list
   padding: 0.3rem 0.1rem;
   border-right: none;
   color: rgb(6, 21, 21);
-
   letter-spacing: 1px;
 }
 
@@ -448,16 +458,18 @@ td>button {
 
 
 .Menu {
-  width: 40%;
+  min-width: 35%;
+  padding-left: 15px;
   height: 35px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: end;
   gap: 0.4rem;
-  border-bottom: 1px solid rgb(216, 216, 219);
+  border: 1px solid rgb(8, 244, 244);
   background-color: var(--header--menu-bck);
   border-radius: 0 0px 3px 23px;
+  
 }
 
 ul,
@@ -540,9 +552,7 @@ ul {
 }
 
 .select--menu--selects>div {
-  font-size: 10.5px !important;
   border-right: 2.8px solid rgb(230, 212, 212);
-  border-radius: 2rem;
   padding: 0 .325rem;
 }
 
