@@ -12,6 +12,17 @@
   margin: 0;
 }
 
+@keyframes slowAppear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+
 body {
   background: rgb(228, 228, 228);
 }
@@ -137,7 +148,7 @@ body {
   padding: 1rem;
   border-radius: 0.4rem;
 
-  box-shadow: 0 0 40px 20px rgba(232, 233, 235, 0.5); 
+  box-shadow: 0 0 40px 20px rgba(232, 233, 235, 0.5);
   border: 1px solid rgb(12, 223, 223);
   text-align: center;
   gap: 1rem;
@@ -273,7 +284,7 @@ p {
 dropdown list
 */
 .spendList_display_screen {
-  background-color:rgb(180, 180, 118);
+  background-color: rgb(180, 180, 118);
   border: 1px solid rgb(230, 241, 241);
   box-shadow: 4px 14px 14px 30px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   border-radius: 4px 0;
@@ -313,8 +324,7 @@ dropdown list
 
 }
 
-.display--spend--monthyearspend
-{
+.display--spend--monthyearspend {
   font-size: 11.5px !important;
   display: flex;
   flex-direction: row;
@@ -378,13 +388,20 @@ dropdown list
   left: -1px;
   padding: 10px 7px 5px;
   width: 100%;
+  height: 440px;
+}
+
+.items-scrool {
+  width: inherit;
+  height: 300px;
+  padding: green;
   overflow: hidden;
   overflow: scroll;
   overflow-x: hidden;
-  min-height: 190px;
+
 }
 
-.dailyspend--display--item::-webkit-scrollbar {
+.items-scrool::-webkit-scrollbar {
   display: none;
 }
 
@@ -394,13 +411,13 @@ table {
   margin-top: 6%;
   width: 100%;
   font-size: smaller;
-  background-color:rgb(7, 57, 77);
+  background-color: rgb(7, 57, 77);
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   border-radius: 4px;
   color: rgb(226, 226, 226);
-  border-collapse:collapse ;
+  border-collapse: collapse;
   border: 1px solid rgb(167, 167, 87);
-  
+
 }
 
 tr {
@@ -471,7 +488,7 @@ td>button {
   border: 1px solid rgb(8, 244, 244);
   background-color: var(--header--menu-bck);
   border-radius: 0 0px 3px 23px;
-  
+
 }
 
 ul,
@@ -561,5 +578,3 @@ ul {
 .select--menu--selects:nth-last-child() {
   border-right: none;
 }
-
-

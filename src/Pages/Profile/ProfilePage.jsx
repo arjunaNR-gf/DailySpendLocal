@@ -210,6 +210,8 @@ const ProfilePage = () => {
                 </div>
 
 
+
+                <div className='items-scrool'>
                 {inputval_flag() &&
                     < div >
                         <table>
@@ -236,6 +238,7 @@ const ProfilePage = () => {
 
                     </div>
                 }
+                </div>
             </div>
         </>
     )
