@@ -44,11 +44,9 @@ const ProfilePage = () => {
                 return { ...tempData[0][key] }
             }))
         }
-
     }
 
     const firebase_Fecth_DailySpend = async () => {
-
         const getData = await Get_sync(FB_API.daiilyspendInfo_Address)
         if (getData.exists()) {
             const tempDailydata = getData.val()
@@ -161,9 +159,6 @@ const ProfilePage = () => {
     const paymentmenu_refresh = () => {
         setInputVal({ year: '', month: '', totalSpend: '' })
         setProfileView({ selectedYear: '', selectedMonth: '', ViewYearorMonth: [], ViewData: [] })
-
-
-
     }
 
 
@@ -171,7 +166,6 @@ const ProfilePage = () => {
         if (flag == false) {
             search_dailyspend_details();
         }
-
     }, [search_dailyspend_details])
 
 

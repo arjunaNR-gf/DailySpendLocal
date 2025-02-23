@@ -111,4 +111,8 @@
       font-size: 13px;
       text-shadow: 1px 1px 19px rgb(100, 108, 108)
      }
+
+     .dailyspend--display--item {
+      height: 700px;
+     }
   }

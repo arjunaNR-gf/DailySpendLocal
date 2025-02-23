@@ -320,8 +320,7 @@ dropdown list
   align-items: center;
   justify-content: space-around;
   height: 43px;
-
-
+  border-bottom: 1px solid rgb(27, 216, 216);
 }
 
 .display--spend--monthyearspend {
@@ -393,7 +392,7 @@ dropdown list
 
 .items-scrool {
   width: inherit;
-  height: 300px;
+  height: 600px;
   padding: green;
   overflow: hidden;
   overflow: scroll;
@@ -420,6 +419,7 @@ table {
 
 }
 
+
 tr {
   padding-bottom: 1rem;
 }
@@ -428,6 +428,17 @@ td {
   border-bottom: 1px solid rgb(147, 142, 142);
   padding: 6px 5px;
   font-size: 9px !important;
+  animation: slowAppear 2s ease-in-out forwards;
+}
+
+@keyframes slowAppear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 th {
