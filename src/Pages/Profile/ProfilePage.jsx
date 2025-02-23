@@ -14,6 +14,8 @@ const ProfilePage = () => {
 
     const [inputval, setInputVal] = useState({ year: '2025', month: 'February', totalSpend: '' })
 
+    const [flag, setflag] = useState(0)
+
     const [profileData, setProfileData] = useState([])
 
     const [profileView, setProfileView] = useState({
@@ -81,11 +83,12 @@ const ProfilePage = () => {
 
     //fetch data by argument
     const search_dailyspend_details = async () => {
-        firebase_Fecth_DailySpend();
-        ProfileViewYearORMonthLoad();
         firebaseFetchProfile();
+
+        ProfileViewYearORMonthLoad();
+        firebase_Fecth_DailySpend();
         TotalSpend_PerMonth();
-        !inputval_flag() &&   setBtnText('Search')        
+        !inputval_flag() && setBtnText('Search')
     }
 
     const inputval_flag = () => {
@@ -93,7 +96,13 @@ const ProfilePage = () => {
     }
 
     //set up input handler 
-    const InputHandler = (name, val) => setInputVal((prevState) => ({ ...prevState, [name]: val }))
+    const InputHandler = (name, val) => {
+        setflag(1)
+        setInputVal((prevState) => ({ ...prevState, [name]: val }))
+        setTimeout(() => {
+          setflag(0)
+        }, 10);
+    }
 
     //it will set the input type mean ID 
     const InputName = () => { return inputval.year == '' ? 'year' : 'month' }
@@ -150,18 +159,19 @@ const ProfilePage = () => {
 
 
     const paymentmenu_refresh = () => {
+        setInputVal({ year: '', month: '', totalSpend: '' })
         setProfileView({ selectedYear: '', selectedMonth: '', ViewYearorMonth: [], ViewData: [] })
-        setTimeout(() => {
-            setInputVal({ year: '', month: '', totalSpend: '' })
-            search_dailyspend_details();
-        }, 50);
-      
+
+
 
     }
 
 
     useEffect(() => {
-        search_dailyspend_details();
+        if (flag == false) {
+            search_dailyspend_details();
+        }
+
     }, [search_dailyspend_details])
 
 
