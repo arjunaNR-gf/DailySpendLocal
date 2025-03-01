@@ -33,4 +33,11 @@
     border-color: cyan; /* Change border color on focus */
     border-width: 1px 2px 2px 2px; /* Spread the border (top, right, bottom, left) */
   }
+
+  @media screen and (max-width: 420px) {
+    input#inpt
+    {
+      height: 50px;
+    }
+  }
   
