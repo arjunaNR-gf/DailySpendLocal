@@ -6,16 +6,15 @@
     border: 1.2px solid cyan;
     border-radius: 3px;
     outline: 0;
-    font-size: 13.2px;
+    font-size: 14.6px;
     text-align: center;
-    font-weight: 600;
+    font-weight: 800 !important;
     letter-spacing: 0.9px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     text-shadow: 1px 1px 1px rgb(239, 233, 233);
     background-color: var(--input--bck--color);
-    color: var(--input--font--color);
+    color: rgb(70, 70, 2);
     transition: border-color 0.5s ease, border-width 0.5s ease; /* Slow border transition */
-
   }
 
   #inpt::placeholder {
@@ -26,7 +25,7 @@
   label{
     line-height: 250%;
     color: #efe8e8 !important;
-    font-size: 13.7px;
+    font-size: 12.7px;
   }
 
   

@@ -34,7 +34,6 @@ export default function Signup({ screen,authenticate }) {
     };
 
     const AuthenticateUsr=()=>{
-        console.log('click to authenticate!',input.name,input.password)
         authenticate('singin',input.Username,input.password)
     }
   
