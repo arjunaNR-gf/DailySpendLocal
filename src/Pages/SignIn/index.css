@@ -1,0 +1,71 @@
+.onboard--page--main {
+    width: 70%;
+    height: 470px;
+    padding: 2rem 1rem;
+    box-shadow: -1px -1px 1px 1px rgba(37, 37, 37, 0.1);
+    background-color: rgb(11, 66, 88);
+    border-radius: 0.3rem;
+    border: 1px solid cyan;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    padding: 5px 5px;
+  }
+  
+  .form-devider {
+    margin-bottom: 0.3rem;
+  }
+  
+  .form-devider > .btn-footer {
+    margin-top: 3rem;
+  }
+  
+  h1 {
+    font-family: inherit;
+    color: white;
+    text-shadow: 1px 1px 1px cyan;
+  }
+  
+  .form--name {
+    text-align: center;
+  }
+  
+  .form--name > h1 {
+    font-size: 2.4rem;
+    color: white;
+    /* border-bottom: 1px solid rgb(36, 5, 5); */
+    border-radius: 0 0 10px 10px;
+  }
+  
+  .form-link {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+  }
+  .form-link > p {
+    line-height: 250%;
+  }
+  .form-link > P > a {
+    color: lavender !important;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 1.1rem !important;
+  
+  }
+  
+  .form-link > P > a:hover {
+    color: rgb(255, 255, 255) !important;
+    cursor: pointer;
+    font-weight: bolder;
+  }
+
+  @media only screen and (max-width: 480px) {
+    .onboard--page--main{
+        width: 92%;
+        margin-top: 12%;
+        border-radius: 4px;
+    } 
+  }
+

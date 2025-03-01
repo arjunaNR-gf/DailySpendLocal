@@ -6,7 +6,6 @@ import { app } from '../../ServiceForBackEnd/FireBaseConfig/Configuration';
 import { getDatabase, push, ref, set, get, remove } from 'firebase/database';
 import { FB_API, Get_sync } from '../../ServiceForBackEnd/FireBaseConfig/FirebaseService';
 import Dropdown from '../../Component/Dropdown/Dropdown'
-import { settings } from 'firebase/analytics';
 
 
 const ProfilePage = () => {
