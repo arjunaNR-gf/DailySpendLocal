@@ -1,19 +1,19 @@
 #inpt {
-    font-family: poppins;
+    font-family: poppinslgt;
     width: 100%;
     height: 45px;
     padding: 5px 10px;
     border: 1.2px solid cyan;
     border-radius: 3px;
     outline: 0;
-    font-size: 14.6px;
+    font-size: 11.8px;
     text-align: center;
-    font-weight: 800 !important;
+    font-weight: 500 !important;
     letter-spacing: 0.9px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     text-shadow: 1px 1px 1px rgb(239, 233, 233);
     background-color: var(--input--bck--color);
-    color: rgb(70, 70, 2);
+    color: rgb(46, 46, 9);
     transition: border-color 0.5s ease, border-width 0.5s ease; /* Slow border transition */
   }
 
@@ -25,7 +25,7 @@
   label{
     line-height: 250%;
     color: #efe8e8 !important;
-    font-size: 12.7px;
+    font-size: 15.7px;
   }
 
   
@@ -34,10 +34,10 @@
     border-width: 1px 2px 2px 2px; /* Spread the border (top, right, bottom, left) */
   }
 
-  @media screen and (max-width: 420px) {
+  @media screen and (max-width: 520px) {
     input#inpt
     {
-      height: 50px;
+      height: 52px;
     }
   }
   
