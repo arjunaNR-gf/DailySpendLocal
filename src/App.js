@@ -13,25 +13,47 @@ function App() {
   const [authenticate, setAuthenticate] = useState(false)
   const [notification,setNotification] = useState(false)
 
+  const [inputError, setInputError] = useState({
+    Username: "",
+    Email: "",
+    Phone: "",
+    password: "",
+    tempassword: "",
+  });
+
   const AuthenticateUser = (action,name, password) => {
     setNotification(true)
 
     setTimeout(() => {
       setTimeout(() => {
-        if(action=='action') 
+        if(action=='signout') 
           {
+            caches.keys().then(function(cacheNames) {
+              cacheNames.forEach(function(cacheName) {
+                caches.delete(cacheName);
+              });
+            });
+            setNotification(false)
             return setAuthenticate(false)
-          }
-        if (name == 'arjun042896@gmail.com' && password == 'Arjun@1996')
-          {
-            console.log('hello')
-            setAuthenticate(true)
             
+
           }
-          else
+        if (name == '12345')
           {
-            console.log('unsuccessful!')
+           if(password="xyxy")
+           {
+              setAuthenticate(true)
+           }
+           else
+           {
+              setInputError(inputError.password="Password invalid")
+           }
           }
+          else{
+            console.log('invalid username')
+            setInputError(inputError.Username="Username invalid")
+          }
+         
           setNotification(false)
       }, 200);
       
@@ -49,7 +71,7 @@ function App() {
       {notification && <LoaderNotificaiton />}
 
       {authenticate === true?
-        <Home authenticate={AuthenticateUser} /> : <Signup authenticate={AuthenticateUser} />
+        <Home authenticate={AuthenticateUser} /> : <Signup authenticate={AuthenticateUser} inputError={inputError} />
       }
     </div >
       </>

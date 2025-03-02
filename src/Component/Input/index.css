@@ -15,8 +15,7 @@
     background-color: var(--input--bck--color);
     color: rgb(46, 46, 9);
     transition: border-color 0.5s ease, border-width 0.5s ease; /* Slow border transition */
-  }
-
+}
   #inpt::placeholder {
     color: #1a1818; /* Placeholder color */
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); /* Text shadow effect */

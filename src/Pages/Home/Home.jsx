@@ -7,7 +7,7 @@ import { getDatabase, push, ref, set, get, remove } from 'firebase/database';
 import { FB_API, Get_sync } from '../../ServiceForBackEnd/FireBaseConfig/FirebaseService';
 import PayUpdate from '../../Pages/Payment/PayUpdate';
 import ProfilePage from '../Profile/ProfilePage';
-const Home = ({ aunthusr }) => {
+const Home = ({ authenticate }) => {
 
     const [btnText, setBtnText] = useState('NEXT..')
     const [inputText, setInputText] = useState('date')
@@ -161,7 +161,7 @@ const Home = ({ aunthusr }) => {
     }, [asyncgetOnlineStoreData, PaymentMenu_Sync, firebaseFetchProfile])
 
     const changePushMenu = (menuName) => {
-        if (menuName == 'signout') {  aunthusr('signout', '', '') }
+        if (menuName == 'signout') {  authenticate('signout', '', '') }
         setPushMenu(menuName)
         if (menuName == 'profile') {
             firebaseFetchProfile();

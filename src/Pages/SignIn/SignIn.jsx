@@ -3,7 +3,8 @@ import './index.css'
 import InputPad from "../../Component/Input/InputPad";
 import LoaderNotificaiton from "../../Component/Notification/LoaderNotification";
 
-export default function Signup({ screen,authenticate }) {
+export default function Signup({ screen,authenticate,inpError }) {
+  console.log(inpError)
     const [input, setInput] = useState({
       Username: "",
       Email: "",
@@ -11,6 +12,8 @@ export default function Signup({ screen,authenticate }) {
       password: "",
       tempassword: "",
     });
+
+    const [inputError,setInputError] = useState(inpError)
     const [changeBtn, setChangeBtn] = useState({
       btn: false,
       changeSignupScreen: false,
@@ -84,7 +87,10 @@ export default function Signup({ screen,authenticate }) {
                     inputName="Email"
                     inputValue={input.Email}
                     inputhandler={inputhandler}
+                  
                   />
+                  { inputError.Username && <span>{inputError.Username}</span>}  
+
                 </div>
   
                 <div className="form-devider">
