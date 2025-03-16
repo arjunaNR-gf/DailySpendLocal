@@ -61,6 +61,10 @@
     cursor: pointer;
     font-weight: bolder;
   }
+  .onboard--page--main>.form-devider>input
+  {
+    background-color: green;
+  }
 
   @media only screen and (max-width: 480px) {
     .onboard--page--main{

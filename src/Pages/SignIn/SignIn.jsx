@@ -68,7 +68,7 @@ export default function Signup({ screen,authenticate,inpError }) {
             <br></br>
             {changeBtn.changeSignupScreen == false && (
               <>
-                <div className="form-devider">
+                <div className="form-devider signin">
                   <InputPad
                     lable="Username"
                     type="text"
@@ -79,7 +79,7 @@ export default function Signup({ screen,authenticate,inpError }) {
                   />
                 </div>
   
-                <div className="form-devider">
+                <div className="form-devider signin">
                   <InputPad
                     lable="Email "
                     placeholder="Enter Email"
@@ -93,7 +93,7 @@ export default function Signup({ screen,authenticate,inpError }) {
 
                 </div>
   
-                <div className="form-devider">
+                <div className="form-devider signin">
                   <InputPad
                     lable="Phone  "
                     placeholder="Enter Phone Number"
@@ -107,7 +107,7 @@ export default function Signup({ screen,authenticate,inpError }) {
   
             {changeBtn.changeSignupScreen == true && (
               <>
-                <div className="form-devider">
+                <div className="form-devider signin">
                   <InputPad
                     lable=" Password  "
                     placeholder="Enter Password"
