@@ -298,6 +298,10 @@ const Home = ({ authenticate }) => {
         setInputVal({ year: '', month: '' })
     }
 
+    const totalSpendCurrentMonth=()=>{
+        return localDB.reduce((acc,currentVal)=>{return acc += currentVal.Amount},0)
+    }
+
     return (
         <>
             <div className='dailyspend--head'>
@@ -352,11 +356,14 @@ const Home = ({ authenticate }) => {
                                         </tr>
                                     })
                                 }
+                                    <tr style={{color:"black",fontSize:"14PX",padding:"10px",backgroundColor:"greenyellow"
+                                    }}>total :{totalSpendCurrentMonth()} </tr>
+
                             </tbody>
                         </table>
-                        <div className='btn--push--local--db'>
+                        {/* <div className='btn--push--local--db'>
                             <button onClick={() => { }}>PUSH</button>
-                        </div>
+                        </div> */}
                     </div>
                     :
                     pushMenu == 'profile' && profileData?.length > 0 ?

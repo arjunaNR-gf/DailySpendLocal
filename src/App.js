@@ -38,7 +38,7 @@ function App() {
             
 
           }
-        if (name == 'xyxy')
+        if (name == 'XYXY')
           {
            if(password="12345")
            {

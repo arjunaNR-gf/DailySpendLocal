@@ -389,7 +389,6 @@ dropdown list
   left: -1px;
   padding: 10px 7px 5px;
   width: 100%;
-  height: 440px;
 }
 
 .items-scrool {
@@ -450,7 +449,7 @@ td {
 }
 
 .display--item{
-  height: auto;
+  height: 330px;
 }
 
 @keyframes slowAppear {
