@@ -230,11 +230,6 @@ input {
   color: var(--input--font--color);
 }
 
-.payment--input {
-  height: 200px !important;
-}
-
-
 
 button {
   color: rgb(239, 237, 237);
@@ -435,6 +430,10 @@ td {
   padding: 6px 5px;
   font-size: 9px !important;
   animation: slowAppear 2s ease-in-out forwards;
+}
+
+.display--item{
+  height: auto;
 }
 
 @keyframes slowAppear {

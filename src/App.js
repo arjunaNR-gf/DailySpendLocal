@@ -38,9 +38,9 @@ function App() {
             
 
           }
-        if (name == '12345')
+        if (name == 'xyxy')
           {
-           if(password="xyxy")
+           if(password="12345")
            {
               setAuthenticate(true)
            }

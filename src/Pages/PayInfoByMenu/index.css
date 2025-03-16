@@ -1,5 +1,7 @@
 .payinfobymenu {
-    margin-top: 2rem;
+    margin-top: 5rem;
+    border: 1px solid rgb(246, 241, 241);
+    height: 50px;
 }
 
 .payinfobymenu-item-total-display {
@@ -11,7 +13,7 @@
 .payinfobymenu-item--display {
     margin-top: 0.3rem;
     width: inherit;
-    height: 400px;
+    height: 4500px;
     padding: 0.5rem;
     overflow: hidden;
     overflow: scroll;
@@ -23,4 +25,13 @@
 
 .payinfobymenu-item--display::-webkit-scrollbar {
     display: none;
+}
+
+
+
+@media screen and (max-width: 520px) {
+    .payinfobymenu-item--display {
+        height: 100vh;
+    }
+
 }

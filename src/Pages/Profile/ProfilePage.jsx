@@ -193,7 +193,7 @@ const ProfilePage = () => {
                     <div className='select--menu'>
                         <Dropdown
                             placeholder="select value"
-                            size={inputval_flag() == false ? "full" : "small"}
+                            size={inputval_flag() == false ? "full" : "medium"}
                             name={InputName()}
                             value={InputSelVal()}
                             onClickmeth={InputHandler}

@@ -1,6 +1,6 @@
 .drop--down{
     width: min(100%,400px);
-    height: 25px;
+    height: inherit;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -21,7 +21,7 @@
     line-height: 200%;
     background-color: rgb(245, 245, 245);
     margin-top: 10%;
-    font-size: 11px;
+    font-size: 11px !important;
     overflow:scroll;
     overflow-x:hidden;
     border-radius: 7px ;
@@ -29,8 +29,23 @@
     box-shadow: 2px 6px 5px -2px rgba(0,0,0,0.75);
     text-transform: uppercase;
     font-family: poppins;
+    margin-top: 50px;
+    z-index: 1000;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    line-height: 200%;
 }
 
+.drop--down--list--dispaly span{
+    font-size: 8.5px;
+    line-height: 260%;
+    font-weight: 600;
+    font-family: poppins;
+} 
+
+/* 
 .drop--down--list--dispaly {
     display: flex;
     flex-direction: column;
@@ -41,12 +56,7 @@
     margin-top: 44px;
 
 }
-.drop--down--list--dispaly span{
-    font-size: 8.5px;
-    line-height: 260%;
-    font-weight: 600;
-    font-family: poppins;
-}
+*/
 
 .drop--down--list--dispaly span:hover{
     cursor: pointer;
@@ -54,7 +64,7 @@
 }
 
 .drop--down--input--icon{
-    margin-top: -10px;
+
     width: 100%;
     display: flex;
     align-items: center;
