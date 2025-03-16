@@ -65,10 +65,11 @@
   }
 
   @media only screen and (max-width: 480px) {
-    .onboard--page--main{
+    .sign-in-main {
         width: 92%;
         margin-top: 12%;
         border-radius: 4px;
     } 
+
   }
 
