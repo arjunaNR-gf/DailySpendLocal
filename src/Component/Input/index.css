@@ -1,12 +1,12 @@
 #inpt {
     font-family: poppinslgt;
     width: 100%;
-    height: 41px;
+    height: 49px;
     padding: 5px 10px;
-    border: 1.2px solid cyan;
+    border: 1px solid rgb(94, 108, 108);
     border-radius: 3px;
     outline: 0;
-    font-size: 13.8px;
+    font-size: 14.2px;
     text-align: center;
     font-weight: 500 !important;
     letter-spacing: 0.9px;
@@ -22,14 +22,14 @@
   }
 
   label{
-    line-height: 250%;
-    color: #efe8e8 !important;
+    line-height: 290%;
+    color: #110101 !important;
     font-size: 15.7px;
   }
 
   
   #inpt:focus {
-    border-color: cyan; /* Change border color on focus */
+    border-color: rgb(50, 54, 54); /* Change border color on focus */
     border-width: 1px 2px 2px 2px; /* Spread the border (top, right, bottom, left) */
   }
 

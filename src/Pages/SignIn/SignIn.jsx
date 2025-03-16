@@ -59,7 +59,7 @@ export default function Signup({ screen,authenticate,inpError }) {
       <>
         {isNotification ? <LoaderNotificaiton /> : ""}
         {screenDisplay == "Signup" ? (
-          <div className="onboard--page--main">
+          <div >
             <div className="form-devider">
               <span className="form--name">
                 <h1>Sign\Up</h1>
@@ -145,7 +145,7 @@ export default function Signup({ screen,authenticate,inpError }) {
             </div>
           </div>
         ) : (
-          <div className="onboard--page--main">
+          <div className="sign-in-main">
             <div className="form-devider">
               <span className="form--name">
                 <h1>Sign\In</h1>
@@ -157,7 +157,7 @@ export default function Signup({ screen,authenticate,inpError }) {
             <div className="form-devider">
               <InputPad
                 lable="Username"
-                placeholder="Enter Username"
+                placeholder=" username"
                 inputName="Username"
                 inputValue={input.Username}
                 inputhandler={inputhandler}
@@ -167,7 +167,7 @@ export default function Signup({ screen,authenticate,inpError }) {
             <div className="form-devider">
               <InputPad
                 lable=" Password  "
-                placeholder="Enter Password"
+                placeholder=" password"
                 type="password"
                 inputName="password"
                 inputValue={input.password}
