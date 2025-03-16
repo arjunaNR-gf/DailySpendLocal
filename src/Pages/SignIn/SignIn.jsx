@@ -148,15 +148,15 @@ export default function Signup({ screen,authenticate,inpError }) {
           <div className="sign-in-main">
             <div className="form-devider">
               <span className="form--name">
-                <h1>Sign\In</h1>
+               <div className="sign--logo--name"><h1>daily </h1><h1>Spend</h1></div> 
+                <h4>Sign\In</h4>
               </span>
             </div>
-            <br></br>
-            <br></br>
+
   
             <div className="form-devider">
               <InputPad
-                lable="Username"
+                lable="username"
                 placeholder=" username"
                 inputName="Username"
                 inputValue={input.Username}
@@ -166,7 +166,7 @@ export default function Signup({ screen,authenticate,inpError }) {
   
             <div className="form-devider">
               <InputPad
-                lable=" Password  "
+                lable="password  "
                 placeholder=" password"
                 type="password"
                 inputName="password"
@@ -176,8 +176,7 @@ export default function Signup({ screen,authenticate,inpError }) {
             </div>
   
             <br></br>
-            <br></br>
-            <br></br>
+         
   
             <div className="form-devider btn-footer">
               <button onClick={()=>AuthenticateUsr()} disabled={input.Username=="" && input.password == ""}>sign in</button>
@@ -185,7 +184,7 @@ export default function Signup({ screen,authenticate,inpError }) {
             <div className="form-link">
               <p>
                 Don't have account?{" "}
-                <a onClick={() => changeOnbordingsign("Signup")}>Sign-Up</a>
+                <a onClick={() => changeOnbordingsign("Signup")}>Sign/Up</a>
               </p>
             </div>
           </div>

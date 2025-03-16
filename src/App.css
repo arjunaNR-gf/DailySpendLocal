@@ -57,7 +57,7 @@ body {
   height: 65px;
   border: 0.5px solid #04171f;
   border-radius: 0.125rem 0;
-  background-color: yellow;
+  background-color: rgb(244, 244, 236);
   overflow: hidden;
   /* border-left: 8.245rem solid#006989;
   border-right: 1rem solid #e1e4ea; */
@@ -66,7 +66,8 @@ body {
 .dailyspend--head>div:nth-child(1) {
   width: 60%;
   height: inherit;
-  background-color: var(--header-backgroundcolor);
+  /* background-color: var(--header-backgroundcolor); */
+  background-color: white;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -408,10 +409,10 @@ dropdown list
 /* table related css*/
 table {
   padding: 1rem 1rem;
-  margin-top: 6%;
+  margin-top: 2%;
   width: 100%;
   font-size: smaller;
-  background-color: rgb(7, 57, 77);
+  background-color: rgb(255, 255, 255);
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   border-radius: 4px;
   color: rgb(226, 226, 226);
@@ -419,10 +420,17 @@ table {
   border: 1px solid rgb(167, 167, 87);
 
 }
+th
+{
+  background-color:rgb(134, 134, 49);
+  height: 59px;
+  color: rgb(255, 255, 255) !important;
+}
 
 
 tr {
   padding-bottom: 1rem;
+  height: 50px;
 }
 
 td {
@@ -430,6 +438,15 @@ td {
   padding: 6px 5px;
   font-size: 9px !important;
   animation: slowAppear 2s ease-in-out forwards;
+  color: black;
+
+}
+.evenRow{
+  background-color:rgb(255, 255, 255);
+}
+
+.oddRow{
+  background-color: rgb(181, 184, 178);
 }
 
 .display--item{

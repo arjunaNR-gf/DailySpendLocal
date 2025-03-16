@@ -116,10 +116,11 @@ const PayInfoByMenu = () => {
         <>
             <div className='payinfobymenu'>
                 <Dropdown placeholder="Select your option" name="menuopt" value={menuopt} dataAry={menu} size="medium" onClickmeth={display_DropDown_Option} />
+            {active &&   <div className='payinfobymenu-item-total-display'>         <h3>Total : {SpendAmount}</h3></div>}
             </div>
             {active && 
             <>
-               <div className='payinfobymenu-item-total-display'>         <h3 style={{color:'white'}}>Total : {SpendAmount}</h3></div>
+          
               <div className='payinfobymenu-item--display'>
        
                 <table>
@@ -140,12 +141,26 @@ const PayInfoByMenu = () => {
                     <tbody>
                         {
                             menuData.map((item, i) => {
-                                return <tr>
+                                if(i%2==0)
+                                {
+                                    return <tr  className='evenRow'>
+                                    <td key={'amount' + i}>{item.description}</td>
+                                    <td  key={'payment' + i}>{new Date(item.dateOfSpend).toLocaleDateString()}</td>
+                                    <td key={'amount' + i + 1}>{item.money}</td>
+
+                                </tr>
+                                }
+                                else
+                                {
+                                    return <tr  className='oddRow'>
                                     <td key={'amount' + i}>{item.description}</td>
                                     <td key={'payment' + i}>{new Date(item.dateOfSpend).toLocaleDateString()}</td>
                                     <td key={'amount' + i + 1}>{item.money}</td>
 
                                 </tr>
+                                }
+
+                                
                             })
                         }
                        

@@ -24,27 +24,24 @@
   label{
     line-height: 290%;
     color: #110101 !important;
-    font-size: 15.7px;
+    font-size:16px;
   }
 
   
-  #inpt:focus {
-    border-color: rgb(50, 54, 54); /* Change border color on focus */
-    border-width: 1px 2px 2px 2px; /* Spread the border (top, right, bottom, left) */
+ 
+  #inpt:hover{
+   border: 1.5px solid rgb(97, 97, 7);
   }
 
-  #inpt:hover{
-    box-shadow: 2px 4px 5px 10px rgba(0, 0, 0, 0.06);
-  }
+ 
 
   @media screen and (max-width: 520px) {
     input#inpt
     {
       font-size: 16px;
-      height: 50px;
+      height: 54px;
       font-weight: 900 !important;
+      border-radius: 4px;
     }
-
-    
   }
   

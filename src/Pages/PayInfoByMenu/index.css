@@ -2,25 +2,30 @@
     margin-top: 5rem;
     border: 1px solid rgb(246, 241, 241);
     height: 50px;
+    display: flex;
+
 }
 
 .payinfobymenu-item-total-display {
-    margin-top: 1rem;
+    width: 100%;
     background-color: var(  --body--bck);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(254, 251, 251);
+    font-size: 14px;
+    border-radius: 4px;
 
 }
 
 .payinfobymenu-item--display {
     margin-top: 0.3rem;
     width: inherit;
-    height: 4500px;
+    height: 335px;
     padding: 0.5rem;
     overflow: hidden;
     overflow: scroll;
     overflow-x: hidden;
-    background-color:var(  --payment--block--bck);
-    height: 100%;
-
 
 }
 
@@ -32,7 +37,12 @@
 
 @media screen and (max-width: 520px) {
     .payinfobymenu-item--display {
-        height: 100vh;
+        height: 70vh;
+    }
+    .payinfobymenu {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
 }

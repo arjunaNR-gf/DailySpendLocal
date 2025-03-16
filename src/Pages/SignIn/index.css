@@ -31,11 +31,13 @@
     text-align: center;
   }
   
-  .form--name > h1 {
-    font-size: 1.8rem;
-    color: rgb(98, 98, 5);
+  .form--name > h4 {
+    font-size: 0.8rem;
+    color: rgb(145, 145, 145);
     /* border-bottom: 1px solid rgb(36, 5, 5); */
     border-radius: 0 0 10px 10px;
+    line-height: 260%;
+    font-weight: 700;
   }
   
   .form-link {
@@ -64,11 +66,26 @@
     background-color: green;
   }
 
+ .sign--logo--name{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: underline;
+ }
+
+ .sign--logo--name>h3,h1{
+  margin: 0 !important;
+  padding: 0 !important;
+  color: rgb(81, 81, 10);
+
+ }
+
   @media only screen and (max-width: 480px) {
     .sign-in-main {
         width: 92%;
         margin-top: 12%;
         border-radius: 4px;
+        padding: 0.5rem 0.5rem;
     } 
 
   }

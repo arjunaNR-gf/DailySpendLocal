@@ -301,9 +301,7 @@ const Home = ({ authenticate }) => {
     return (
         <>
             <div className='dailyspend--head'>
-                <div>
-                    <h4>DailySpend Local  APP</h4>
-                </div>
+               <div className="home-header"><h1>daily </h1>  <h1>Spend</h1></div> 
                 <div>
                 </div>
             </div>
