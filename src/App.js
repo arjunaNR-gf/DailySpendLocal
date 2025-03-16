@@ -74,7 +74,7 @@ function App() {
         <Home authenticate={AuthenticateUser} /> : <Signup authenticate={AuthenticateUser} inputError={inputError} />
       }
     </div >
-      </>
+     </>
     
 
   );

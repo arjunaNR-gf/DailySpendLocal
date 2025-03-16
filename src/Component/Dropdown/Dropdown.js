@@ -9,8 +9,6 @@ export default function Dropdown({ onClickNormal = true, inputID,size, name, val
     const selectionDivRef = useRef(null);
 
 
-
-
     useEffect(() => {
         // Event handler to capture the click
         const handleClickOutside = (event) => {

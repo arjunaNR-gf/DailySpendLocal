@@ -1,0 +1,26 @@
+.payinfobymenu {
+    margin-top: 2rem;
+}
+
+.payinfobymenu-item-total-display {
+    margin-top: 1rem;
+    background-color: var(  --body--bck);
+
+}
+
+.payinfobymenu-item--display {
+    margin-top: 0.3rem;
+    width: inherit;
+    height: 400px;
+    padding: 0.5rem;
+    overflow: hidden;
+    overflow: scroll;
+    overflow-x: hidden;
+    background-color:var(  --payment--block--bck);
+
+
+}
+
+.payinfobymenu-item--display::-webkit-scrollbar {
+    display: none;
+}

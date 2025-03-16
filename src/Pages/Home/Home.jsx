@@ -7,6 +7,7 @@ import { getDatabase, push, ref, set, get, remove } from 'firebase/database';
 import { FB_API, Get_sync } from '../../ServiceForBackEnd/FireBaseConfig/FirebaseService';
 import PayUpdate from '../../Pages/Payment/PayUpdate';
 import ProfilePage from '../Profile/ProfilePage';
+import PayInfoByMenu from '../PayInfoByMenu/PayInfoByMenu';
 const Home = ({ authenticate }) => {
 
     const [btnText, setBtnText] = useState('NEXT..')
@@ -161,7 +162,7 @@ const Home = ({ authenticate }) => {
     }, [asyncgetOnlineStoreData, PaymentMenu_Sync, firebaseFetchProfile])
 
     const changePushMenu = (menuName) => {
-        if (menuName == 'signout') {  authenticate('signout', '', '') }
+        if (menuName == 'signout') { authenticate('signout', '', '') }
         setPushMenu(menuName)
         if (menuName == 'profile') {
             firebaseFetchProfile();
@@ -313,6 +314,7 @@ const Home = ({ authenticate }) => {
                         <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}>Home</li>
                         {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}>View</li>}
                         <li onClick={() => changePushMenu('profile')}>Profile</li>
+                        <li onClick={() => changePushMenu('profileByMenu')}>ProfileBymenu</li>
                         <li onClick={() => changePushMenu('payment')}>Payment</li>
                         <li onClick={() => changePushMenu('signout')}>SignOut</li>
 
@@ -362,9 +364,10 @@ const Home = ({ authenticate }) => {
                     pushMenu == 'profile' && profileData?.length > 0 ?
                         <ProfilePage />
                         :
-                        pushMenu == 'payment' ?
-                            <PayUpdate profileData={profileView.ViewData} />
-                            : ''
+                        pushMenu == 'profileByMenu' ? <PayInfoByMenu /> :
+                            pushMenu == 'payment' ?
+                                <PayUpdate profileData={profileView.ViewData} />
+                                : ''
                 }
             </div>
         </>

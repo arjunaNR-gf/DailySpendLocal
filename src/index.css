@@ -6,6 +6,7 @@ body {
 :root
 {
   --header-backgroundcolor:#cfcf71;
+  --body--bck:#9d9d46;
   --header--menu-bck:rgb(4, 40, 56);
   --payment--block--bck:rgb(7, 57, 77);
   --footer--font-bck:rgb(223, 221, 221);
