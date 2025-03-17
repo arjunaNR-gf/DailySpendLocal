@@ -99,5 +99,10 @@
       margin-top: 1.5rem;
     }
 
+    .sign-in-main>.form-devider>input{
+      border: none !important;
+      border-bottom: 1.5px solid rgb(91, 91, 52) !important;
+      background-color: white !important;
+    }
   }
 
