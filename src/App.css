@@ -395,7 +395,6 @@ dropdown list
   width: inherit;
   height: 600px;
   padding: green;
-  overflow: hidden;
   overflow: scroll;
   overflow-x: hidden;
 
@@ -424,6 +423,7 @@ th
   background-color:rgb(134, 134, 49);
   height: 59px;
   color: rgb(255, 255, 255) !important;
+  position: static;
 }
 
 
@@ -449,7 +449,7 @@ td {
 }
 
 .display--item{
-  height: 330px;
+  height: auto;
 }
 
 @keyframes slowAppear {
