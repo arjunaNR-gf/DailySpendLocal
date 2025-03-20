@@ -38,7 +38,7 @@
 
 @media screen and (max-width: 520px) {
     .payinfobymenu-item--display {
-        height: 70vh;
+        height: 60vh;
     }
     .payinfobymenu {
         width: 100%;

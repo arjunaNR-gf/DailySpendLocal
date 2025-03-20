@@ -135,8 +135,6 @@ const PayInfoByMenu = () => {
                         <th>
                             Money(RS)
                         </th>
-
-
                     </thead>
                     <tbody>
                         {
@@ -159,21 +157,14 @@ const PayInfoByMenu = () => {
 
                                 </tr>
                                 }
-
-                                
                             })
-                        }
-                       
+                        }                       
                     </tbody>
                 </table>
 
             </div>
             </>
           }
-
-
-
-
         </>
     )
 }

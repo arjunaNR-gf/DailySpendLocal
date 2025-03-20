@@ -9,7 +9,8 @@ import PayUpdate from '../../Pages/Payment/PayUpdate';
 import ProfilePage from '../Profile/ProfilePage';
 import PayInfoByMenu from '../PayInfoByMenu/PayInfoByMenu';
 const Home = ({ authenticate }) => {
-
+    const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    const CurrentMonth = month[new Date().getMonth()]
     const [btnText, setBtnText] = useState('NEXT..')
     const [inputText, setInputText] = useState('date')
     const [inputID, setInputId] = useState('byDate')
@@ -326,7 +327,7 @@ const Home = ({ authenticate }) => {
             <div className='display--item'>
                 {pushMenu == 'finalpush' && localDB.length > 0 ?
                     <div className='dailyspend--display--item'>
-                        <h4>View The Data Before Submit</h4>
+                        <h4>Spending Details of Month  <p>{ CurrentMonth } </p></h4>
                         <table>
                             <thead>
 
@@ -356,8 +357,8 @@ const Home = ({ authenticate }) => {
                                         </tr>
                                     })
                                 }
-                                    <tr style={{color:"black",fontSize:"14PX",padding:"10px",backgroundColor:"greenyellow"
-                                    }}>total :{totalSpendCurrentMonth()} </tr>
+                                    <tr style={{display:"Flex",alignItems:"center",color:"black",fontSize:"14PX",padding:"10px",backgroundColor:"#8FBC8F"
+                                    }}> Total :{totalSpendCurrentMonth()} </tr>
 
                             </tbody>
                         </table>
