@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './index.css'
 import InputPad from "../../Component/Input/InputPad";
 import LoaderNotificaiton from "../../Component/Notification/LoaderNotification";
@@ -23,8 +23,18 @@ export default function Signup({ screen,authenticate,inpError }) {
     const inputhandler = (e) => {
       const { name, value } = e.target;
       setInput((preVal) => ({ ...preVal, [name]: value }));
-      console.log(input.Username);
     };
+
+    const onKeyDownForEnter=(e)=>{
+      if(e.code === 'Enter')
+      {
+       if(input.Username != '' && input.password != '')
+       {
+        AuthenticateUsr();
+       }
+      }
+    }
+   
   
     const [isNotification, setIsNotication] = useState(false);
   
@@ -54,7 +64,8 @@ export default function Signup({ screen,authenticate,inpError }) {
         
       }, 2500);
     };
-  
+
+   
     return (
       <>
         {isNotification ? <LoaderNotificaiton /> : ""}
@@ -161,6 +172,7 @@ export default function Signup({ screen,authenticate,inpError }) {
                 inputName="Username"
                 inputValue={input.Username}
                 inputhandler={inputhandler}
+                onKeyDwn={onKeyDownForEnter}
               />
             </div>
   
@@ -172,6 +184,8 @@ export default function Signup({ screen,authenticate,inpError }) {
                 inputName="password"
                 inputValue={input.password}
                 inputhandler={inputhandler}
+                onKeyDwn={onKeyDownForEnter}
+
               />
             </div>
   

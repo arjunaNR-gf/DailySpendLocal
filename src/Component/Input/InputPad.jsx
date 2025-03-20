@@ -1,9 +1,20 @@
+import { useEffect } from 'react';
 import './index.css'
-const InputPad=({inputName,type,inputValue,lable,placeholder,inputhandler})=>{
-    return(
+const InputPad = ({ inputName, type, inputValue, lable, placeholder, inputhandler, onKeyDwn }) => {
+
+    
+   
+
+    return (
         <>
-        <label>{lable}</label>
-        <input id='inpt' type={type} placeholder={placeholder} onChange={(e)=>inputhandler(e)}  name={inputName} value={inputValue}  />
+            <label>{lable}</label>
+            <input id='inpt'
+                type={type}
+                placeholder={placeholder}
+                onChange={(e) => inputhandler(e)}
+                name={inputName} value={inputValue}
+                onKeyDown={(e) => onKeyDwn(e)}
+            />
         </>
     )
 }

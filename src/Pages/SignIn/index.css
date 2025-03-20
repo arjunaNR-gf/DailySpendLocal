@@ -101,8 +101,9 @@
 
     .sign-in-main>.form-devider>input{
       border: none !important;
-      border-bottom: 1.5px solid rgb(91, 91, 52) !important;
+      border-bottom: 1.5px solid green!important;
       background-color: white !important;
+      height: 44px !important;
     }
   }
 
