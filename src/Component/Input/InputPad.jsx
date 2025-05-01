@@ -10,6 +10,7 @@ const InputPad = ({ inputName, type, inputValue, lable, placeholder, inputhandle
             <label>{lable}</label>
             <input id='inpt'
                 type={type}
+                autocomplete="off"
                 placeholder={placeholder}
                 onChange={(e) => inputhandler(e)}
                 name={inputName} value={inputValue}

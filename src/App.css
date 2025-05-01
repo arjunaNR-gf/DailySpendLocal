@@ -424,7 +424,7 @@ table {
 th
 {
   background-color:rgb(134, 134, 49);
-  height: 59px;
+  height: 39px;
   color: rgb(255, 255, 255) !important;
   position: static;
 }
@@ -433,6 +433,7 @@ th
 tr {
   padding-bottom: 1rem;
   height: 50px;
+  text-transform: capitalize;
 }
 
 td {
@@ -443,12 +444,10 @@ td {
   color: black;
 
 }
-.evenRow{
-  background-color:rgb(255, 255, 255);
-}
 
-.oddRow{
-  background-color: rgb(181, 184, 178);
+tr:nth-child(even)
+{
+  background-color: #a6abad;
 }
 
 .display--item{
@@ -626,3 +625,4 @@ ul {
 .select--menu--selects:nth-last-child() {
   border-right: none;
 }
+

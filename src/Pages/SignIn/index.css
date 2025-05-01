@@ -82,6 +82,15 @@
 
  }
 
+ .note>span{
+  color:rgb(218, 216, 216);
+  font-size: 12px;
+  border: 1px solid  rgb(36, 47, 36);
+  background-color: brown;
+  padding: 5px 3px;
+ }
+
+
   @media only screen and (max-width: 480px) {
     .sign-in-main {
         width: 98%;

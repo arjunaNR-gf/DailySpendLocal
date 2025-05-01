@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Home from "./Pages/Home/Home";
 import Signup from "./Pages/SignIn/SignIn";
 import LoaderNotificaiton from "./Component/Notification/LoaderNotification";
@@ -17,9 +17,17 @@ function App() {
     Username: "",
     Email: "",
     Phone: "",
-    password: "",
-    tempassword: "",
+    Password: "",
+    Tempassword: "",
+    Text:""
   });
+
+  useEffect(()=>{
+    if(JSON.parse(sessionStorage.getItem('LoginStatus'))==='success')
+    {
+      setAuthenticate(true);
+    }
+  },[])
 
   const AuthenticateUser = (action,name, password) => {
     setNotification(true)
@@ -33,6 +41,7 @@ function App() {
                 caches.delete(cacheName);
               });
             });
+            sessionStorage.clear();
             setNotification(false)
             return setAuthenticate(false)
             
@@ -42,16 +51,17 @@ function App() {
           {
            if(password="12345")
            {
+            setInputError((prevState)=>({...prevState,Text:""}))
+            sessionStorage.setItem('LoginStatus',JSON.stringify('success'))
               setAuthenticate(true)
            }
            else
            {
-              setInputError(inputError.password="Password invalid")
+              setInputError((prevState)=>({...prevState,Text:"Password invalid"}))
            }
           }
           else{
-            console.log('invalid username')
-            setInputError(inputError.Username="Username invalid")
+            setInputError((prevState)=>({...prevState,Text:"Username invalid"}))
           }
          
           setNotification(false)
@@ -71,7 +81,7 @@ function App() {
       {notification && <LoaderNotificaiton />}
 
       {authenticate === true?
-        <Home authenticate={AuthenticateUser} /> : <Signup authenticate={AuthenticateUser} inputError={inputError} />
+        <Home authenticate={AuthenticateUser} /> : <Signup authenticate={AuthenticateUser} inputErrordetails={inputError.Text} />
       }
     </div >
      </>

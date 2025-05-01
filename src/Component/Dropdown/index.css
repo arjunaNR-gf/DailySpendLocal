@@ -6,6 +6,10 @@
     flex-direction: column;
     align-items: start;
 }
+input
+{
+    width: inherit;
+}
 
 .drop--down label
 {
@@ -115,7 +119,7 @@ input:hover{
 
     .drop--down--list--dispaly
     {
-        margin-top: 19%;
+        margin-top: 14%;
     }
 
 }

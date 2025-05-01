@@ -12,7 +12,11 @@ const ProfilePage = () => {
 
     const [btnText, setBtnText] = useState('')
 
-    const [inputval, setInputVal] = useState({ year: '2025', month: 'February', Total:0 ,totalSpend: '' })
+    const monthDetails=[
+        "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
+    ]
+
+    const [inputval, setInputVal] = useState({ year: '2025', month: monthDetails[new Date().getMonth()], Total:0 ,totalSpend: '' })
 
     const [flag, setflag] = useState(0)
 
