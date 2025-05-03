@@ -37,7 +37,7 @@
   
     .dailyspend--add--item-block {
       position: relative;
-      margin-top: 50%;
+      margin-top: 15%;
       flex-direction: column;
       height: 275px;
       padding: 0.5rem;
