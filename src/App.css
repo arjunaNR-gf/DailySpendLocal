@@ -105,10 +105,9 @@ body {
 
 }
 
-
 .dailyspend--add--item-block {
   position: relative;
-  margin-top: 43%;
+  margin-top: 2%;
   background-color: var(--payment--block--bck);
   width: 100%;
   height: 135px;

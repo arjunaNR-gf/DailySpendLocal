@@ -4,6 +4,7 @@ import { app } from '../../ServiceForBackEnd/FireBaseConfig/Configuration';
 import { getDatabase, push, ref, set, get, remove } from 'firebase/database';
 import { FB_API, Get_sync } from '../../ServiceForBackEnd/FireBaseConfig/FirebaseService';
 import Dropdown from '../../Component/Dropdown/Dropdown';
+import DailySpendPieChart from '../../Component/Chart/mySpendChart';
 
 const PayUpdate = (profileData) => {
     const [btnText, setBtnText] = useState('NEXT..')
@@ -16,6 +17,8 @@ const PayUpdate = (profileData) => {
     const [lastupdateInfo, setLastUpdateInfo] = useState()
     const [listActive, setListActive] = useState(false);
     const [flag, setflag] = useState(0)
+
+    const [dataStoreDb, setDataStoreDb] = useState([])
 
 
     const lastupdateFun = async () => {
@@ -45,6 +48,36 @@ const PayUpdate = (profileData) => {
         }
     }
 
+    const firebase_Fecth_DailySpend = async () => {
+        const getData = await Get_sync(FB_API.daiilyspendInfo_Address)
+        if (getData.exists()) {
+            const tempDailydata = getData.val()
+            const tempDataD = Object.keys(tempDailydata).map((key, i) => {
+                return { ...tempDailydata[key] }
+            })
+
+            const tempD = Object.keys(tempDataD[0]).map((key, i) => {
+                return { ...tempDataD[0][key] }
+            })
+            setTimeout(() => {
+                var tempSeparator = {};
+                tempD.forEach(item => {
+                    if (tempSeparator[item.description]) {
+                        tempSeparator[item.description] = tempSeparator[item.description] + Number(item.money)
+                    }
+                    else {
+                        tempSeparator[item.description] = Number(item.money);
+                    }
+                })
+                setDataStoreDb(Object.keys(tempSeparator).map(item => {
+                    return { name: item, value: tempSeparator[item] }
+                }))
+            }, 40);
+        }
+        
+    }
+
+
     useEffect(() => {
 
         if (flag == false) {
@@ -52,11 +85,11 @@ const PayUpdate = (profileData) => {
             setflag(1);
             PaymentMenu_Sync();
             lastupdateFun();
+            firebase_Fecth_DailySpend();
         }
         dropdown_screen_on();
 
-
-    }, [PaymentMenu_Sync, lastupdateFun])
+    }, [PaymentMenu_Sync, lastupdateFun, firebase_Fecth_DailySpend])
 
 
 
@@ -201,8 +234,13 @@ const PayUpdate = (profileData) => {
 
 
 
+
     return (
         <>
+
+            <DailySpendPieChart dataval={dataStoreDb} />
+
+
             <div className='dailyspend--add--item-block'>
                 {notification.activeStatus == true ?
                     <div className='notification'>
@@ -220,13 +258,13 @@ const PayUpdate = (profileData) => {
                 <div className='dailyspend--add--item payment--input'>
 
 
-                  
-              
-                        {listActive == true ? <Dropdown size="full" dataAry={paymentMenu} inputID={inputID} placeholder={inputPlaceHolder} onClickmeth={apply_pay_name} onClickNormal={false} />
-                            :
-                            <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
 
-                        }
+
+                    {listActive == true ? <Dropdown size="full" dataAry={paymentMenu} inputID={inputID} placeholder={inputPlaceHolder} onClickmeth={apply_pay_name} onClickNormal={false} />
+                        :
+                        <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
+
+                    }
                     {/* 
                         // <div ref={selectDrpDownDivref} className='spendList_display_screen'>
                         //     {

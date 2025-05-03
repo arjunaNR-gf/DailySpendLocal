@@ -6,17 +6,18 @@ import { app } from '../../ServiceForBackEnd/FireBaseConfig/Configuration';
 import { getDatabase, push, ref, set, get, remove } from 'firebase/database';
 import { FB_API, Get_sync } from '../../ServiceForBackEnd/FireBaseConfig/FirebaseService';
 import Dropdown from '../../Component/Dropdown/Dropdown'
+import DailySpendPieChart from '../../Component/Chart/mySpendChart';
 
 
 const ProfilePage = () => {
 
     const [btnText, setBtnText] = useState('')
 
-    const monthDetails=[
+    const monthDetails = [
         "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
     ]
 
-    const [inputval, setInputVal] = useState({ year: '2025', month: monthDetails[new Date().getMonth()], Total:0 ,totalSpend: '' })
+    const [inputval, setInputVal] = useState({ year: '2025', month: monthDetails[new Date().getMonth()], Total: 0, totalSpend: '' })
 
     const [flag, setflag] = useState(0)
 
@@ -90,7 +91,7 @@ const ProfilePage = () => {
     //fetch data by argument
     const search_dailyspend_details = async () => {
 
-         firebaseFetchProfile();
+        firebaseFetchProfile();
         // firebaseFetchProfile();
 
         // ProfileViewYearORMonthLoad();
@@ -137,9 +138,9 @@ const ProfilePage = () => {
             }))
             :
             setProfileView((PrevState) => ({ ...PrevState, ViewYearorMonth: orrangedAry }))
-            setTimeout(() => {
-                firebase_Fecth_DailySpend();
-            }, 20);
+        setTimeout(() => {
+            firebase_Fecth_DailySpend();
+        }, 20);
     }
 
 
@@ -152,9 +153,9 @@ const ProfilePage = () => {
                 }))
             }
         })
-        let sum=0;
+        let sum = 0;
         profileData.filter((item, index) => {
-            if ( item.year === inputval.year) {
+            if (item.year === inputval.year) {
                 sum += parseInt(item.money)
                 return setInputVal(prevestate => ({
                     ...prevestate, Total: sum
@@ -222,36 +223,33 @@ const ProfilePage = () => {
                     }
 
                 </div>
-
-
-
                 <div className='items-scrool'>
-                {inputval_flag() &&
-                    < div >
-                        <table>
-                            <thead>
-                                <th> Description </th>
-                                <th> Money</th>
-                                <th> dateOfSpend</th>
-                                <th> Last Update</th>
-                            </thead>
-                            <tbody>
-                                {
-                                    profileView.ViewData.map((item, i) => {
-                                        if (item.month != 'YEAR')
-                                            return <tr>
-                                                <td key={"desc" + i}>{item.description}</td>
-                                                <td key={"money" + i}>{item.money}</td>
-                                                <td key={"dateofspend" + i}>{new Date(item.dateOfSpend).toLocaleDateString()}</td>
-                                                <td key={"lastupdate" + i}>{new Date(item.lastupdate).toLocaleString()}</td>
-                                            </tr>
-                                    })
-                                }
-                            </tbody>
-                        </table>
+                    {inputval_flag() &&
+                        < div >
+                            <table>
+                                <thead>
+                                    <th> Description </th>
+                                    <th> Money</th>
+                                    <th> dateOfSpend</th>
+                                    <th> Last Update</th>
+                                </thead>
+                                <tbody>
+                                    {
+                                        profileView.ViewData.map((item, i) => {
+                                            if (item.month != 'YEAR')
+                                                return <tr>
+                                                    <td key={"desc" + i}>{item.description}</td>
+                                                    <td key={"money" + i}>{item.money}</td>
+                                                    <td key={"dateofspend" + i}>{new Date(item.dateOfSpend).toLocaleDateString()}</td>
+                                                    <td key={"lastupdate" + i}>{new Date(item.lastupdate).toLocaleString()}</td>
+                                                </tr>
+                                        })
+                                    }
+                                </tbody>
+                            </table>
 
-                    </div>
-                }
+                        </div>
+                    }
                 </div>
             </div>
         </>
