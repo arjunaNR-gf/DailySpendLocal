@@ -8,8 +8,12 @@ import { FB_API, Get_sync } from '../../ServiceForBackEnd/FireBaseConfig/Firebas
 import PayUpdate from '../../Pages/Payment/PayUpdate';
 import ProfilePage from '../Profile/ProfilePage';
 import PayInfoByMenu from '../PayInfoByMenu/PayInfoByMenu';
+import { AiOutlineMenu } from "react-icons/ai";
+
+
+
 const Home = ({ authenticate }) => {
-    const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const CurrentMonth = month[new Date().getMonth()]
     const [btnText, setBtnText] = useState('NEXT..')
     const [inputText, setInputText] = useState('date')
@@ -19,6 +23,8 @@ const Home = ({ authenticate }) => {
 
     const [notification, setNotification] = useState({ activeStatus: false, subject: '' })
     const [innerNavigationFlag, setinnerNavigationFlag] = useState("paymentDate")
+
+    const [isActive,SetIsActive] = useState('inactive')
 
 
     const [localDB, setLocalDb] = useState([])
@@ -88,22 +94,15 @@ const Home = ({ authenticate }) => {
             )
 
             setBtnText('serach')
-            // const monthtest = []
             inputval.year == '' ?
                 setProfileView({ ViewData: Array.from(new Set(profileData.map((item, i) => { return item.year }))) })
                 :
                 setProfileView({ ViewData: orrangedAry })
-            //  console.log(profileData.map((item) => { if (item.year == inputval.year) {return item.month} }),'heloo')
-            // monthtest[profileData.map((item) => { if (item.year == inputval.year) { item.month} })] =
-            // profileData.map((item) => { if (item.year == inputval.year) { item.month} })
-            //   console.log(monthtest,'ghhgg')
+
         }
 
     }
-
-
-
-
+   
 
 
     const PaymentMenu_Sync = async () => {
@@ -121,13 +120,6 @@ const Home = ({ authenticate }) => {
         else {
             console.log('0')
         }
-
-        // const data = await get_Firebase_sync(PaymenuListDetailsAdd)
-
-
-        //   const tempDB = data.val()
-        //   const tempData = Object.values(tempDB).map((key, i) => { return{tempDB} })
-        //   console.log(tempData,'tempdata...')
     }
 
 
@@ -152,10 +144,6 @@ const Home = ({ authenticate }) => {
     }, [])
 
 
-
-
-
-
     useEffect(() => {
         asyncgetOnlineStoreData();
         PaymentMenu_Sync();
@@ -170,12 +158,8 @@ const Home = ({ authenticate }) => {
         } else {
             asyncgetOnlineStoreData()
         }
+        SetIsActive('inactive')
     }
-
-
-
-
-
 
 
     const RemoveItemFromFB = async (itemID) => {
@@ -231,103 +215,59 @@ const Home = ({ authenticate }) => {
         return inputval.year != '' && inputval.month != ''
     }
 
-    const InputHandler = (name, val) => setInputVal((prevState) => ({ ...prevState, [name]: val }))
-
-    const InputName = () => { return inputval.year == '' ? 'year' : 'month' }
-
-
-    const InputSelVal = () => { return inputval.year == '' ? inputval.year : inputval.month }
-
-    const InputArry = () => { return profileView.ViewData }
-
-    const search_dailyspend_details = async () => {
-        if (inputval_flag()) {
-            const getData = await Get_sync(FB_API.daiilyspendInfo_Address)
-            if (getData.exists()) {
-                const tempDailydata = getData.val()
-                const tempDataD = Object.keys(tempDailydata).map((key, i) => {
-                    return { ...tempDailydata[key] }
-                })
-
-                const tempD = Object.keys(tempDataD[0]).map((key, i) => {
-                    return { ...tempDataD[0][key] }
-                })
-
-
-                setProfileView((prevState) => ({
-                    ...prevState, ViewData: Object.values(tempD).filter((item, i) => {
-                        setBtnText('Refresh')
-                        if (
-                            (new Date(item.dateOfSpend)).toLocaleString('default', { month: 'long' }).toLocaleLowerCase()
-                            ==
-                            inputval.month.toLowerCase()) {
-                            return {
-                                description: item.description,
-                                money: item.money,
-                                dateOfSpend: dateFormat_change(item.dateOfSpend),
-                                lastupdate: dateFormat_change(item.lastupdate)
-                            }
-                        }
-                    })
-                }))
-                TotalSpend_Orangement()
-            }
-        }
+    const totalSpendCurrentMonth = () => {
+        return localDB.reduce((acc, currentVal) => { return acc += currentVal.Amount }, 0)
     }
 
-    const TotalSpend_Orangement = () => {
-        profileData.filter((item, index) => {
-            if (item.month == inputval.month) {
-                return setInputVal(prevestate => ({
-                    ...prevestate, totalSpend: item.money
-                }))
-            }
-        })
-    }
-
-    const dateFormat_change = (str) => {
-
-        const dt = new Date(str)
-        const month = dt.getMonth() + 1; // months from 1-12
-        const day = dt.getDate();
-        const year = dt.getFullYear();
-        return day + "-" + month + "-" + year;
-
-    }
-
-    const paymentmenu_refresh = () => {
-        setInputVal({ year: '', month: '' })
-    }
-
-    const totalSpendCurrentMonth=()=>{
-        return localDB.reduce((acc,currentVal)=>{return acc += currentVal.Amount},0)
+   const changeIcondisplay=()=>{
+     SetIsActive('active')
     }
 
     return (
         <>
             <div className='dailyspend--head'>
-               <div className="home-header"><h1>daily </h1>  <h1>Spend</h1></div> 
+                <div className="home-header"><h1>daily </h1>  <h1>Spend</h1></div>
                 <div>
+                    <div className='mobilecls header--icon'>
+                    <AiOutlineMenu size="30" onClick={changeIcondisplay} />
+                    </div>
+                </div>
+            </div>
+            <div className='windowcls'>
+                <div className='menu--main--header'>
+                    <div className='Menu'>
+                        <ul>
+                            <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}>Home</li>
+                            {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}>View</li>}
+                            <li onClick={() => changePushMenu('profile')}>Profile</li>
+                            <li onClick={() => changePushMenu('profileByMenu')}>ProfileBymenu</li>
+                            <li onClick={() => changePushMenu('payment')}>Payment</li>
+                            <li onClick={() => changePushMenu('signout')}>SignOut</li>
+
+                        </ul>
+                    </div>
                 </div>
             </div>
 
-            <div className='menu--main--header'>
-                <div className='Menu'>
-                    <ul>
-                        <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}>Home</li>
-                        {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}>View</li>}
-                        <li onClick={() => changePushMenu('profile')}>Profile</li>
-                        <li onClick={() => changePushMenu('profileByMenu')}>ProfileBymenu</li>
-                        <li onClick={() => changePushMenu('payment')}>Payment</li>
-                        <li onClick={() => changePushMenu('signout')}>SignOut</li>
+            <div className={`mobilecls ${isActive}`}>
+                <div className='menu--main--header'>
+                        <ul>
+                            <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}>Home</li>
+                            {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}>View</li>}
+                            <li onClick={() => changePushMenu('profile')}>Profile</li>
+                            <li onClick={() => changePushMenu('profileByMenu')}>ProfileBymenu</li>
+                            <li onClick={() => changePushMenu('payment')}>Payment</li>
+                            <li onClick={() => changePushMenu('signout')}>SignOut</li>
 
-                    </ul>
-                </div>
+                        </ul>
+                    </div>
             </div>
+
+
             <div className='display--item'>
                 {pushMenu == 'finalpush' && localDB.length > 0 ?
                     <div className='dailyspend--display--item'>
-                        <h4>Spending Details of Month  <p>{ CurrentMonth } </p></h4>
+                        <h4>Spending Details of Month  <p>{CurrentMonth} </p></h4>
                         <table>
                             <thead>
 
@@ -357,8 +297,9 @@ const Home = ({ authenticate }) => {
                                         </tr>
                                     })
                                 }
-                                    <tr style={{display:"Flex",alignItems:"center",color:"black",fontSize:"14PX",padding:"10px",backgroundColor:"#8FBC8F"
-                                    }}> Total :{totalSpendCurrentMonth()} </tr>
+                                <tr style={{
+                                    display: "Flex", alignItems: "center", color: "black", fontSize: "14PX", padding: "10px", backgroundColor: "#8FBC8F"
+                                }}> Total :{totalSpendCurrentMonth()} </tr>
 
                             </tbody>
                         </table>

@@ -33,7 +33,6 @@ body {
 
 /*framework */
 .dailyspend--main--app {
-
   box-sizing: border-box;
   margin: 1% auto;
   padding: 0.125rem 0.125rem;
@@ -622,5 +621,9 @@ ul {
 
 .select--menu--selects:nth-last-child() {
   border-right: none;
+}
+.mobilecls
+{
+  display: none;
 }
 
