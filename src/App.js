@@ -48,9 +48,9 @@ function App() {
             
 
           }
-        if (name == 'XYXY')
+        if (name == 'XY')
           {
-           if(password="12345")
+           if(password="123")
            {
             setInputError((prevState)=>({...prevState,Text:""}))
             sessionStorage.setItem('LoginStatus',JSON.stringify('success'))

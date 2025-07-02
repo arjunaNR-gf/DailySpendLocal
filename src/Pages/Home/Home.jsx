@@ -9,6 +9,9 @@ import PayUpdate from '../../Pages/Payment/PayUpdate';
 import ProfilePage from '../Profile/ProfilePage';
 import PayInfoByMenu from '../PayInfoByMenu/PayInfoByMenu';
 import { AiOutlineMenu } from "react-icons/ai";
+import { BiArrowFromRight } from 'react-icons/bi';
+import { BsArrow90DegLeft, BsArrowDownLeft, BsArrowDownRight } from 'react-icons/bs';
+import { GrClose } from 'react-icons/gr';
 
 
 
@@ -223,6 +226,10 @@ const Home = ({ authenticate }) => {
      SetIsActive('active')
     }
 
+    const closeMenu=()=>{
+        SetIsActive('inactive');
+    }
+
     return (
         <>
             <div className='dailyspend--head'>
@@ -235,6 +242,7 @@ const Home = ({ authenticate }) => {
             </div>
             <div className='windowcls'>
                 <div className='menu--main--header'>
+                    
                     <div className='Menu'>
                         <ul>
                             <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}>Home</li>
@@ -251,6 +259,10 @@ const Home = ({ authenticate }) => {
 
             <div className={`mobilecls ${isActive}`}>
                 <div className='menu--main--header'>
+                <div className='mobile-menu-header-close'>
+                    <GrClose size="20"  onClick={closeMenu} />
+                </div>
+
                         <ul>
                             <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}>Home</li>
                             {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}>View</li>}
