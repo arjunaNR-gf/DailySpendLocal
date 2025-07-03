@@ -9,9 +9,8 @@ import PayUpdate from '../../Pages/Payment/PayUpdate';
 import ProfilePage from '../Profile/ProfilePage';
 import PayInfoByMenu from '../PayInfoByMenu/PayInfoByMenu';
 import { AiOutlineMenu } from "react-icons/ai";
-import { BiArrowFromRight } from 'react-icons/bi';
-import { BsArrow90DegLeft, BsArrowDownLeft, BsArrowDownRight } from 'react-icons/bs';
 import { GrClose } from 'react-icons/gr';
+import appData from '../../assest/MockData/Data';
 
 
 
@@ -27,20 +26,15 @@ const Home = ({ authenticate }) => {
     const [notification, setNotification] = useState({ activeStatus: false, subject: '' })
     const [innerNavigationFlag, setinnerNavigationFlag] = useState("paymentDate")
 
-    const [isActive,SetIsActive] = useState('inactive')
-
+    const [isActive, SetIsActive] = useState('inactive')
 
     const [localDB, setLocalDb] = useState([])
-
     const [pushMenu, setPushMenu] = useState('payment')
     const [paymentMenu, setPaymentMenu] = useState([])
-
     const [lastupdateInfo, setLastUpdateInfo] = useState('')
     const [profileData, setProfileData] = useState([])
-
-
-
     const [profileView, setProfileView] = useState({ selectedYear: '', selectedMonth: '', ViewData: [] })
+    const [haveAccess, setHaveAccess] = useState('N');
 
 
 
@@ -105,7 +99,7 @@ const Home = ({ authenticate }) => {
         }
 
     }
-   
+
 
 
     const PaymentMenu_Sync = async () => {
@@ -124,6 +118,12 @@ const Home = ({ authenticate }) => {
             console.log('0')
         }
     }
+    //Menthod Call
+    useEffect(() => {
+        asyncgetOnlineStoreData();
+        PaymentMenu_Sync();
+        firebaseFetchProfile();
+    }, [asyncgetOnlineStoreData, PaymentMenu_Sync, firebaseFetchProfile])
 
 
     useEffect(() => {
@@ -144,14 +144,22 @@ const Home = ({ authenticate }) => {
                 console.log(error)
             }
         })
+        Access_Check();
     }, [])
 
+    const Access_Check = () => {
+        var personUserName = JSON.parse(sessionStorage.getItem('LoginStatus')).username;
 
-    useEffect(() => {
-        asyncgetOnlineStoreData();
-        PaymentMenu_Sync();
-        firebaseFetchProfile();
-    }, [asyncgetOnlineStoreData, PaymentMenu_Sync, firebaseFetchProfile])
+        setHaveAccess(appData.userAccess.filter(item => item.userName === personUserName)[0].Role.some(rl => rl.includes('Admin')) ? 'Y' : 'N')
+
+
+
+    }
+
+
+
+
+
 
     const changePushMenu = (menuName) => {
         if (menuName == 'signout') { authenticate('signout', '', '') }
@@ -222,11 +230,11 @@ const Home = ({ authenticate }) => {
         return localDB.reduce((acc, currentVal) => { return acc += currentVal.Amount }, 0)
     }
 
-   const changeIcondisplay=()=>{
-     SetIsActive('active')
+    const changeIcondisplay = () => {
+        SetIsActive('active')
     }
 
-    const closeMenu=()=>{
+    const closeMenu = () => {
         SetIsActive('inactive');
     }
 
@@ -236,20 +244,19 @@ const Home = ({ authenticate }) => {
                 <div className="home-header"><h1>daily </h1>  <h1>Spend</h1></div>
                 <div>
                     <div className='mobilecls header--icon'>
-                    <AiOutlineMenu size="30" onClick={changeIcondisplay} />
+                        <AiOutlineMenu size="30" onClick={changeIcondisplay} />
                     </div>
                 </div>
             </div>
             <div className='windowcls'>
                 <div className='menu--main--header'>
-                    
                     <div className='Menu'>
                         <ul>
                             <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}>Home</li>
+                            <li onClick={() => changePushMenu('payment')}>Payment</li>
                             {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}>View</li>}
                             <li onClick={() => changePushMenu('profile')}>Profile</li>
                             <li onClick={() => changePushMenu('profileByMenu')}>ProfileBymenu</li>
-                            <li onClick={() => changePushMenu('payment')}>Payment</li>
                             <li onClick={() => changePushMenu('signout')}>SignOut</li>
 
                         </ul>
@@ -259,20 +266,19 @@ const Home = ({ authenticate }) => {
 
             <div className={`mobilecls ${isActive}`}>
                 <div className='menu--main--header'>
-                <div className='mobile-menu-header-close'>
-                    <GrClose size="20"  onClick={closeMenu} />
-                </div>
-
-                        <ul>
-                            <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}>Home</li>
-                            {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}>View</li>}
-                            <li onClick={() => changePushMenu('profile')}>Profile</li>
-                            <li onClick={() => changePushMenu('profileByMenu')}>ProfileBymenu</li>
-                            <li onClick={() => changePushMenu('payment')}>Payment</li>
-                            <li onClick={() => changePushMenu('signout')}>SignOut</li>
-
-                        </ul>
+                    <div className='mobile-menu-header-close'>
+                        <GrClose size="20" onClick={closeMenu} />
                     </div>
+                    <ul>
+                        <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}>Home</li>
+                        <li onClick={() => changePushMenu('payment')}>Payment</li>
+                        {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}>View</li>}
+                        <li onClick={() => changePushMenu('profile')}>Profile</li>
+                        <li onClick={() => changePushMenu('profileByMenu')}>ProfileBymenu</li>
+                        <li onClick={() => changePushMenu('signout')}>SignOut</li>
+
+                    </ul>
+                </div>
             </div>
 
 
@@ -284,7 +290,7 @@ const Home = ({ authenticate }) => {
                             <thead>
 
                                 <th>
-                                    Payment Desc
+                                    Descriptions
                                 </th>
                                 <th>
                                     Date Of Spend
@@ -305,7 +311,7 @@ const Home = ({ authenticate }) => {
                                             <td key={'payment' + item.PayID}>{item.paymentDate}</td>
                                             <td key={'amount' + item.PayID}>{item.Amount}</td>
                                             <td key={item.PayID + i + 'btn'}><button onClick={() => pushToLocalSql(item.PayID)}>P</button>
-                                                <button onClick={() => RemoveItemFromFB(item.PayID)}>D</button></td>
+                                                <button className={`useraccess` + haveAccess} onClick={() => RemoveItemFromFB(item.PayID)}>D</button></td>
                                         </tr>
                                     })
                                 }
