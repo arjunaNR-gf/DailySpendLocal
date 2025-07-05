@@ -11,9 +11,6 @@ import LoaderNotificaiton from '../../Component/Notification/LoaderNotification'
 
 
 const ProfilePage = () => {
-
-
-
     //it works like dataset
     const [profileView, setProfileView] = useState({
         selectedYear: '', selectedMonth: '',
@@ -35,7 +32,7 @@ const ProfilePage = () => {
     ]
 
     const [inputval, setInputVal] =
-        useState({ year: new Date().getFullYear(), month: monthDetails[new Date().getMonth()], Total: '', totalSpend: '' })
+        useState({ year: new Date().getFullYear(), month: monthDetails[new Date().getMonth()], Total: 0, totalSpend: 0 })
 
 
     const [notificationActive, setNotificationActive] = useState(false)
@@ -160,7 +157,10 @@ const ProfilePage = () => {
 
     //refresh
     const paymentmenu_refresh = () => {
-        setInputVal({ year: '', month: '', Total: 0, totalSpend: 0 })
+        setTimeout(() => {
+            setInputVal({ year: '', month: '', Total: 0, totalSpend: 0 })
+        }, 10);
+        
 
         setProfileView({
             selectedYear: '', selectedMonth: '',
@@ -191,14 +191,14 @@ const ProfilePage = () => {
             <div className='dailyspend--display--item'>
                 <div className='select--menu--main'>
                     <div className='select--menu'>
-                        <Dropdown
+                         {  <Dropdown
                             placeholder="select value"
                             size={inputval_flag() == false ? "full" : "medium"}
                             name={InputName()}
                             value={InputSelVal()}
                             onClickmeth={InputHandler}
                             dataAry={InputArry()}
-                        />
+                        />}
                         {inputval_flag() == true &&
                             <button onClick={() => paymentmenu_refresh()}>
                                 {btnText}
@@ -208,16 +208,17 @@ const ProfilePage = () => {
 
                     {inputval_flag() &&
                         <div className='select--menu--selects'>
+                           
                             <div className='display--spend--monthyearspend'>  {inputval.year && <div>Year : {inputval.year}</div>}</div>
-                            <div className='display--spend--monthyearspend'>  {inputval.Total && <div>Total/Y : {inputval.Total}</div>}</div>
+                            <div className='display--spend--monthyearspend'>  {inputval.Total !==0 ?<div>Total/Y : {inputval.Total}</div>:  <LoaderNotificaiton type={'DD'}  /> }</div>
                             <div className='display--spend--monthyearspend'>  {inputval.month && <div>Month : {inputval.month.toUpperCase()}</div>}</div>
-                            <div className='display--spend--monthyearspend'>  {inputval.totalSpend && <div>Spend/M :{inputval.totalSpend}</div>}</div>
+                            <div className='display--spend--monthyearspend'>  {inputval.totalSpend !==0 ? <div>Spend/M :{inputval.totalSpend}</div> : <LoaderNotificaiton type={'DD'} />  }</div>
                         </div>
                     }
                 </div>
 
                 <div className='items-scrool'>
-                    {notificationActive && <LoaderNotificaiton />}
+                    {notificationActive  && <LoaderNotificaiton type={'CS'} text={"Please wait for a second..."} />}
                     {(inputval_flag() && profileView.ViewData.length > 1) ? (
                         < div >
                             <table>

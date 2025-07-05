@@ -88,7 +88,7 @@ function App() {
   return (
     <>
       <div className='dailyspend--main--app'>
-        {notification && <LoaderNotificaiton />}
+        {notification && <LoaderNotificaiton type={'H'} />}
 
         {authenticate === true ?
           <Home authenticate={AuthenticateUser} /> : <Signup authenticate={AuthenticateUser} inputErrordetails={inputError.Text} />

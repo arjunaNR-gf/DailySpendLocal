@@ -18,18 +18,12 @@ const Home = ({ authenticate }) => {
     const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const CurrentMonth = month[new Date().getMonth()]
     const [btnText, setBtnText] = useState('NEXT..')
-    const [inputText, setInputText] = useState('date')
-    const [inputID, setInputId] = useState('byDate')
-    const [inputPlaceHolder, setPlaceHolder] = useState('Enter The' + inputID + '....')
-    const [item, setItem] = useState({ paymentDate: '', Item_Name: '', Spent_Price: '' })
-
     const [notification, setNotification] = useState({ activeStatus: false, subject: '' })
-    const [innerNavigationFlag, setinnerNavigationFlag] = useState("paymentDate")
 
     const [isActive, SetIsActive] = useState('inactive')
 
     const [localDB, setLocalDb] = useState([])
-    const [pushMenu, setPushMenu] = useState('payment')
+    const [pushMenu, setPushMenu] = useState('')
     const [paymentMenu, setPaymentMenu] = useState([])
     const [lastupdateInfo, setLastUpdateInfo] = useState('')
     const [profileData, setProfileData] = useState([])
@@ -117,10 +111,11 @@ const Home = ({ authenticate }) => {
     }
     //Menthod Call
     useEffect(() => {
+        setPushMenu(sessionStorage.getItem('currentPage') !== null ? JSON.parse(sessionStorage.getItem('currentPage')):'profile')
         asyncgetOnlineStoreData();
         PaymentMenu_Sync();
         firebaseFetchProfile();
-    }, [asyncgetOnlineStoreData, PaymentMenu_Sync, firebaseFetchProfile])
+    }, [])
 
 
     useEffect(() => {
@@ -161,12 +156,14 @@ const Home = ({ authenticate }) => {
     const changePushMenu = (menuName) => {
         if (menuName == 'signout') { authenticate('signout', '', '') }
         setPushMenu(menuName)
+        sessionStorage.setItem('currentPage',JSON.stringify(menuName))
         if (menuName == 'profile') {
             firebaseFetchProfile();
         } else {
             asyncgetOnlineStoreData()
         }
         SetIsActive('inactive')
+
     }
 
 

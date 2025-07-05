@@ -395,8 +395,7 @@ dropdown list
 .items-scrool {
   position: relative;
   width: inherit;
-  height: 600px;
-  padding: green;
+  height: 700px;
   overflow: scroll;
   overflow-x: hidden;
 
@@ -620,6 +619,7 @@ ul {
 .select--menu--selects>div {
   border-right: 2.8px solid rgb(230, 212, 212);
   padding: 0 .325rem;
+  position: relative;
 }
 
 .select--menu--selects:nth-last-child() {

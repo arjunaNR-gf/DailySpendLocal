@@ -1,13 +1,28 @@
- .loade-bck{
+  .loade-bck{
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     position: absolute;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     background-color:white;
+    z-index: 1000;
+}
+
+  .loade-bck-yellow{
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color:rgb(133, 133, 38);
     z-index: 1000;
 }
 /*
@@ -47,13 +62,13 @@
 
   /* HTML: <div class="loader"></div> */
 /* HTML: <div class="loader"></div> */
-.loader {
+.loader-sqare {
   width:50px;
   aspect-ratio: 1;
   display: grid;
 }
-.loader:before,
-.loader:after {
+.loader-sqare:before,
+.loader-sqare:after {
   content: "";
   grid-area: 1/1;
   --c:#0000 calc(100%/3),rgb(171, 171, 73) 0 calc(2*100%/3),#0000 0;
@@ -62,18 +77,213 @@
   background: var(--c1),var(--c2),var(--c1),var(--c2);
   background-size: 300% 4px,4px 300%;
   background-repeat: no-repeat;
-  animation: l11 1s infinite linear;
+  animation: lsr 1s infinite linear;
 }
-.loader:after {
+.loader-sqare:after {
   margin: 10px;
   transform: scaleX(-1);
   animation-delay: -.25s;
 }
-@keyframes l11 {
+@keyframes lsr {
   0%   {background-position: 50%  0,100% 100%,0    100%,0 0}
   25%  {background-position: 0    0,100% 50% ,0    100%,0 0}
   50%  {background-position: 0    0,100% 0   ,50%  100%,0 0}
   75%  {background-position: 0    0,100% 0   ,100% 100%,0 50%}
  75.01%{background-position: 100% 0,100% 0   ,100% 100%,0 50%}
   100% {background-position: 50%  0,100% 0   ,100% 100%,0 100%}
+} */
+
+
+
+
+/* HTML: <div class="loader"></div> */
+ .loader-circle {
+  width: 60px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: l11 1s infinite;
 }
+@keyframes l11 {
+  0%   {background: conic-gradient(rgb(160, 160, 37) 0     ,#0000 0)}
+  12.5%{background: conic-gradient(rgb(160, 160, 37) 45deg ,#0000 46deg)}
+  25%  {background: conic-gradient(rgb(160, 160, 37) 90deg ,#0000 91deg)}
+  37.5%{background: conic-gradient(rgb(160, 160, 37) 135deg,#0000 136deg)}
+  50%  {background: conic-gradient(rgb(160, 160, 37) 180deg,#0000 181deg)}
+  62.5%{background: conic-gradient(rgb(160, 160, 37)225deg,#0000 226deg)}
+  75%  {background: conic-gradient(rgb(160, 160, 37) 270deg,#0000 271deg)}
+  87.5%{background: conic-gradient(rgb(160, 160, 37) 315deg,#0000 316deg)}
+  100% {background: conic-gradient(rgb(160, 160, 37) 360deg,#0000 360deg)}
+} 
+
+/* <div class="loader-squarecircle"></div> */
+.loader-squarecircle {
+  width: 32px;
+  height: 16px;
+  display: flex;
+}
+.loader-squarecircle:before,
+.loader-squarecircle:after {
+  content: "";
+  flex: 1;
+  background: #3FB8AF;
+  transform-origin: top right;
+  animation: lsc 2s infinite;
+}
+.loader-squarecircle:after {
+  background: #FF3D7F;
+  transform-origin: top left;
+  animation-delay: .25s;
+}
+@keyframes lsc {
+   0%,5%    {transform: rotate(0)}
+   20%,30%  {transform: rotate(90deg)}
+   45%,55%  {transform: rotate(180deg)}
+   70%,80%  {transform: rotate(270deg)}
+   95%,100% {transform: rotate(360deg)}
+}
+
+
+
+/* HTML: <div class="loader"></div> */
+.loader-CS {
+  width: 35px;
+  aspect-ratio: 1;
+  --c:no-repeat linear-gradient(#046D8B 0 0);
+  background:
+    var(--c) 0 0,
+    var(--c) 100% 0,
+    var(--c) 100% 100%,
+    var(--c) 0 100%;
+  animation: 
+    l2-1 2s infinite,
+    l2-2 2s infinite;
+}
+@keyframes l2-1 {
+  0%   {background-size: 0    4px,4px 0   ,0    4px,4px 0   }
+  12.5%{background-size: 100% 4px,4px 0   ,0    4px,4px 0   }
+  25%  {background-size: 100% 4px,4px 100%,0    4px,4px 0   }
+  37.5%{background-size: 100% 4px,4px 100%,100% 4px,4px 0   }
+  45%,
+  55%  {background-size: 100% 4px,4px 100%,100% 4px,4px 100%}
+  62.5%{background-size: 0    4px,4px 100%,100% 4px,4px 100%}
+  75%  {background-size: 0    4px,4px 0   ,100% 4px,4px 100%}
+  87.5%{background-size: 0    4px,4px 0   ,0    4px,4px 100%}
+  100% {background-size: 0    4px,4px 0   ,0    4px,4px 0   }
+}
+@keyframes l2-2 {
+  0%,49.9%{background-position: 0 0   ,100% 0   ,100% 100%,0 100%}
+  50%,100%{background-position: 100% 0,100% 100%,0    100%,0 0   }
+}
+
+
+/* HTML: <div class="loader"></div> */
+/* HTML: <div class="loader"></div> */
+.loader-LN {
+  height: 9px;
+  width: 60px;
+  --c:no-repeat linear-gradient(#000 0 0);
+  background: var(--c), var(--c), var(--c), var(--c);
+  background-size: 26% 3px;
+  animation: l2 1s infinite;
+}
+@keyframes l2 {
+  0%,
+  70%,
+  100% {background-position: calc(0*100%/3) 100%,calc(1*100%/3) 100%,calc(2*100%/3) 100%,calc(3*100%/3) 100%}
+  14%  {background-position: calc(0*100%/3) 0   ,calc(1*100%/3) 100%,calc(2*100%/3) 100%,calc(3*100%/3) 100%}
+  28%  {background-position: calc(0*100%/3) 100%,calc(1*100%/3) 0   ,calc(2*100%/3) 100%,calc(3*100%/3) 100%}
+  42%  {background-position: calc(0*100%/3) 100%,calc(1*100%/3) 100%,calc(2*100%/3) 0   ,calc(3*100%/3) 100%}
+  56%  {background-position: calc(0*100%/3) 100%,calc(1*100%/3) 100%,calc(2*100%/3) 100%,calc(3*100%/3) 0   }
+}
+
+
+/* HTML: <div class="loader"></div> */
+.loader-SLN {
+  width: 120px;
+  height: 20px;
+  background: 
+    linear-gradient(90deg,#0001 33%,#0005 50%,#0001 66%)
+    #f2f2f2;
+  background-size:300% 100%;
+  animation: l1 1s infinite linear;
+}
+@keyframes l1 {
+  0% {background-position: right}
+}
+
+/* HTML: <div class="loader"></div> */
+.loader-SS {
+  width: 90px;
+  height: 12px;
+  --c:rgb(160, 160, 22) 50%,rgb(252, 252, 243) 0;
+  background: 
+    linear-gradient( 90deg,var(--c)) 0 0,
+    linear-gradient(-90deg,var(--c)) 0 0;
+  background-size: 20px 100%;
+  background-repeat: repeat-x;
+  animation: l10 1s infinite linear;
+}
+@keyframes l10 {
+    100% {background-position: -20px 0,20px 0}
+}
+
+
+/* HTML: <div class="loader"></div> */
+.loader-PP {
+  width: 25;
+  aspect-ratio: 1;
+  background: 
+    linear-gradient(#0000 calc(1*100%/6),#000 0 calc(3*100%/6),#0000 0) left   bottom,
+    linear-gradient(#0000 calc(2*100%/6),#000 0 calc(4*100%/6),#0000 0) center bottom,
+    linear-gradient(#0000 calc(3*100%/6),#000 0 calc(5*100%/6),#0000 0) right  bottom;
+  background-size: 20% 300%;
+  background-repeat: no-repeat;
+  animation: l3 1s infinite linear;
+}
+@keyframes l3 {
+    100% {background-position: left top,center top,right top }
+}
+
+/* HTML: <div class="loader"></div> */
+.loader-DD {
+  width: 25px;
+  aspect-ratio: 1;
+  --c: no-repeat linear-gradient(rgb(198, 198, 12) 0 0);
+  background: 
+    var(--c) 0%   50%,
+    var(--c) 50%  50%,
+    var(--c) 100% 50%,
+    var(--c) 100% 150%,
+    var(--c) 150% 200%;
+
+  background-size: 10% 300%;
+  animation: l1 1s infinite linear;
+}
+@keyframes l1 {
+  0%  {background-size: 20% 100%,20% 100%,20% 100%}
+  33% {background-size: 20% 10% ,20% 100%,20% 100%}
+  50% {background-size: 20% 100%,20% 10% ,20% 100%}
+  66% {background-size: 20% 100%,20% 100%,20% 10% }
+  100%{background-size: 20% 100%,20% 100%,20% 100%}
+}
+
+
+/* HTML: <div class="loader"></div> */
+
+ /* HTML: <div class="loader"></div> */
+.loader--BB {
+  width: 90px;
+  height: 14px;
+  --c:rgb(182, 182, 3) 42%,#0000;
+  background: 
+    radial-gradient(circle closest-side,var(--c)) calc(100%/-4) 0,
+    radial-gradient(circle closest-side,var(--c)) calc(100%/4)  0;
+  background-size:calc(100%/2) 100%;
+  animation: l14 1.5s infinite;
+}
+@keyframes l14 {
+    0%   {background-position: calc(100%/-4) 0    ,calc(100%/4) 0}
+    50%  {background-position: calc(100%/-4) -14px,calc(100%/4) 14px}
+    100% {background-position: calc(100%/4)  -14px,calc(3*100%/4) 14px}
+}
+
