@@ -44,7 +44,7 @@ const PayUpdate = (profileData) => {
             }))
         }
         else {
-            console.log('0')
+          ''
         }
     }
 
@@ -121,7 +121,6 @@ const PayUpdate = (profileData) => {
                 Change_Context('Enter The Date', 'date', 'byDate')
             }, 10);
         }
-        console.log(item)
     }
 
 
@@ -170,7 +169,6 @@ const PayUpdate = (profileData) => {
 
 
     const push_Db = () => {
-        console.log('entered')
         //pushing data to arry to set ready before pushing to local db
         // let guid_ID = uuidv4();
         // db[guid_ID] = []

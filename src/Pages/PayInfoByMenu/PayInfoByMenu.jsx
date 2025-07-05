@@ -88,7 +88,7 @@ const PayInfoByMenu = () => {
 
         }
         else {
-            console.log('0')
+          ''
         }
     }
 

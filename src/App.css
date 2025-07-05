@@ -393,6 +393,7 @@ dropdown list
 }
 
 .items-scrool {
+  position: relative;
   width: inherit;
   height: 600px;
   padding: green;

@@ -4,7 +4,6 @@ import InputPad from "../../Component/Input/InputPad";
 import LoaderNotificaiton from "../../Component/Notification/LoaderNotification";
 
 export default function Signup({ screen, authenticate, inputErrordetails }) {
-  console.log(inputErrordetails)
   const [input, setInput] = useState({
     Username: "",
     Email: "",

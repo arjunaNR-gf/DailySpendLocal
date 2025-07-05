@@ -7,193 +7,188 @@ import { getDatabase, push, ref, set, get, remove } from 'firebase/database';
 import { FB_API, Get_sync } from '../../ServiceForBackEnd/FireBaseConfig/FirebaseService';
 import Dropdown from '../../Component/Dropdown/Dropdown'
 import DailySpendPieChart from '../../Component/Chart/mySpendChart';
+import LoaderNotificaiton from '../../Component/Notification/LoaderNotification';
 
 
 const ProfilePage = () => {
 
-    const [btnText, setBtnText] = useState('')
 
+
+    //it works like dataset
+    const [profileView, setProfileView] = useState({
+        selectedYear: '', selectedMonth: '',
+        selectedContent: '',
+        ViewYearorMonth: [],
+        SpendDB: [],
+        ViewData:
+            [{
+                description: '',
+                money: '',
+                dateOfSpend: '',
+                lastupdate: ''
+            }]
+    })
+
+    //this will  controll intial value of dispaly at profile page
     const monthDetails = [
         "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
     ]
 
-    const [inputval, setInputVal] = useState({ year: '2025', month: monthDetails[new Date().getMonth()], Total: 0, totalSpend: '' })
-
-    const [flag, setflag] = useState(0)
-
-    const [profileData, setProfileData] = useState([])
-
-    const [profileView, setProfileView] = useState({
-        selectedYear: '', selectedMonth: '',
-        ViewYearorMonth: [], ViewData: [{
-            description: '',
-            money: '',
-            dateOfSpend: '',
-            lastupdate: ''
-        }]
-    })
+    const [inputval, setInputVal] =
+        useState({ year: new Date().getFullYear(), month: monthDetails[new Date().getMonth()], Total: '', totalSpend: '' })
 
 
-    //this fecth only year/month/money not all 
-    const firebaseFetchProfile = async () => {
-        const db = getDatabase(app);
-        const dbRef = ref(db, FB_API.profile_Address)
-        const getData = await get(dbRef)
-        if (getData.exists()) {
-            const tempDB = getData.val()
-            const tempData = Object.keys(tempDB).map((key, i) => {
-                return { ...tempDB[key] }
-            })
+    const [notificationActive, setNotificationActive] = useState(false)
 
-            setProfileData(Object.keys(tempData[0]).map((key, i) => {
-                return { ...tempData[0][key] }
-            }))
-        }
-        setTimeout(() => {
-            ProfileViewYearORMonthLoad();
-        }, 20);
-    }
-
-    const firebase_Fecth_DailySpend = async () => {
-        const getData = await Get_sync(FB_API.daiilyspendInfo_Address)
-        if (getData.exists()) {
-            const tempDailydata = getData.val()
-            const tempDataD = Object.keys(tempDailydata).map((key, i) => {
-                return { ...tempDailydata[key] }
-            })
-
-            const tempD = Object.keys(tempDataD[0]).map((key, i) => {
-                return { ...tempDataD[0][key] }
-            })
-            setBtnText('Refresh')
-
-            setProfileView((prevState) => ({
-                ...prevState, ViewData: Object.values(tempD).filter((item, i) => {
-
-                    if (
-                        (new Date(item.dateOfSpend)).toLocaleString('default', { month: 'long' }).toLocaleLowerCase()
-                        ==
-                        inputval.month.toLowerCase() && new Date(item.dateOfSpend).getFullYear() == inputval.year) {
-                        return {
-                            description: item.description,
-                            money: item.money,
-                            dateOfSpend: dateFormat_change(item.dateOfSpend),
-                            lastupdate: dateFormat_change(item.lastupdate)
-                        }
-                    }
-                })
-            }))
-        }
-        TotalSpend_PerMonth();
-    }
-
-
-    //fetch data by argument
-    const search_dailyspend_details = async () => {
-
-        firebaseFetchProfile();
-        // firebaseFetchProfile();
-
-        // ProfileViewYearORMonthLoad();
-        // firebase_Fecth_DailySpend();
-        // TotalSpend_PerMonth();
-        // !inputval_flag() && setBtnText('Search')
-    }
-
+    //this is just to set width of DROP DOWN Box
     const inputval_flag = () => {
         return inputval.year != '' && inputval.month != ''
     }
 
-    //set up input handler 
+    //Regresh button
+    const [btnText, setBtnText] = useState('REFRESH')
+
+    useEffect(() => {
+        firebase_Fecth_DailySpend()
+    }, [inputval.month, inputval.year])
+    //set up input box value at end according to requirement
     const InputHandler = (name, val) => {
         setInputVal((prevState) => ({ ...prevState, [name]: val }))
     }
 
-    //it will set the input type mean ID 
-    const InputName = () => { return inputval.year == '' ? 'year' : 'month' }
+    //it will set the input type mean name 
+    const InputName = () => { return inputval.year === '' ? 'year' : 'month' }
 
     //it will set the input value based on ID and null value present
-    const InputSelVal = () => { return inputval.year == '' ? inputval.year : inputval.month }
+    const InputSelVal = () => { return inputval.year === '' ? inputval.year : inputval.month }
 
     //this will fill the data with values
     const InputArry = () => { return profileView.ViewYearorMonth }
 
 
-    const ProfileViewYearORMonthLoad = () => {
-        const monthTest = [
-            "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
-        ]
-        const orrangedAry = [];
 
-        profileData.map((item, i) => {
-            if (item.year == inputval.year) {
-                orrangedAry[monthTest.indexOf(item.month)] = item.month
-            }
-        })
+    //step 1 : once Profile Option Load , helps to load currect year, month data
+    //this fecth only on that month under specified year how much spent
+    //pull all daily spend details irrespective of month day year
+    const firebase_Fecth_DailySpend = async () => {
+        setNotificationActive(true); // Show loader
 
-        inputval.year == '' ?
-            setProfileView((PrevState) => ({
-                ...PrevState,
-                ViewYearorMonth: Array.from(new Set(profileData.map((item, i) => { return item.year })))
+        const getData = await Get_sync(FB_API.daiilyspendInfo_Address);
+
+        if (getData.exists()) {
+            const tempDataD = Object.keys(getData.val()).map(key => ({
+                ...getData.val()[key],
+            }));
+
+            const temp = Object.keys(tempDataD[0]).map(key => ({
+                ...tempDataD[0][key],
+            }));
+
+            //to display over all spend on year /Month
+            setInputVal((prevState) => ({
+                ...prevState,
+                Total: temp.filter(yearspend => new Date(yearspend.dateOfSpend).getFullYear() === inputval.year).reduce((sum, resultArrya) => sum + Number(resultArrya.money), 0),
+                totalSpend: temp.filter(monthandyear => new Date(monthandyear.dateOfSpend).getFullYear() === inputval.year && monthDetails[new Date(monthandyear.dateOfSpend).getMonth()] === inputval.month).
+                    reduce((sum, resultAry) => sum + Number(resultAry.money), 0)
             }))
-            :
-            setProfileView((PrevState) => ({ ...PrevState, ViewYearorMonth: orrangedAry }))
+           
+        
+
+            //fetch data by year & month
+            const ftemp = temp.filter(item =>
+                new Date(item.dateOfSpend).getMonth() === monthDetails.indexOf(inputval.month) &&
+                new Date(item.dateOfSpend).getFullYear() === inputval.year
+            );
+
+            setProfileView(prevState => ({
+                ...prevState,
+                ViewData: ftemp,
+            }));
+            getMonthName(temp);
+        }
         setTimeout(() => {
-            firebase_Fecth_DailySpend();
-        }, 20);
+            setNotificationActive(false); // Hide loader
+        }, 300);
+    };
+
+    //this assign all year available
+    const getYearNumber = (tempDate) => {
+        setProfileView((prevState) => ({
+            ...prevState,
+            ViewYearorMonth: Array.from(new Set(
+                tempDate.map((item, i) => {
+                    return new Date(item.dateOfSpend).getFullYear()
+                })))
+        }))
     }
 
-
-    const TotalSpend_PerMonth = () => {
-
-        profileData.filter((item, index) => {
-            if (item.month.toLocaleLowerCase() === inputval.month.toLocaleLowerCase() && item.year === inputval.year) {
-                return setInputVal(prevestate => ({
-                    ...prevestate, totalSpend: item.money
-                }))
-            }
-        })
-        let sum = 0;
-        profileData.filter((item, index) => {
-            if (item.year === inputval.year) {
-                sum += parseInt(item.money)
-                return setInputVal(prevestate => ({
-                    ...prevestate, Total: sum
-                }))
-            }
-        })
-
+    //this pull all month available
+    const getMonthName = (tempdate) => {
+        setProfileView((prevState) => ({
+            ...prevState,
+            ViewYearorMonth: Array.from(new Set(
+                tempdate.filter(item => new Date(item.dateOfSpend).getFullYear() === inputval.year).map((item, i) => {
+                    return monthDetails[new Date(item.dateOfSpend).getMonth()]
+                })))
+        }))
     }
+
+    const dailyspend_pull = async () => {
+        const getData = await Get_sync(FB_API.daiilyspendInfo_Address);
+
+        if (getData.exists()) {
+            const tempDataD = Object.keys(getData.val()).map(key => ({
+                ...getData.val()[key],
+            }));
+
+            const temp = Object.keys(tempDataD[0]).map(key => ({
+                ...tempDataD[0][key],
+            }));
+            getYearNumber(temp)
+        }
+    }
+
 
     const dateFormat_change = (str) => {
-
         const dt = new Date(str)
         const month = dt.getMonth() + 1; // months from 1-12
         const day = dt.getDate();
         const year = dt.getFullYear();
         return day + "-" + month + "-" + year;
-
     }
 
 
+    //refresh
     const paymentmenu_refresh = () => {
-        setInputVal({ year: '', month: '', totalSpend: '' })
-        setProfileView({ selectedYear: '', selectedMonth: '', ViewYearorMonth: [], ViewData: [] })
+        setInputVal({ year: '', month: '', Total: 0, totalSpend: 0 })
+
+        setProfileView({
+            selectedYear: '', selectedMonth: '',
+            ViewYearorMonth: [],
+            selectedContent: '',
+            ViewData:
+                [{
+                    description: '',
+                    money: '',
+                    dateOfSpend: '',
+                    lastupdate: ''
+                }]
+        })
+        setTimeout(() => {
+            dailyspend_pull();
+        }, 40)
+
+
     }
 
 
-    useEffect(() => {
-        if (flag == false) {
-            search_dailyspend_details();
-        }
-    }, [search_dailyspend_details])
+
 
 
 
     return (
         <>
             <div className='dailyspend--display--item'>
-
                 <div className='select--menu--main'>
                     <div className='select--menu'>
                         <Dropdown
@@ -204,10 +199,8 @@ const ProfilePage = () => {
                             onClickmeth={InputHandler}
                             dataAry={InputArry()}
                         />
-
-
                         {inputval_flag() == true &&
-                            <button onClick={btnText != 'Refresh' ? () => search_dailyspend_details() : () => paymentmenu_refresh()}>
+                            <button onClick={() => paymentmenu_refresh()}>
                                 {btnText}
                             </button>
                         }
@@ -221,10 +214,11 @@ const ProfilePage = () => {
                             <div className='display--spend--monthyearspend'>  {inputval.totalSpend && <div>Spend/M :{inputval.totalSpend}</div>}</div>
                         </div>
                     }
-
                 </div>
+
                 <div className='items-scrool'>
-                    {inputval_flag() &&
+                    {notificationActive && <LoaderNotificaiton />}
+                    {(inputval_flag() && profileView.ViewData.length > 1) ? (
                         < div >
                             <table>
                                 <thead>
@@ -236,19 +230,24 @@ const ProfilePage = () => {
                                 <tbody>
                                     {
                                         profileView.ViewData.map((item, i) => {
-                                            if (item.month != 'YEAR')
-                                                return <tr>
-                                                    <td key={"desc" + i}>{item.description}</td>
-                                                    <td key={"money" + i}>{item.money}</td>
-                                                    <td key={"dateofspend" + i}>{new Date(item.dateOfSpend).toLocaleDateString()}</td>
-                                                    <td key={"lastupdate" + i}>{new Date(item.lastupdate).toLocaleString()}</td>
-                                                </tr>
+                                            if (item.month !== 'YEAR') {
+                                                return (
+                                                    <tr key={i}>
+                                                        <td>{item.description}</td>
+                                                        <td>{item.money}</td>
+                                                        <td>{new Date(item.dateOfSpend).toLocaleDateString()}</td>
+                                                        <td>{new Date(item.lastupdate).toLocaleString()}</td>
+                                                    </tr>
+                                                );
+                                            }
                                         })
+
                                     }
                                 </tbody>
-                            </table>
 
+                            </table>
                         </div>
+                    ) : ''
                     }
                 </div>
             </div>

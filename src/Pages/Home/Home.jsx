@@ -114,9 +114,6 @@ const Home = ({ authenticate }) => {
                 return { ...tempAry[0][key] }
             }))
         }
-        else {
-            console.log('0')
-        }
     }
     //Menthod Call
     useEffect(() => {
@@ -253,11 +250,11 @@ const Home = ({ authenticate }) => {
                     <div className='Menu'>
                         <ul>
                             <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}>Home</li>
-                            <li onClick={() => changePushMenu('payment')}>Payment</li>
-                            {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}>View</li>}
+                            <li onClick={() => changePushMenu('payment')}>payment</li>
+                            {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}>view</li>}
                             <li onClick={() => changePushMenu('profile')}>Profile</li>
-                            <li onClick={() => changePushMenu('profileByMenu')}>ProfileBymenu</li>
-                            <li onClick={() => changePushMenu('signout')}>SignOut</li>
+                            <li onClick={() => changePushMenu('profileByMenu')}>paidBy-menu</li>
+                            <li onClick={() => changePushMenu('signout')}>signOut</li>
 
                         </ul>
                     </div>
@@ -271,11 +268,11 @@ const Home = ({ authenticate }) => {
                     </div>
                     <ul>
                         <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}>Home</li>
-                        <li onClick={() => changePushMenu('payment')}>Payment</li>
-                        {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}>View</li>}
-                        <li onClick={() => changePushMenu('profile')}>Profile</li>
-                        <li onClick={() => changePushMenu('profileByMenu')}>ProfileBymenu</li>
-                        <li onClick={() => changePushMenu('signout')}>SignOut</li>
+                        <li onClick={() => changePushMenu('payment')}>payment</li>
+                        {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}>view</li>}
+                        <li onClick={() => changePushMenu('profile')}>profile</li>
+                        <li onClick={() => changePushMenu('profileByMenu')}>paid-bymenu</li>
+                        <li onClick={() => changePushMenu('signout')}>signOut</li>
 
                     </ul>
                 </div>

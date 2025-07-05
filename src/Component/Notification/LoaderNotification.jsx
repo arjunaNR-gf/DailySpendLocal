@@ -4,7 +4,6 @@ const LoaderNotificaiton = () => {
         <>
         <div className='loade-bck'>
         <span class="loader"></span>
-
         </div>
         </>
     )
