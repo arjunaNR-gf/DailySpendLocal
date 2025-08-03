@@ -11,6 +11,7 @@ import PayInfoByMenu from '../PayInfoByMenu/PayInfoByMenu';
 import { AiOutlineMenu } from "react-icons/ai";
 import { GrClose } from 'react-icons/gr';
 import appData from '../../assest/MockData/Data';
+import Chart from '../Chart/Chart';
 
 
 
@@ -251,6 +252,7 @@ const Home = ({ authenticate }) => {
                             {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}>view</li>}
                             <li onClick={() => changePushMenu('profile')}>Profile</li>
                             <li onClick={() => changePushMenu('profileByMenu')}>paidBy-menu</li>
+                             <li onClick={() => changePushMenu('Chart')}>Chart</li>
                             <li onClick={() => changePushMenu('signout')}>signOut</li>
 
                         </ul>
@@ -269,6 +271,7 @@ const Home = ({ authenticate }) => {
                         {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}>view</li>}
                         <li onClick={() => changePushMenu('profile')}>profile</li>
                         <li onClick={() => changePushMenu('profileByMenu')}>paid-bymenu</li>
+                        <li onClick={() => changePushMenu('Chart')}>Chart</li>
                         <li onClick={() => changePushMenu('signout')}>signOut</li>
 
                     </ul>
@@ -326,7 +329,7 @@ const Home = ({ authenticate }) => {
                         pushMenu == 'profileByMenu' ? <PayInfoByMenu /> :
                             pushMenu == 'payment' ?
                                 <PayUpdate profileData={profileView.ViewData} />
-                                : ''
+                                : pushMenu=='Chart' ? <Chart />: ''
                 }
             </div>
         </>
