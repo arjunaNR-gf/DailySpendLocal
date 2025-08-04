@@ -67,7 +67,7 @@ export default function Chart() {
         setTimeout(() => {
           setDataSet(finalData);
           setActive(false)
-        }, 1200);
+        }, 300);
       }
 
 
