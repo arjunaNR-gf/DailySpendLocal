@@ -149,7 +149,7 @@ export default function Chart() {
                 },
               ]}
 
-              series={[{ dataKey: 'amount', label: dataset[0].month, valueFormatter }]}
+              series={[{ dataKey: 'amount', label: dataset[0].month, valueFormatter,color:'#22cc9d' }]}
               {...otherSetting}
             />
           </>

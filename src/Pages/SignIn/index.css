@@ -1,130 +1,130 @@
 .sign-in-main {
-    width: 65%;
-    height: 100vh;
-    padding: 1rem 1rem;
-    background-color:#04171f;
-    border-radius: 0.3rem;
-    align-self: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: hidden;
-    padding: 5px 5px;
-    align-items: center;
+  width: 65%;
+  height: 100vh;
+  padding: 1rem 1rem;
+  background-color: #04171f;
+  border-radius: 0.3rem;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  padding: 5px 5px;
+  align-items: center;
 
-  }
-  .sign--logo--name
-  {
-    color: #22cc9d;
-  }
-  
-  .form-devider {
-    margin-bottom: 0.3rem;
-    width: 90%;
-  }
-  
-  h1 {
-    font-family: inherit;
-    text-shadow: 1px 1px 1px rgb(243, 233, 233);
-  }
-  
-  .form--name {
-    text-align: center;
-  }
-  
-  .form--name > h4 {
-    font-size: 1.2rem;
-    color: #22cc9d;
-    /* border-bottom: 1px solid rgb(36, 5, 5); */
-    border-radius: 0 0 10px 10px;
-    line-height: 290%;
-    font-weight: 600;
-  }
-  
-  .form-link {
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-  }
-  .form-link > p {
-    line-height: 150%;
-  }
-  .form-link > P > a {
-    color: #22cc9d !important;
-    cursor: pointer;
-    text-decoration: underline;
-    font-size: 1.1rem !important;
-  
-  }
-  
-  .form-link > P > a:hover {
-    color: #22cc9d !important;
-    cursor: pointer;
-    font-weight: bolder;
-  }
-  .onboard--page--main>.form-devider>input
-  {
-    background-color: #04171f;
-    border-radius: 4px;
-  }
+}
 
- .sign--logo--name{
+.sign--logo--name {
+  color: #22cc9d;
+}
+
+.form-devider {
+  margin-bottom: 0.3rem;
+  width: 90%;
+}
+
+h1 {
+  font-family: inherit;
+  text-shadow: 1px 1px 1px rgb(243, 233, 233);
+}
+
+.form--name {
+  text-align: center;
+}
+
+.form--name>h4 {
+  font-size: 1.2rem;
+  color: #22cc9d;
+  /* border-bottom: 1px solid rgb(36, 5, 5); */
+  border-radius: 0 0 10px 10px;
+  line-height: 290%;
+  font-weight: 600;
+}
+
+.form-link {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
+
+.form-link>p {
+  line-height: 150%;
+}
+
+.form-link>P>a {
+  color: #22cc9d !important;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 1.1rem !important;
+
+}
+
+.form-link>P>a:hover {
+  color: #22cc9d !important;
+  cursor: pointer;
+  font-weight: bolder;
+}
+
+.onboard--page--main>.form-devider>input {
+  background-color: #04171f;
+  border-radius: 4px;
+}
+
+.sign--logo--name {
   display: flex;
   flex-direction: row;
   align-items: center;
   text-decoration: underline;
- }
+}
 
- .sign--logo--name>h3,h1{
+.sign--logo--name>h3,
+h1 {
   margin: 0 !important;
   padding: 0 !important;
   color: #22cc9d;
 
- }
+}
 
- .note>span{
-  color:#22cc9d;
+.note>span {
+  color: #22cc9d;
   font-size: 12px;
-  border: 1px solid  rgb(36, 47, 36);
+  border: 1px solid rgb(36, 47, 36);
   background-color: brown;
   padding: 5px 3px;
- }
+}
 
 
-  @media only screen and (max-width: 480px) {
-    .sign-in-main {
-        width: 98%;
-        margin-top: 40%;
-        border-radius: 1px;
-        padding: 0.5rem 0.5rem;
-        box-shadow: -1px 1px 1px 2px rgba(0, 0, 0, 0.2);
-    } 
-
-    .form-devider
- {
-  margin-top: 4.12rem;
- }
-    
-    .sign-in-main>h4{
-      font-size: 18px;
-    }
-
-    .sign--logo--name>h3,h1{
-      font-size: 30px;
-    }
-
-   
-    .sign-in-main>.form-devider>input{
-      border: none !important;
-      border-bottom: 1.5px solid rgb(180, 190, 180)!important;
-      background-color: white !important;
-      height: 46px !important;
-
-    }
-
-    .form-devider.btn-footer
-    {
-      margin-top: 2.55rem;
-    }
+@media only screen and (max-width: 480px) {
+  .sign-in-main {
+    width: 98%;
+    border-radius: 1px;
+    padding: 0.5rem 0.5rem;
+    box-shadow: -1px 1px 1px 2px rgba(0, 0, 0, 0.2);
   }
 
+  .form-devider {
+    margin-top: 4.12rem;
+  }
+
+  .sign-in-main>h4 {
+    font-size: 18px;
+  }
+
+  .sign--logo--name>h3,
+  h1 {
+    font-size: 30px;
+  }
+
+
+  .sign-in-main>.form-devider>input {
+    border: none !important;
+    border-bottom: 1.5px solid rgb(180, 190, 180) !important;
+    background-color: white !important;
+    height: 56px !important;
+
+  }
+
+  .form-devider.btn-footer {
+    margin-top: 2.55rem;
+  }
+}

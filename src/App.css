@@ -385,8 +385,7 @@ dropdown list
   left: -1px;
   padding: 10px 7px 5px;
   width: 100%;
-  overflow: scroll;
-  overflow-x: hidden;
+
   height: 410px;
 }
 
@@ -406,7 +405,7 @@ dropdown list
 
 /* table related css*/
 table {
-  margin-top: 3px;
+  margin-top: 23px;
   padding: 1rem 1rem;
   margin-top: 2%;
   width: 100%;
@@ -417,6 +416,8 @@ table {
   color: #01a275;
   background-color: #04171f;
   border: 1px solid rgb(67, 67, 67);
+   overflow: scroll;
+  overflow-x: hidden;
 
 }
 
@@ -434,12 +435,13 @@ tr {
   text-transform: capitalize;
 }
 
-td {
+thead,td {
   border-bottom: 0.3px solid rgb(47, 42, 42);
   padding: 6px 5px;
   font-size: 10px !important;
   animation: slowAppear 2s ease-in-out forwards;
   color: #038862;
+  position: sticky;
 
 }
 
