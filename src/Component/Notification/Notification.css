@@ -8,7 +8,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color:white;
+    background-color:#04171f;
     z-index: 1000;
 }
 
@@ -22,7 +22,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color:rgb(133, 133, 38);
+    background-color:#04171f;
     z-index: 1000;
 }
 /*
@@ -71,7 +71,7 @@
 .loader-sqare:after {
   content: "";
   grid-area: 1/1;
-  --c:#0000 calc(100%/3),rgb(171, 171, 73) 0 calc(2*100%/3),#0000 0;
+  --c:#0000 calc(100%/3),#04171f 0 calc(2*100%/3),#22cc9d 0;
   --c1:linear-gradient(90deg,var(--c));
   --c2:linear-gradient( 0deg,var(--c));
   background: var(--c1),var(--c2),var(--c1),var(--c2);
@@ -111,8 +111,8 @@
   50%  {background: conic-gradient(rgb(160, 160, 37) 180deg,#0000 181deg)}
   62.5%{background: conic-gradient(rgb(160, 160, 37)225deg,#0000 226deg)}
   75%  {background: conic-gradient(rgb(160, 160, 37) 270deg,#0000 271deg)}
-  87.5%{background: conic-gradient(rgb(160, 160, 37) 315deg,#0000 316deg)}
-  100% {background: conic-gradient(rgb(160, 160, 37) 360deg,#0000 360deg)}
+  87.5%{background: conic-gradient(#04171f 315deg,#0000 316deg)}
+  100% {background: conic-gradient(#04171f 360deg,#0000 360deg)}
 } 
 
 /* <div class="loader-squarecircle"></div> */
@@ -215,7 +215,7 @@
 .loader-SS {
   width: 90px;
   height: 12px;
-  --c:rgb(160, 160, 22) 50%,rgb(252, 252, 243) 0;
+  --c: #04171f 50%,rgb(252, 252, 243) 0;
   background: 
     linear-gradient( 90deg,var(--c)) 0 0,
     linear-gradient(-90deg,var(--c)) 0 0;
@@ -248,7 +248,7 @@
 .loader-DD {
   width: 25px;
   aspect-ratio: 1;
-  --c: no-repeat linear-gradient(rgb(198, 198, 12) 0 0);
+  --c:  no-repeat linear-gradient(#22cc9d 0 0);
   background: 
     var(--c) 0%   50%,
     var(--c) 50%  50%,
@@ -274,7 +274,7 @@
 .loader--BB {
   width: 90px;
   height: 14px;
-  --c:rgb(182, 182, 3) 42%,#0000;
+  --c:#04171f 42%,#0000;
   background: 
     radial-gradient(circle closest-side,var(--c)) calc(100%/-4) 0,
     radial-gradient(circle closest-side,var(--c)) calc(100%/4)  0;

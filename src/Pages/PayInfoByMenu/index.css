@@ -1,19 +1,19 @@
 .payinfobymenu {
     margin-top: 5rem;
-    border: 1px solid rgb(246, 241, 241);
+    border: 1px solid rgb(53, 44, 44);
     height: 50px;
     display: flex;
-    background-color: rgb(194, 194, 192);
+    background-color: #04171f;
 
 }
 
 .payinfobymenu-item-total-display {
     width: 100%;
-    background-color: var(  --body--bck);
+    background-color: #22cc9d;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgb(254, 251, 251);
+    color: #04171f;
     font-size: 14px;
     border-radius: 4px;
 
@@ -53,7 +53,7 @@
     }
     .payinfobymenu-item-total-display{
         height: 70px;
-        background-color: rgb(154, 158, 150);
+        background-color: #04171f;
     }
 
 }

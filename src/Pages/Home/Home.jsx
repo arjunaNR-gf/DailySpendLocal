@@ -9,9 +9,21 @@ import PayUpdate from '../../Pages/Payment/PayUpdate';
 import ProfilePage from '../Profile/ProfilePage';
 import PayInfoByMenu from '../PayInfoByMenu/PayInfoByMenu';
 import { AiOutlineMenu } from "react-icons/ai";
+import { MdCurrencyRupee } from "react-icons/md";
 import { GrClose } from 'react-icons/gr';
 import appData from '../../assest/MockData/Data';
 import Chart from '../Chart/Chart';
+import { BsCalendar2Month } from "react-icons/bs";
+import { CgProductHunt } from "react-icons/cg";
+import { MdDateRange } from "react-icons/md";
+import { PiSignOutBold } from "react-icons/pi";
+import { FaChartBar } from "react-icons/fa";
+import { IoHomeSharp } from "react-icons/io5";
+import { MdOutlinePayments } from "react-icons/md";
+import { TbDatabaseExport } from "react-icons/tb";
+import { IoLogoPaypal } from "react-icons/io5";
+import { CgProfile } from "react-icons/cg";
+
 
 
 
@@ -236,7 +248,7 @@ const Home = ({ authenticate }) => {
     return (
         <>
             <div className='dailyspend--head'>
-                <div className="home-header"><h1>daily </h1>  <h1>Spend</h1></div>
+                <div className="home-header"><h2>daily SPEND</h2></div>
                 <div>
                     <div className='mobilecls header--icon'>
                         <AiOutlineMenu size="30" onClick={changeIcondisplay} />
@@ -247,13 +259,13 @@ const Home = ({ authenticate }) => {
                 <div className='menu--main--header'>
                     <div className='Menu'>
                         <ul>
-                            <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}>Home</li>
-                            <li onClick={() => changePushMenu('payment')}>payment</li>
-                            {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}>view</li>}
-                            <li onClick={() => changePushMenu('profile')}>Profile</li>
-                            <li onClick={() => changePushMenu('profileByMenu')}>paidBy-menu</li>
-                             <li onClick={() => changePushMenu('Chart')}>Chart</li>
-                            <li onClick={() => changePushMenu('signout')}>signOut</li>
+                            <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}> <IoHomeSharp size="20" />  Home</li>
+                            <li onClick={() => changePushMenu('payment')}><MdOutlinePayments size="20" /> Payment</li>
+                            {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}> <TbDatabaseExport size="20" />View</li>}
+                            <li onClick={() => changePushMenu('profile')}> <CgProfile size="20" /> Profile</li>
+                            <li onClick={() => changePushMenu('profileByMenu')}><IoLogoPaypal size="20"/> PayByMenu</li>
+                             <li onClick={() => changePushMenu('Chart')}><FaChartBar size="20"/> Chart </li>
+                            <li onClick={() => changePushMenu('signout')}><PiSignOutBold size="20" /> SignOut </li>
 
                         </ul>
                     </div>
@@ -266,13 +278,13 @@ const Home = ({ authenticate }) => {
                         <GrClose size="20" onClick={closeMenu} />
                     </div>
                     <ul>
-                        <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}>Home</li>
-                        <li onClick={() => changePushMenu('payment')}>payment</li>
-                        {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}>view</li>}
-                        <li onClick={() => changePushMenu('profile')}>profile</li>
-                        <li onClick={() => changePushMenu('profileByMenu')}>paid-bymenu</li>
-                        <li onClick={() => changePushMenu('Chart')}>Chart</li>
-                        <li onClick={() => changePushMenu('signout')}>signOut</li>
+                        <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}> <IoHomeSharp size="30" />  Home</li>
+                            <li onClick={() => changePushMenu('payment')}><MdOutlinePayments size="30" /> Payment</li>
+                            {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}> <TbDatabaseExport size="30" />View</li>}
+                            <li onClick={() => changePushMenu('profile')}> <CgProfile size="30" /> Profile</li>
+                            <li onClick={() => changePushMenu('profileByMenu')}><IoLogoPaypal size="30"/> PayByMenu</li>
+                             <li onClick={() => changePushMenu('Chart')}><FaChartBar size="30"/> Chart </li>
+                            <li onClick={() => changePushMenu('signout')}><PiSignOutBold size="30" /> SignOut </li>
 
                     </ul>
                 </div>
@@ -282,7 +294,11 @@ const Home = ({ authenticate }) => {
             <div className='display--item'>
                 {pushMenu == 'finalpush' && localDB.length > 0 ?
                     <div className='dailyspend--display--item'>
-                        <h4>Spending Details of Month  <p>{CurrentMonth} </p></h4>
+                        <div className='dailyspend-view-header-context'>
+                            <div> <BsCalendar2Month />  {CurrentMonth}</div>
+                            <div><MdCurrencyRupee size="40" /> {totalSpendCurrentMonth()+".00"}</div>
+                        </div>
+                      
                         <table>
                             <thead>
 
@@ -304,17 +320,17 @@ const Home = ({ authenticate }) => {
                                 {
                                     localDB.map((item, i) => {
                                         return <tr>
-                                            <td key={'desc' + item.PayID}>{paymentMenu.filter(itm => itm.paymentID == item.Description)[0].paymentDesc}</td>
-                                            <td key={'payment' + item.PayID}>{item.paymentDate}</td>
-                                            <td key={'amount' + item.PayID}>{item.Amount}</td>
+                                            <td key={'desc' + item.PayID}> <CgProductHunt />  {paymentMenu.filter(itm => itm.paymentID == item.Description)[0].paymentDesc}</td>
+                                            <td key={'payment' + item.PayID}><MdDateRange  /> {item.paymentDate}</td>
+                                            <td key={'amount' + item.PayID}> <MdCurrencyRupee size="14" color='gray' /> {item.Amount}</td>
                                             <td key={item.PayID + i + 'btn'}><button onClick={() => pushToLocalSql(item.PayID)}>P</button>
                                                 <button className={`useraccess` + haveAccess} onClick={() => RemoveItemFromFB(item.PayID)}>D</button></td>
                                         </tr>
                                     })
                                 }
-                                <tr style={{
+                                {/* <tr style={{
                                     display: "Flex", alignItems: "center", color: "black", fontSize: "14PX", padding: "10px", backgroundColor: "#8FBC8F"
-                                }}> Total :{totalSpendCurrentMonth()} </tr>
+                                }}> Total :{totalSpendCurrentMonth()} </tr> */}
 
                             </tbody>
                         </table>
