@@ -174,8 +174,9 @@
     padding-bottom: 4.5rem;
     display: flex;
     flex-direction: row;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-around;
+    gap: 8px;
 
   }
 

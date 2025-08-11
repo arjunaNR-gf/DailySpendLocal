@@ -35,8 +35,8 @@ body {
 /*framework */
 .dailyspend--main--app {
   box-sizing: border-box;
-  margin: 1% auto;
-  padding: 0.125rem 0.125rem;
+  margin: 0 auto;
+  padding: 0.1rem 0.1rem;
   max-width: 960px;
   width: 100%;
   border-radius: 5px;
@@ -308,7 +308,6 @@ dropdown list
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
   height: 50px;
 }
 
@@ -359,18 +358,6 @@ dropdown list
   display: none;
 }
 
-
-.display--item>.dailyspend--display--item>h4 {
-  text-align: center;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  width: 200px;
-  padding: 10px;
-  color: #04171f;
-  font-size: 11px;
-  background-color:#038862;
-  width: auto;
-}
-
 .dailyspend--display--item {
   display: flex;
   flex-direction: column;
@@ -385,9 +372,21 @@ dropdown list
   left: -1px;
   padding: 10px 7px 5px;
   width: 100%;
-
-  height: 410px;
+  height: 710px;
 }
+
+.display--item>.dailyspend--display--item>h4 {
+  text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  width: 200px;
+  padding: 10px;
+  color: #04171f;
+  font-size: 11px;
+  background-color:#038862;
+  width: auto;
+}
+
+
 
 .items-scrool {
   position: relative;
