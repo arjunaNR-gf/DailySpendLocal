@@ -6,7 +6,7 @@
   border: 2px solid #22cc9d;
   border-radius: 4px;
   outline: none;
-  font-size: 14.9px;
+  font-size: 16.9px;
   text-align: center;
   font-weight: 600;
   letter-spacing: 0.8px;
@@ -29,25 +29,25 @@
 
 label {
   display: block;
-  line-height: 1.8;
+  line-height: 2.8;
   color: #22cc9d;
-  font-size: 15.5px;
+  font-size: 16.5px;
   font-weight: 500;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 input:focus {
-  border: 1.5px solid #4edd52;
+  border: 3px solid #4edd52;
   box-shadow: 0 0 5px rgba(78, 221, 82, 0.5);
 }
 
 /* Responsive Tweaks */
 @media screen and (max-width: 620px) {
   #inpt {
-    height: 48px;
+    height: 63px;
     font-weight: 700;
     border-radius: 6px;
-    font-size: 15px;
+    font-size: 19px;
     border: 1px solid #22cc9d;
   }
 }

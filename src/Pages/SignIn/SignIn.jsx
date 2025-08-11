@@ -163,7 +163,7 @@ export default function Signup({ screen, authenticate, inputErrordetails }) {
         <div className="sign-in-main">
           <div className="form-devider">
             <span className="form--name">
-              <div className="sign--logo--name"><h1>DAILY SPEND</h1></div>
+              <div className="sign--logo--name"><h2>DAILY</h2> <h1>SPEND</h1></div>
               
             </span>
           </div>
