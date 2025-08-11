@@ -11,7 +11,7 @@ import LoaderNotificaiton from '../../Component/Notification/LoaderNotification'
 import { CgProductHunt } from "react-icons/cg";
 import { MdDateRange } from "react-icons/md";
 import { MdCurrencyRupee } from "react-icons/md";
-
+import { SlRefresh } from "react-icons/sl";
 
 const ProfilePage = () => {
     //it works like dataset
@@ -204,7 +204,7 @@ const ProfilePage = () => {
                         />}
                         {inputval_flag() == true &&
                             <button onClick={() => paymentmenu_refresh()}>
-                                {btnText}
+                                <SlRefresh color='black' size="40" />
                             </button>
                         }
                     </div>
