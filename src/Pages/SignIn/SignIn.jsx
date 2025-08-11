@@ -164,7 +164,7 @@ export default function Signup({ screen, authenticate, inputErrordetails }) {
           <div className="form-devider">
             <span className="form--name">
               <div className="sign--logo--name"><h2>DAILY</h2> <h1>SPEND</h1></div>
-              
+
             </span>
           </div>
 
@@ -198,16 +198,18 @@ export default function Signup({ screen, authenticate, inputErrordetails }) {
 
           <br></br>
 
+          <div className="form--row">
+            <div className="form-devider btn-footer">
+              <button onClick={() => AuthenticateUsr()} disabled={input.Username == "" && input.password == ""}>sign in</button>
+            </div>
+            <div className="form-link">
+                <p>
+                  Don't have account?{" "}
+                  <a onClick={() => changeOnbordingsign("Signup")}>Sign/Up</a>
+                </p>
+              </div>
+          </div>
 
-          <div className="form-devider btn-footer">
-            <button onClick={() => AuthenticateUsr()} disabled={input.Username == "" && input.password == ""}>sign in</button>
-          </div>
-          <div className="form-link">
-            <p>
-              Don't have account?{" "}
-              <a onClick={() => changeOnbordingsign("Signup")}>Sign/Up</a>
-            </p>
-          </div>
         </div>
       )}
     </>
