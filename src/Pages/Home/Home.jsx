@@ -124,7 +124,7 @@ const Home = ({ authenticate }) => {
     }
     //Menthod Call
     useEffect(() => {
-        setPushMenu(sessionStorage.getItem('currentPage') !== null ? JSON.parse(sessionStorage.getItem('currentPage')):'profile')
+        setPushMenu(sessionStorage.getItem('currentPage') !== null ? JSON.parse(sessionStorage.getItem('currentPage')):'payment')
         asyncgetOnlineStoreData();
         PaymentMenu_Sync();
         firebaseFetchProfile();
