@@ -1,12 +1,12 @@
 #inpt {
   font-family: 'Poppins', sans-serif; /* Correct font name */
   width: 100%;
-  height: 43px;
+  height: 55px;
   padding: 6px 12px;
-  border: 1px solid rgb(78, 209, 209);
+  border: 2px solid #22cc9d;
   border-radius: 4px;
   outline: none;
-  font-size: 14.5px;
+  font-size: 14.9px;
   text-align: center;
   font-weight: 600;
   letter-spacing: 0.8px;
@@ -42,11 +42,12 @@ input:focus {
 }
 
 /* Responsive Tweaks */
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 620px) {
   #inpt {
     height: 48px;
     font-weight: 700;
     border-radius: 6px;
     font-size: 15px;
+    border: 1px solid #22cc9d;
   }
 }

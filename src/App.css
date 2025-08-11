@@ -418,7 +418,12 @@ table {
   border: 1px solid rgb(67, 67, 67);
    overflow: scroll;
   overflow-x: hidden;
+}
 
+tr {
+  padding-bottom: 1rem;
+  height: 50px;
+  text-transform: capitalize;
 }
 
 th {
@@ -429,19 +434,14 @@ th {
 }
 
 
-tr {
-  padding-bottom: 1rem;
-  height: 50px;
-  text-transform: capitalize;
-}
-
-thead,td {
+td , svg {
   border-bottom: 0.3px solid rgb(47, 42, 42);
   padding: 6px 5px;
   font-size: 10px !important;
   animation: slowAppear 2s ease-in-out forwards;
-  color: #038862;
-  position: sticky;
+  color: #1ab388;
+  vertical-align: middle;
+   margin-right: 5px;    
 
 }
 

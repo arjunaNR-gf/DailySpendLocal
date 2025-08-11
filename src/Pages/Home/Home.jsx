@@ -154,11 +154,7 @@ const Home = ({ authenticate }) => {
 
     const Access_Check = () => {
         var personUserName = JSON.parse(sessionStorage.getItem('LoginStatus')).username;
-
         setHaveAccess(appData.userAccess.filter(item => item.userName === personUserName)[0].Role.some(rl => rl.includes('Admin')) ? 'Y' : 'N')
-
-
-
     }
 
 

@@ -2,6 +2,12 @@ import { useEffect, useState } from 'react';
 import { FB_API, Get_sync } from '../../ServiceForBackEnd/FireBaseConfig/FirebaseService';
 import Dropdown from '../../Component/Dropdown/Dropdown';
 import './index.css'
+import { CgProductHunt } from "react-icons/cg";
+import { MdDateRange } from "react-icons/md";
+import { MdCurrencyRupee } from "react-icons/md";
+
+
+
 
 const PayInfoByMenu = () => {
 
@@ -126,14 +132,14 @@ const PayInfoByMenu = () => {
                 <table>
                     <thead>
                         <th>
-                            Description
+                           < CgProductHunt size="35"/> Description
                         </th>
 
                         <th>
-                            Date Of Spend
+                           <MdDateRange size="35" /> Date Of Spend
                         </th>
                         <th>
-                            Money(RS)
+                          <MdCurrencyRupee size="35" />  Money(RS)
                         </th>
                     </thead>
                     <tbody>
@@ -142,18 +148,18 @@ const PayInfoByMenu = () => {
                                 if(i%2==0)
                                 {
                                     return <tr  className='evenRow'>
-                                    <td key={'amount' + i}>{item.description}</td>
-                                    <td  key={'payment' + i}>{new Date(item.dateOfSpend).toLocaleDateString()}</td>
-                                    <td key={'amount' + i + 1}>{item.money}</td>
+                                    <td key={'amount' + i}>< CgProductHunt size="25"/>{item.description}</td>
+                                    <td  key={'payment' + i}> <MdDateRange size="25" />{new Date(item.dateOfSpend).toLocaleDateString()}</td>
+                                    <td key={'amount' + i + 1}><MdCurrencyRupee size="25" /> {item.money}</td>
 
                                 </tr>
                                 }
                                 else
                                 {
                                     return <tr  className='oddRow'>
-                                    <td key={'amount' + i}>{item.description}</td>
-                                    <td key={'payment' + i}>{new Date(item.dateOfSpend).toLocaleDateString()}</td>
-                                    <td key={'amount' + i + 1}>{item.money}</td>
+                                    <td key={'amount' + i}> < CgProductHunt size="25"/>{item.description}</td>
+                                    <td key={'payment' + i}> <MdDateRange size="25"  />{new Date(item.dateOfSpend).toLocaleDateString()}</td>
+                                    <td key={'amount' + i + 1}><MdCurrencyRupee size="25" />  {item.money}</td>
 
                                 </tr>
                                 }

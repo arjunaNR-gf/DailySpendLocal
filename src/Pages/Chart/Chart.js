@@ -4,17 +4,10 @@ import { FB_API, Get_sync } from '../../ServiceForBackEnd/FireBaseConfig/Firebas
 import Dropdown from '../../Component/Dropdown/Dropdown';
 import { useEffect, useState } from 'react';
 import LoaderNotificaiton from '../../Component/Notification/LoaderNotification';
-
-
-const otherSetting = {
-  height: 300,
-  yAxis: [{ label: 'Money Spent', width: 30 }],
-  grid: { horizontal: true },
-};
+import'./index.css'
 
 
 
-const valueFormatter = (value) => `${value}`;
 
 export default function Chart() {
 
@@ -25,6 +18,16 @@ export default function Chart() {
   ]
   const [inputval, setInputVal] =
     useState({ year: '', month: monthDetails[new Date().getMonth()] })
+
+  const otherSetting = {
+  height: 300,
+  yAxis: [{ label: 'Money Spent', width: 30 }],
+  grid: { horizontal: true },
+};
+
+
+
+const valueFormatter = (value) => `${value}`;
 
 
   const firebase_fetch = async (val) => {
