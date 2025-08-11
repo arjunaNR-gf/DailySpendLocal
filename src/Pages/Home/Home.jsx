@@ -291,21 +291,21 @@ const Home = ({ authenticate }) => {
                 {pushMenu == 'finalpush' && localDB.length > 0 ?
                     <div className='dailyspend--display--item'>
                         <div className='dailyspend-view-header-context'>
-                            <div> <BsCalendar2Month />  {CurrentMonth}</div>
-                            <div><MdCurrencyRupee size="40" /> {totalSpendCurrentMonth()+".00"}</div>
+                            <div> <BsCalendar2Month size="40" color='black' />  {CurrentMonth}</div>
+                            <div><MdCurrencyRupee size="40" color='black' /> {totalSpendCurrentMonth()+".00"}</div>
                         </div>
                       
                         <table>
                             <thead>
 
                                 <th>
-                                    Descriptions
+                                    < CgProductHunt size="40"/>Descriptions
                                 </th>
                                 <th>
-                                    Date Of Spend
+                                   <BsCalendar2Month size="40" /> Date Of Spend
                                 </th>
                                 <th>
-                                    Money(RS)
+                                   <MdCurrencyRupee size="40" /> Money(RS)
                                 </th>
 
                                 <th>
@@ -316,9 +316,9 @@ const Home = ({ authenticate }) => {
                                 {
                                     localDB.map((item, i) => {
                                         return <tr>
-                                            <td key={'desc' + item.PayID}> <CgProductHunt />  {paymentMenu.filter(itm => itm.paymentID == item.Description)[0].paymentDesc}</td>
-                                            <td key={'payment' + item.PayID}><MdDateRange  /> {item.paymentDate}</td>
-                                            <td key={'amount' + item.PayID}> <MdCurrencyRupee size="14" color='gray' /> {item.Amount}</td>
+                                            <td key={'desc' + item.PayID}> <CgProductHunt size="30" />  {paymentMenu.filter(itm => itm.paymentID == item.Description)[0].paymentDesc}</td>
+                                            <td key={'payment' + item.PayID}><MdDateRange size="30" /> {item.paymentDate}</td>
+                                            <td key={'amount' + item.PayID}> <MdCurrencyRupee size="30" color='gray' /> {item.Amount}</td>
                                             <td key={item.PayID + i + 'btn'}><button onClick={() => pushToLocalSql(item.PayID)}>P</button>
                                                 <button className={`useraccess` + haveAccess} onClick={() => RemoveItemFromFB(item.PayID)}>D</button></td>
                                         </tr>
