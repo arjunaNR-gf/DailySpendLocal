@@ -8,6 +8,9 @@ import { FB_API, Get_sync } from '../../ServiceForBackEnd/FireBaseConfig/Firebas
 import Dropdown from '../../Component/Dropdown/Dropdown'
 import DailySpendPieChart from '../../Component/Chart/mySpendChart';
 import LoaderNotificaiton from '../../Component/Notification/LoaderNotification';
+import { CgProductHunt } from "react-icons/cg";
+import { MdDateRange } from "react-icons/md";
+import { MdCurrencyRupee } from "react-icons/md";
 
 
 const ProfilePage = () => {
@@ -223,10 +226,9 @@ const ProfilePage = () => {
                         < div >
                             <table>
                                 <thead>
-                                    <th> Description </th>
-                                    <th> Money</th>
-                                    <th> dateOfSpend</th>
-                                    <th> Last Update</th>
+                                    <th> <CgProductHunt size="35" />  Description </th>
+                                    <th> <MdCurrencyRupee size="35" /> Money</th>
+                                    <th> <MdDateRange size="35" />  dateOfSpend</th>
                                 </thead>
                                 <tbody>
                                     {
@@ -234,10 +236,10 @@ const ProfilePage = () => {
                                             if (item.month !== 'YEAR') {
                                                 return (
                                                     <tr key={i}>
-                                                        <td>{item.description}</td>
-                                                        <td>{item.money}</td>
-                                                        <td>{new Date(item.dateOfSpend).toLocaleDateString()}</td>
-                                                        <td>{new Date(item.lastupdate).toLocaleString()}</td>
+                                                        <td><CgProductHunt size="25" /> {item.description}</td>
+                                                        <td><MdCurrencyRupee size="25" />{item.money}</td>
+                                                        <td><MdDateRange size="25" /> {new Date(item.dateOfSpend).toLocaleDateString()}</td>
+                                                        {/* <td>{new Date(item.lastupdate).toLocaleString()}</td> */}
                                                     </tr>
                                                 );
                                             }

@@ -255,13 +255,13 @@ const Home = ({ authenticate }) => {
                 <div className='menu--main--header'>
                     <div className='Menu'>
                         <ul>
-                            <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}> <IoHomeSharp size="20" />  Home</li>
-                            <li onClick={() => changePushMenu('payment')}><MdOutlinePayments size="20" /> Payment</li>
-                            {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}> <TbDatabaseExport size="20" />View</li>}
-                            <li onClick={() => changePushMenu('profile')}> <CgProfile size="20" /> Profile</li>
-                            <li onClick={() => changePushMenu('profileByMenu')}><IoLogoPaypal size="20"/> PayByMenu</li>
-                             <li onClick={() => changePushMenu('Chart')}><FaChartBar size="20"/> Chart </li>
-                            <li onClick={() => changePushMenu('signout')}><PiSignOutBold size="20" /> SignOut </li>
+                            <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}> <IoHomeSharp size="35" />  Home</li>
+                            <li onClick={() => changePushMenu('payment')}><MdOutlinePayments size="35" /> Payment</li>
+                            {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}> <TbDatabaseExport size="35" />View</li>}
+                            <li onClick={() => changePushMenu('profile')}> <CgProfile size="35" /> Profile</li>
+                            <li onClick={() => changePushMenu('profileByMenu')}><IoLogoPaypal size="35"/> PayByMenu</li>
+                             <li onClick={() => changePushMenu('Chart')}><FaChartBar size="35"/> Chart </li>
+                            <li onClick={() => changePushMenu('signout')}><PiSignOutBold size="35" /> SignOut </li>
 
                         </ul>
                     </div>
@@ -271,7 +271,7 @@ const Home = ({ authenticate }) => {
             <div className={`mobilecls ${isActive}`}>
                 <div className='menu--main--header'>
                     <div className='mobile-menu-header-close'>
-                        <GrClose size="20" onClick={closeMenu} />
+                        <GrClose size="35" onClick={closeMenu} />
                     </div>
                     <ul>
                         <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}> <IoHomeSharp size="30" />  Home</li>

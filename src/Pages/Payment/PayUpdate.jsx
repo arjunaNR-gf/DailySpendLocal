@@ -5,6 +5,9 @@ import { getDatabase, push, ref, set, get, remove } from 'firebase/database';
 import { FB_API, Get_sync } from '../../ServiceForBackEnd/FireBaseConfig/FirebaseService';
 import Dropdown from '../../Component/Dropdown/Dropdown';
 import DailySpendPieChart from '../../Component/Chart/mySpendChart';
+import { CgProductHunt } from "react-icons/cg";
+import { MdDateRange } from "react-icons/md";
+import { MdCurrencyRupee } from "react-icons/md";
 
 const PayUpdate = (profileData) => {
     const [btnText, setBtnText] = useState('NEXT..')
