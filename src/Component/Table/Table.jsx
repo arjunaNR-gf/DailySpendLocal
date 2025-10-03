@@ -1,28 +1,17 @@
 export default Table=({tableHeaderData,tableBodyData})=>{
     return(
         <>
-         <div className='dailyspend--display--item'>
+         <div className='table--main'>
                         <h4>View The Data Before Submit</h4>
                         <table>
                             <thead>
+                                <tr>
 
-                                <th>
-                                    Payment Desc
-                                </th>
-                                <th>
-                                    Date Of Spend
-                                </th>
-                                <th>
-                                    Money(RS)
-                                </th>
-
-                                <th>
-                                    Action
-                                </th>
+                                </tr>
                             </thead>
                             <tbody>
                                 {
-                                    localDB.map((item, i) => {
+                                    tableBodyData.map((item, i) => {
                                         return <tr>
                                             <td key={'desc' + item.PayID}>{paymentMenu.filter(itm => itm.paymentID == item.Description)[0].paymentDesc}</td>
                                             <td key={'payment' + item.PayID}>{item.paymentDate}</td>

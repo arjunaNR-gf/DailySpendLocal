@@ -295,8 +295,9 @@ const Home = ({ authenticate }) => {
                             <div><MdCurrencyRupee size="40" color='black' /> {totalSpendCurrentMonth()+".00"}</div>
                         </div>
                       
-                        <table>
-                            <thead>
+
+                      <table>
+                         <thead>
 
                                 <th>
                                     < CgProductHunt size="40"/>Descriptions
@@ -312,6 +313,9 @@ const Home = ({ authenticate }) => {
                                     Action
                                 </th>
                             </thead>
+                      </table>
+                        <table>
+                           
                             <tbody>
                                 {
                                     localDB.map((item, i) => {

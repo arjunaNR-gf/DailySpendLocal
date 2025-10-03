@@ -92,7 +92,10 @@
     justify-Content: end;
     align-Items: center;
   }
-
+ .select--menu
+ {
+  margin-top: 4%;
+ }
 
   .select--menu--main {
     display: flex;
@@ -126,18 +129,14 @@
 
   .dailyspend--add--item-block {
     position: relative;
-    margin-top: 15%;
     flex-direction: column;
     height: 275px;
-    padding: 0.5rem;
-    gap: 1.5rem;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px 12px;
-    padding: 10px 2px;
   }
 
   input {
     width: 310px;
-    height: 58px;
+    height: 48px;
     font-size: 15px;
     font-weight: bolder;
   }

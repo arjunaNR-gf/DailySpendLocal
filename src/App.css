@@ -43,7 +43,7 @@ body {
   border: 1px solid #a3bac3;
   display: flex;
   flex-direction: column;
-  background-color: #04171f;
+  background-color: var(--body--bg);
   position: relative;
   height: auto;
 }
@@ -54,9 +54,9 @@ body {
   align-items: center;
   width: 100%;
   height: 78px;
-  border: 0.5px solid #04171f;
+  border: 0.5px solid var(--body--bg);
   border-radius: 0.125rem 0;
-  background-color: #04171f;
+  background-color: var(--body--bg);
   overflow: hidden;
   border-bottom: 0.5px solid rgb(235, 235, 235);
 }
@@ -65,30 +65,30 @@ body {
   width: 70%;
   height: inherit;
   /* background-color: var(--header-backgroundcolor); */
-  background-color: #04171f;
+  background-color: var(--body--bg);
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   padding: 0.1rem 0.4rem;
-  color:#22cc9d;
+  color:var(--body-header) !important;
   font-size: 35px;
 }
 
 .dailyspend--head>div:nth-child(2) {
   width: 30%;
-  background-color: #04171f;
+  background-color: var(--body--bg);
   height: inherit;
   padding: 0 0.625rem;
   display: flex;
   flex-direction: row;
   align-items: center;
-  color: #22cc9d;
+  color: var(--body--txt-tx);
 }
 
 .dailyspend--head>div:nth-child(1)>h4 {
   width: 100%;
-  color:#22cc9d;
+  color:var(--body--txt-tx);
   border-radius: 13px 0;
   font-weight: 900;
   font-size: 21px !important;
@@ -107,8 +107,7 @@ body {
 
 .dailyspend--add--item-block {
   position: relative;
-  margin-top: 2%;
-  background-color: '#04171f';
+  background-color: 'var(--body--bg)';
   width: 100%;
   height: 135px;
   padding: 4rem 1.2rem;
@@ -128,14 +127,14 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
-  background-color: #04171f;
+  background-color: var(--body--bg);
   height: 30px;
   font-size: 11px;
   padding: 4px 8px;
   border-radius: 3px;
   margin-bottom: 1rem;
   font-weight: 600;
-  color: #1aa880;
+  color: var(--body--txt);
   margin-top: 10px;
 
 }
@@ -144,7 +143,7 @@ body {
   position: absolute;
   width: 330px;
   height: 45px;
-  background-color: rgb(5, 100, 5);
+  background-color:var(--body--bg--notification);
   top: -75px;
   right: 0;
   display: flex;
@@ -160,6 +159,7 @@ body {
   letter-spacing: 0.9px;
   overflow: hidden;
   transition: background-color 1s ease;
+  color: #01a275;
 }
 
 
@@ -231,7 +231,7 @@ input {
 
 
 button {
-  color: #04171f;
+  color: var(--body--bg);
   align-items: center;
   border: 0.4px solid #a6bedd;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -284,7 +284,7 @@ p {
 dropdown list
 */
 .spendList_display_screen {
-  background-color:#04171f;
+  background-color:var(--body--bg);
   border: 1px solid rgb(230, 241, 241);
   box-shadow: 4px 14px 14px 30px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   border-radius: 4px 0;
@@ -331,7 +331,7 @@ dropdown list
   border-radius: none;
   width: inherit;
   height: inherit;
-  background-color: #04171f;
+  background-color: var(--body--bg);
 }
 
 .select--menu {
@@ -351,28 +351,31 @@ dropdown list
 }
 
 .spendList_display_screen>li:hover {
-  background-color: #02a879;
+  background-color: var(--body--txt);
 }
 
 .spendList_display_screen::-webkit-scrollbar {
   display: none;
 }
 
+
 .dailyspend--display--item {
   display: flex;
   flex-direction: column;
-  background-color: #04171f;
-  margin-top: 10%;
+  background-color: var(--body--bg);
+  margin-top: 5%;
   border-radius: 4px 0 4px 0;
   color: #01a275;
   font-size: 12px;
+  margin-top: 2%;
   width: 100%;
   height: auto;
   font-weight: bold;
   left: -1px;
   padding: 10px 7px 5px;
   width: 100%;
-  height: 610px;
+  height: 420px;
+  overflow: hidden;
 }
 
 .display--item>.dailyspend--display--item>h4 {
@@ -380,7 +383,7 @@ dropdown list
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   width: 200px;
   padding: 10px;
-  color: #04171f;
+  color: var(--body--bg);
   font-size: 11px;
   background-color:#038862;
   width: auto;
@@ -391,7 +394,7 @@ dropdown list
 .items-scrool {
   position: relative;
   width: inherit;
-  height: 700px;
+  height: auto;
   overflow: scroll;
   overflow-x: hidden;
 
@@ -404,7 +407,7 @@ dropdown list
 
 /* table related css*/
 table {
-  margin: 23px auto;
+  margin:  13px auto;
   padding: 1rem 1rem;
   width: 100%;
   font-size: smaller;
@@ -412,7 +415,7 @@ table {
   border-radius: 4px;
   border-collapse: collapse;
   color: #01a275;
-  background-color: #04171f;
+  background-color: var(--body--bg);
   border: 1px solid rgb(67, 67, 67);
    overflow: scroll;
   overflow-x: hidden;
@@ -425,7 +428,7 @@ tr {
 }
 
 th {
-  background-color:#04171f;
+  background-color:var(--body--bg);
   height: 39px;
   font-weight: bold;
   color: #04b985 !important;
@@ -440,12 +443,12 @@ td , svg {
   animation: slowAppear 2s ease-in-out forwards;
   color: #1ab388;
   vertical-align: middle;
-   margin-right: 5px;    
+   margin-right: 2px;    
 
 }
 
 tr:nth-child(even) {
-  background-color: #04171f;
+  background-color: var(--body--bg);
 }
 
 .display--item {
@@ -512,7 +515,7 @@ td>button {
   width: 80px;
   height: 20px;
   padding: 0 1.5rem;
-  background-color: #02a879 !important;
+  background-color: var(--body--txt) !important;
 }
 
 
@@ -605,7 +608,7 @@ ul {
 .select--menu--main {
   display: flex;
   flex-direction: column;
-  background-color: #04171f;
+  background-color: var(--body--bg);
 }
 
 .select--menu,
@@ -644,7 +647,7 @@ ul {
   display: flex;
   flex-direction: row;
   gap: 10%;
-  background-color: #04171f;
+  background-color: var(--body--bg);
   
 }
 
@@ -655,7 +658,7 @@ ul {
   padding: 55px 45px;
   border-radius:6px ;
   background-color: #328b72;
-  color: #04171f;
+  color: var(--body--bg);
   display: flex;
   align-items: center;
   justify-content: center;

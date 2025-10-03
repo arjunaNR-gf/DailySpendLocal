@@ -2,7 +2,6 @@ import { getDatabase, ref, get, set, remove } from "firebase/database"
 import { app } from "./Configuration"
 
 
-
 const FB_API = {
     profile_Address: 'DailySpend/Profile/OverAllSpendMonth',
     payment_Address: 'DailySpend/Payment/PaymentDetails',

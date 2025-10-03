@@ -5,9 +5,7 @@ import { getDatabase, push, ref, set, get, remove } from 'firebase/database';
 import { FB_API, Get_sync } from '../../ServiceForBackEnd/FireBaseConfig/FirebaseService';
 import Dropdown from '../../Component/Dropdown/Dropdown';
 import DailySpendPieChart from '../../Component/Chart/mySpendChart';
-import { CgProductHunt } from "react-icons/cg";
-import { MdDateRange } from "react-icons/md";
-import { MdCurrencyRupee } from "react-icons/md";
+
 
 const PayUpdate = (profileData) => {
     const [btnText, setBtnText] = useState('NEXT..')
@@ -202,7 +200,7 @@ const PayUpdate = (profileData) => {
                     setNotification((prevStatus) => ({
                         ...prevStatus,
                         activeStatus: true,
-                        subject: 'Added item Sucessfully.................!!!!!!'
+                        subject: 'Item Added  Sucessfully....!'
                     }))
                 }, 100);
                 setTimeout(() => {
@@ -261,7 +259,7 @@ const PayUpdate = (profileData) => {
 
 
 
-                    {listActive == true ? <Dropdown size="full" dataAry={paymentMenu} inputID={inputID} placeholder={inputPlaceHolder} onClickmeth={apply_pay_name} onClickNormal={false} />
+                    {listActive == true ? <Dropdown size="full" placement="top" dataAry={paymentMenu} inputID={inputID} placeholder={inputPlaceHolder} onClickmeth={apply_pay_name} onClickNormal={false} />
                         :
                         <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
 

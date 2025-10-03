@@ -4,7 +4,7 @@ import { FB_API, Get_sync } from '../../ServiceForBackEnd/FireBaseConfig/Firebas
 import Dropdown from '../../Component/Dropdown/Dropdown';
 import { useEffect, useState } from 'react';
 import LoaderNotificaiton from '../../Component/Notification/LoaderNotification';
-import'./index.css'
+import './index.css'
 
 
 
@@ -20,18 +20,18 @@ export default function Chart() {
     useState({ year: '', month: monthDetails[new Date().getMonth()] })
 
   const otherSetting = {
-  height: 300,
-  yAxis: [{ label: 'Money Spent', width: 30 }],
-  grid: { horizontal: true },
-};
+    height: 300,
+    yAxis: [{ label: 'Money Spent', width: 30 }],
+    grid: { horizontal: true },
+  };
 
 
 
-const valueFormatter = (value) => `${value}`;
+  const valueFormatter = (value) => `${value}`;
 
 
   const firebase_fetch = async (val) => {
-    let monthTemp = val==null?inputval.month:val;
+    let monthTemp = val == null ? inputval.month : val;
     setActive(true)
     var getData = await Get_sync(FB_API.daiilyspendInfo_Address);
 
@@ -45,11 +45,11 @@ const valueFormatter = (value) => `${value}`;
       }));
 
       let filteredData = temp.filter(spend =>
-       monthDetails[ new Date(spend.dateOfSpend).getMonth()] === monthTemp
+        monthDetails[new Date(spend.dateOfSpend).getMonth()] === monthTemp
       );
 
       if (filteredData.length > 0) {
-     
+
 
         let reducedData = filteredData.reduce((acc, item) => {
           let date = new Date(item.dateOfSpend);
@@ -126,12 +126,12 @@ const valueFormatter = (value) => `${value}`;
 
 
       <div className='char--main' style={{ marginTop: '10px', border: '1px solid gray', padding: '10px', position: 'relative', height: '500px' }}>
-     { Active  && <LoaderNotificaiton type={'SC'} text={"Please wait for a second..."}/>}
+        {Active && <LoaderNotificaiton type={'SC'} text={"Please wait for a second..."} />}
         <span>
           <h5>Select Month you want to compare!</h5>
         </span>
         <div className='drop--down--Chart' style={{ marginTop: '3px' }}>
-          <Dropdown size="medium" label="Select Month you want to compare!" name="month"
+          <Dropdown size="medium" placement="bottom" label="Select Month you want to compare!" name="month"
             value={inputval.month}
             onClickmeth={InputHandler} dataAry={monthDetails} />
         </div>
@@ -152,7 +152,7 @@ const valueFormatter = (value) => `${value}`;
                 },
               ]}
 
-              series={[{ dataKey: 'amount', label: dataset[0].month, valueFormatter,color:'#22cc9d' }]}
+              series={[{ dataKey: 'amount', label: dataset[0].month, valueFormatter, color: '#22cc9d' }]}
               {...otherSetting}
             />
           </>

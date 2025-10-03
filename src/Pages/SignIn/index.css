@@ -2,7 +2,7 @@
   width: 42%;
   height: 95vh;
   padding: 0.11rem 0.11rem;
-  background-color: #04171f;
+  background-color: var(--body--bg);
   border: 1px solid rgb(54, 43, 43);
   border-radius: 0.3rem;
   align-self: center;
@@ -16,7 +16,7 @@
 }
 
 .sign--logo--name {
-  color: #22cc9d;
+  color: var(--body-header);
 }
 .sign--logo--name>h3,
   h1 {
@@ -37,7 +37,7 @@
 
 .form--name>h4 {
   font-size: 1.2rem;
-  color: #22cc9d;
+  color: var(--body-header);
   /* border-bottom: 1px solid rgb(36, 5, 5); */
   border-radius: 0 0 10px 10px;
   line-height: 290%;
@@ -62,7 +62,7 @@
 }
 
 .form-link>P>a {
-  color: #22cc9d !important;
+  color: var(--body--txt-tx) !important;
   cursor: pointer;
   text-decoration: underline;
   font-size: 0.8rem !important;
@@ -70,13 +70,13 @@
 }
 
 .form-link>P>a:hover {
-  color: #22cc9d !important;
+  color: var(--body--txt-tx) !important;
   cursor: pointer;
   font-weight: bolder;
 }
 
 .onboard--page--main>.form-devider>input {
-  background-color: #04171f;
+  background-color: var(--body--bg);
   border-radius: 4px;
 }
 
@@ -91,12 +91,12 @@
 h1 {
   margin: 0 !important;
   padding: 0 !important;
-  color: #22cc9d;
+  color: var(--body--txt-tx);
 
 }
 
 .note>span {
-  color: #22cc9d;
+  color: var(--body--txt-tx);
   font-size: 12px;
   border: 1px solid rgb(36, 47, 36);
   background-color: brown;

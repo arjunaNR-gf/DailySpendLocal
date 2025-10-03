@@ -2,9 +2,6 @@ import { useEffect } from 'react';
 import './index.css'
 const InputPad = ({ inputName, type, inputValue, lable, placeholder, inputhandler, onKeyDwn }) => {
 
-    
-   
-
     return (
         <>
             <label>{lable}</label>

@@ -3,12 +3,14 @@ import './index.css'
 
 
 
-export default function Dropdown({ onClickNormal = true, inputID,size, name, value, placeholder, onClickmeth, dataAry }) {
+export default function Dropdown
+({ onClickNormal = true, inputID,size, placement,name, value, placeholder, onClickmeth, dataAry }) {
 
     const [active, setActive] = useState(false)
     const selectionDivRef = useRef(null);
 
     useEffect(() => {
+        console.log(placement)
         // Event handler to capture the click
         const handleClickOutside = (event) => {
             if (selectionDivRef.current && !selectionDivRef.current.contains(event.target)) {
@@ -32,7 +34,7 @@ export default function Dropdown({ onClickNormal = true, inputID,size, name, val
                 </div>
                 {
                     active &&
-                    <div className="drop--down--list--dispaly">
+                    <div className={`drop--down--list--dispaly  ${placement}`}>
                         {
                             dataAry.map((item, i) => {
                                 return (

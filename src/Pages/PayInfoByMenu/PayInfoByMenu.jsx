@@ -121,7 +121,7 @@ const PayInfoByMenu = () => {
     return (
         <>
             <div className='payinfobymenu'>
-                <Dropdown placeholder="Select your option" name="menuopt" value={menuopt} dataAry={menu} size="medium" onClickmeth={display_DropDown_Option} />
+                <Dropdown placeholder="Select your option" name="menuopt" value={menuopt} dataAry={menu} size="medium" placement="bottom" onClickmeth={display_DropDown_Option} />
             {active &&   <div className='payinfobymenu-item-total-display'>         <h3>Total : {SpendAmount}</h3></div>}
             </div>
             {active && 

@@ -84,6 +84,7 @@ const ProfilePage = () => {
                 ...tempDataD[0][key],
             }));
 
+            console.log(temp,'testdata')
             //to display over all spend on year /Month
             setInputVal((prevState) => ({
                 ...prevState,
@@ -91,8 +92,8 @@ const ProfilePage = () => {
                 totalSpend: temp.filter(monthandyear => new Date(monthandyear.dateOfSpend).getFullYear() === inputval.year && monthDetails[new Date(monthandyear.dateOfSpend).getMonth()] === inputval.month).
                     reduce((sum, resultAry) => sum + Number(resultAry.money), 0)
             }))
-           
-        
+
+
 
             //fetch data by year & month
             const ftemp = temp.filter(item =>
@@ -163,7 +164,7 @@ const ProfilePage = () => {
         setTimeout(() => {
             setInputVal({ year: '', month: '', Total: 0, totalSpend: 0 })
         }, 10);
-        
+
 
         setProfileView({
             selectedYear: '', selectedMonth: '',
@@ -180,22 +181,16 @@ const ProfilePage = () => {
         setTimeout(() => {
             dailyspend_pull();
         }, 40)
-
-
     }
-
-
-
-
-
 
     return (
         <>
             <div className='dailyspend--display--item'>
                 <div className='select--menu--main'>
                     <div className='select--menu'>
-                         {  <Dropdown
+                        {<Dropdown
                             placeholder="select value"
+                            placement="bottom"
                             size={inputval_flag() == false ? "full" : "medium"}
                             name={InputName()}
                             value={InputSelVal()}
@@ -211,25 +206,27 @@ const ProfilePage = () => {
 
                     {inputval_flag() &&
                         <div className='select--menu--selects'>
-                           
+
                             <div className='display--spend--monthyearspend'>  {inputval.year && <div>Year : {inputval.year}</div>}</div>
-                            <div className='display--spend--monthyearspend'>  {inputval.Total !==0 ?<div>Total/Y : {inputval.Total}</div>:  <LoaderNotificaiton type={'DD'}  /> }</div>
+                            <div className='display--spend--monthyearspend'>  {inputval.Total !== 0 ? <div>Total/Y : {inputval.Total}</div> : <LoaderNotificaiton type={'DD'} />}</div>
                             <div className='display--spend--monthyearspend'>  {inputval.month && <div>Month : {inputval.month.toUpperCase()}</div>}</div>
-                            <div className='display--spend--monthyearspend'>  {inputval.totalSpend !==0 ? <div>Spend/M :{inputval.totalSpend}</div> : <LoaderNotificaiton type={'DD'} />  }</div>
+                            <div className='display--spend--monthyearspend'>  {inputval.totalSpend !== 0 ? <div>Spend/M :{inputval.totalSpend}</div> : <LoaderNotificaiton type={'DD'} />}</div>
                         </div>
                     }
                 </div>
 
+                <table>
+                    <thead>
+                        <th> <CgProductHunt size="35" />  Description </th>
+                        <th> <MdCurrencyRupee size="35" /> Money</th>
+                        <th> <MdDateRange size="35" />  dateOfSpend</th>
+                    </thead>
+                </table>
                 <div className='items-scrool'>
-                    {notificationActive  && <LoaderNotificaiton type={'CS'} text={"Please wait for a second..."} />}
+                    {notificationActive && <LoaderNotificaiton type={'CS'} text={"Please wait for a second..."} />}
                     {(inputval_flag() && profileView.ViewData.length > 1) ? (
                         < div >
                             <table>
-                                <thead>
-                                    <th> <CgProductHunt size="35" />  Description </th>
-                                    <th> <MdCurrencyRupee size="35" /> Money</th>
-                                    <th> <MdDateRange size="35" />  dateOfSpend</th>
-                                </thead>
                                 <tbody>
                                     {
                                         profileView.ViewData.map((item, i) => {
@@ -250,7 +247,7 @@ const ProfilePage = () => {
 
                             </table>
                         </div>
-                    ) : ''
+                    ) : 'No Data'
                     }
                 </div>
             </div>
