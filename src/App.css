@@ -29,7 +29,15 @@
 
 body {
   background: rgb(228, 228, 228);
-
+}
+/* access and server based visibility*/
+.serverstatus.Y
+{
+  visibility: visible;
+}
+.serverstatus.N
+{
+  visibility: hidden;
 }
 
 /*framework */
@@ -84,6 +92,14 @@ body {
   flex-direction: row;
   align-items: center;
   color: var(--body--txt-tx);
+}
+
+.view-item-scroll
+{
+  overflow: scroll;
+  overflow-x: hidden;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;
 }
 
 .dailyspend--head>div:nth-child(1)>h4 {

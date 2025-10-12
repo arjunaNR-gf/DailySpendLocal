@@ -8,4 +8,8 @@ const getLastUpdateDailySpend=()=>{
     return ClientApi.get('DailSpend/getLastUpdate')
 }
 
-export { pushSpendMoney,getLastUpdateDailySpend }
+const getServerstatus=()=>{
+ return ClientApi.get('ServerAvailability/ServerStatus')
+}
+
+export { pushSpendMoney,getLastUpdateDailySpend,getServerstatus }

@@ -1,7 +1,7 @@
 import '../../App.css';
 import '../../AppMobile.css'
 import { useEffect, useState } from 'react';
-import { getLastUpdateDailySpend, pushSpendMoney } from '../../ServiceForBackEnd/Api/DailySpendLocalApi';
+import { getLastUpdateDailySpend, getServerstatus, pushSpendMoney } from '../../ServiceForBackEnd/Api/DailySpendLocalApi';
 import { app } from '../../ServiceForBackEnd/FireBaseConfig/Configuration';
 import { getDatabase, push, ref, set, get, remove } from 'firebase/database';
 import { FB_API, Get_sync } from '../../ServiceForBackEnd/FireBaseConfig/FirebaseService';
@@ -32,9 +32,7 @@ const Home = ({ authenticate }) => {
     const CurrentMonth = month[new Date().getMonth()]
     const [btnText, setBtnText] = useState('NEXT..')
     const [notification, setNotification] = useState({ activeStatus: false, subject: '' })
-
     const [isActive, SetIsActive] = useState('inactive')
-
     const [localDB, setLocalDb] = useState([])
     const [pushMenu, setPushMenu] = useState('')
     const [paymentMenu, setPaymentMenu] = useState([])
@@ -42,6 +40,7 @@ const Home = ({ authenticate }) => {
     const [profileData, setProfileData] = useState([])
     const [profileView, setProfileView] = useState({ selectedYear: '', selectedMonth: '', ViewData: [] })
     const [haveAccess, setHaveAccess] = useState('N');
+    const [serverStatus,setServerStatus] = useState('N')
 
 
 
@@ -122,8 +121,27 @@ const Home = ({ authenticate }) => {
             }))
         }
     }
+
+    const serverAvailability=()=>{
+      
+    }
+
+    useEffect(()=>{
+         getServerstatus()
+       .then(res=>{if(res.data==='ON'){setServerStatus('Y')}else{setServerStatus('N')}})
+        .catch((error) => {
+         if (error.message === 'ERR_NETWORK') {
+                setServerStatus('N')
+            }
+            else {
+               setServerStatus('N')
+            }
+        })
+    })
+
     //Menthod Call
     useEffect(() => {
+      
         setPushMenu(sessionStorage.getItem('currentPage') !== null ? JSON.parse(sessionStorage.getItem('currentPage')):'payment')
         asyncgetOnlineStoreData();
         PaymentMenu_Sync();
@@ -151,6 +169,15 @@ const Home = ({ authenticate }) => {
         })
         Access_Check();
     }, [])
+    // let count=0;
+    // useEffect(()=>{
+    //     if(count=0)
+    //     {
+    // serverAvailability();
+    // count++;
+
+    // }
+    // },[  serverAvailability])
 
     const Access_Check = () => {
         var personUserName = JSON.parse(sessionStorage.getItem('LoginStatus')).username;
@@ -309,12 +336,14 @@ const Home = ({ authenticate }) => {
                                    <MdCurrencyRupee size="40" /> Money(RS)
                                 </th>
 
-                                <th>
+                              {(serverStatus==='Y' || haveAccess ==='Y') &&  <th>
                                     Action
                                 </th>
+                                }  
                             </thead>
                       </table>
-                        <table>
+                      <div className='view-item-scroll'>
+                             <table>
                            
                             <tbody>
                                 {
@@ -323,8 +352,11 @@ const Home = ({ authenticate }) => {
                                             <td key={'desc' + item.PayID}> <CgProductHunt size="30" />  {paymentMenu.filter(itm => itm.paymentID == item.Description)[0].paymentDesc}</td>
                                             <td key={'payment' + item.PayID}><MdDateRange size="30" /> {item.paymentDate}</td>
                                             <td key={'amount' + item.PayID}> <MdCurrencyRupee size="30" color='gray' /> {item.Amount}</td>
-                                            <td key={item.PayID + i + 'btn'}><button onClick={() => pushToLocalSql(item.PayID)}>P</button>
-                                                <button className={`useraccess` + haveAccess} onClick={() => RemoveItemFromFB(item.PayID)}>D</button></td>
+                                               
+                                             <td  key={item.PayID + i + 'btn'}> 
+                                                <button className={`serverstatus ${serverStatus}`}  onClick={() => pushToLocalSql(item.PayID)}>P</button>
+                                                <button className={`useraccess` + haveAccess} onClick={() => RemoveItemFromFB(item.PayID)}>D</button>
+                                                </td>
                                         </tr>
                                     })
                                 }
@@ -334,6 +366,8 @@ const Home = ({ authenticate }) => {
 
                             </tbody>
                         </table>
+                      </div>
+                       
                         {/* <div className='btn--push--local--db'>
                             <button onClick={() => { }}>PUSH</button>
                         </div> */}

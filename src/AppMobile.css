@@ -248,4 +248,8 @@
     height: 35px;
     font-size: 12px;
   }
+  .dailyspend--display--item
+  {
+    height: 740px;
+   }
 }
