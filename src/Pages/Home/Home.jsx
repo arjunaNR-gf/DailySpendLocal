@@ -40,7 +40,7 @@ const Home = ({ authenticate }) => {
     const [profileData, setProfileData] = useState([])
     const [profileView, setProfileView] = useState({ selectedYear: '', selectedMonth: '', ViewData: [] })
     const [haveAccess, setHaveAccess] = useState('N');
-    const [serverStatus,setServerStatus] = useState('N')
+    const [serverStatus, setServerStatus] = useState('N')
 
 
 
@@ -122,27 +122,27 @@ const Home = ({ authenticate }) => {
         }
     }
 
-    const serverAvailability=()=>{
-      
+    const serverAvailability = () => {
+
     }
 
-    useEffect(()=>{
-         getServerstatus()
-       .then(res=>{if(res.data==='ON'){setServerStatus('Y')}else{setServerStatus('N')}})
-        .catch((error) => {
-         if (error.message === 'ERR_NETWORK') {
-                setServerStatus('N')
-            }
-            else {
-               setServerStatus('N')
-            }
-        })
+    useEffect(() => {
+        getServerstatus()
+            .then(res => { if (res.data === 'ON') { setServerStatus('Y') } else { setServerStatus('N') } })
+            .catch((error) => {
+                if (error.message === 'ERR_NETWORK') {
+                    setServerStatus('N')
+                }
+                else {
+                    setServerStatus('N')
+                }
+            })
     })
 
     //Menthod Call
     useEffect(() => {
-      
-        setPushMenu(sessionStorage.getItem('currentPage') !== null ? JSON.parse(sessionStorage.getItem('currentPage')):'payment')
+
+        setPushMenu(sessionStorage.getItem('currentPage') !== null ? JSON.parse(sessionStorage.getItem('currentPage')) : 'payment')
         asyncgetOnlineStoreData();
         PaymentMenu_Sync();
         firebaseFetchProfile();
@@ -192,7 +192,7 @@ const Home = ({ authenticate }) => {
     const changePushMenu = (menuName) => {
         if (menuName == 'signout') { authenticate('signout', '', '') }
         setPushMenu(menuName)
-        sessionStorage.setItem('currentPage',JSON.stringify(menuName))
+        sessionStorage.setItem('currentPage', JSON.stringify(menuName))
         if (menuName == 'profile') {
             firebaseFetchProfile();
         } else {
@@ -286,8 +286,8 @@ const Home = ({ authenticate }) => {
                             <li onClick={() => changePushMenu('payment')}><MdOutlinePayments size="35" /> Payment</li>
                             {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}> <TbDatabaseExport size="35" />View</li>}
                             <li onClick={() => changePushMenu('profile')}> <CgProfile size="35" /> Profile</li>
-                            <li onClick={() => changePushMenu('profileByMenu')}><IoLogoPaypal size="35"/> PayByMenu</li>
-                             <li onClick={() => changePushMenu('Chart')}><FaChartBar size="35"/> Chart </li>
+                            <li onClick={() => changePushMenu('profileByMenu')}><IoLogoPaypal size="35" /> PayByMenu</li>
+                            <li onClick={() => changePushMenu('Chart')}><FaChartBar size="35" /> Chart </li>
                             <li onClick={() => changePushMenu('signout')}><PiSignOutBold size="35" /> SignOut </li>
 
                         </ul>
@@ -302,12 +302,12 @@ const Home = ({ authenticate }) => {
                     </div>
                     <ul>
                         <li onClick={() => { window.location.replace('https://arjunanr-gf.github.io/DailySpendProject/') }}> <IoHomeSharp size="30" />  Home</li>
-                            <li onClick={() => changePushMenu('payment')}><MdOutlinePayments size="30" /> Payment</li>
-                            {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}> <TbDatabaseExport size="30" />View</li>}
-                            <li onClick={() => changePushMenu('profile')}> <CgProfile size="30" /> Profile</li>
-                            <li onClick={() => changePushMenu('profileByMenu')}><IoLogoPaypal size="30"/> PayByMenu</li>
-                             <li onClick={() => changePushMenu('Chart')}><FaChartBar size="30"/> Chart </li>
-                            <li onClick={() => changePushMenu('signout')}><PiSignOutBold size="30" /> SignOut </li>
+                        <li onClick={() => changePushMenu('payment')}><MdOutlinePayments size="30" /> Payment</li>
+                        {localDB.length > 0 && <li onClick={() => changePushMenu('finalpush')}> <TbDatabaseExport size="30" />View</li>}
+                        <li onClick={() => changePushMenu('profile')}> <CgProfile size="30" /> Profile</li>
+                        <li onClick={() => changePushMenu('profileByMenu')}><IoLogoPaypal size="30" /> PayByMenu</li>
+                        <li onClick={() => changePushMenu('Chart')}><FaChartBar size="30" /> Chart </li>
+                        <li onClick={() => changePushMenu('signout')}><PiSignOutBold size="30" /> SignOut </li>
 
                     </ul>
                 </div>
@@ -319,55 +319,55 @@ const Home = ({ authenticate }) => {
                     <div className='dailyspend--display--item'>
                         <div className='dailyspend-view-header-context'>
                             <div> <BsCalendar2Month size="40" color='black' />  {CurrentMonth}</div>
-                            <div><MdCurrencyRupee size="40" color='black' /> {totalSpendCurrentMonth()+".00"}</div>
+                            <div><MdCurrencyRupee size="40" color='black' /> {totalSpendCurrentMonth() + ".00"}</div>
                         </div>
-                      
 
-                      <table>
-                         <thead>
+
+                        <table>
+                            <thead>
 
                                 <th>
-                                    < CgProductHunt size="40"/>Descriptions
+                                    < CgProductHunt size="40" />Descriptions
                                 </th>
                                 <th>
-                                   <BsCalendar2Month size="40" /> Date Of Spend
+                                    <BsCalendar2Month size="40" /> Date Of Spend
                                 </th>
                                 <th>
-                                   <MdCurrencyRupee size="40" /> Money(RS)
+                                    <MdCurrencyRupee size="40" /> Money(RS)
                                 </th>
 
-                              {(serverStatus==='Y' || haveAccess ==='Y') &&  <th>
+                                {(serverStatus === 'Y' || haveAccess === 'Y') && <th>
                                     Action
                                 </th>
-                                }  
-                            </thead>
-                      </table>
-                      <div className='view-item-scroll'>
-                             <table>
-                           
-                            <tbody>
-                                {
-                                    localDB.map((item, i) => {
-                                        return <tr>
-                                            <td key={'desc' + item.PayID}> <CgProductHunt size="30" />  {paymentMenu.filter(itm => itm.paymentID == item.Description)[0].paymentDesc}</td>
-                                            <td key={'payment' + item.PayID}><MdDateRange size="30" /> {item.paymentDate}</td>
-                                            <td key={'amount' + item.PayID}> <MdCurrencyRupee size="30" color='gray' /> {item.Amount}</td>
-                                               
-                                             <td  key={item.PayID + i + 'btn'}> 
-                                                <button className={`serverstatus ${serverStatus}`}  onClick={() => pushToLocalSql(item.PayID)}>P</button>
-                                                <button className={`useraccess` + haveAccess} onClick={() => RemoveItemFromFB(item.PayID)}>D</button>
-                                                </td>
-                                        </tr>
-                                    })
                                 }
-                                {/* <tr style={{
+                            </thead>
+                        </table>
+                            <div className='view-item-scroll'>
+                                <table>
+
+                                    <tbody>
+                                        {
+                                            localDB.map((item, i) => {
+                                                return <tr>
+                                                    <td key={'desc' + item.PayID}> <CgProductHunt size="30" />  {paymentMenu.length>0 && paymentMenu.filter(itm => itm.paymentID == item.Description)[0].paymentDesc}</td> 
+                                                    <td key={'payment' + item.PayID}><MdDateRange size="30" /> {item.paymentDate}</td>
+                                                    <td key={'amount' + item.PayID}> <MdCurrencyRupee size="30" color='gray' /> {item.Amount}</td>
+
+                                                    <td key={item.PayID + i + 'btn'}>
+                                                        <button className={`serverstatus ${serverStatus}`} onClick={() => pushToLocalSql(item.PayID)}>P</button>
+                                                        <button className={`useraccess` + haveAccess} onClick={() => RemoveItemFromFB(item.PayID)}>D</button>
+                                                    </td>
+                                                </tr>
+                                            })
+                                        }
+                                        {/* <tr style={{
                                     display: "Flex", alignItems: "center", color: "black", fontSize: "14PX", padding: "10px", backgroundColor: "#8FBC8F"
                                 }}> Total :{totalSpendCurrentMonth()} </tr> */}
 
-                            </tbody>
-                        </table>
-                      </div>
-                       
+                                    </tbody>
+                                </table>
+                            </div>
+
                         {/* <div className='btn--push--local--db'>
                             <button onClick={() => { }}>PUSH</button>
                         </div> */}
@@ -379,7 +379,7 @@ const Home = ({ authenticate }) => {
                         pushMenu == 'profileByMenu' ? <PayInfoByMenu /> :
                             pushMenu == 'payment' ?
                                 <PayUpdate profileData={profileView.ViewData} />
-                                : pushMenu=='Chart' ? <Chart />: ''
+                                : pushMenu == 'Chart' ? <Chart /> : ''
                 }
             </div>
         </>

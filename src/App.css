@@ -690,3 +690,14 @@ ul {
 {
   font-size: 15px;
 }
+
+.view-item-scroll>table>tbody>tr>td:nth-child(3)
+{
+  text-align: center;
+}
+
+.view-item-scroll>table>tbody>tr>td:nth-child(4)
+{
+  text-align: end;
+
+}
