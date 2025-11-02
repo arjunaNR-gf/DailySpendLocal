@@ -52,8 +52,8 @@
         margin: 0;
     }
     .payinfobymenu-item-total-display{
-        height: 70px;
-        background-color: #04171f;
+        margin-top: 10px;
+        height: 40px;
     }
 
 }
