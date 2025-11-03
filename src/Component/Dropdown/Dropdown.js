@@ -30,7 +30,7 @@ export default function Dropdown
             <div ref={selectionDivRef} className={`drop--down ${size === 'full' ? 'select_full' : size === 'medium' ? 'select_medium' : 'select_small'}`}>
 
                 <div className="drop--down--input--icon" onClick={() => setActive(true)} disabled  >
-                    <input  id={inputID} name={name} value={value} placeholder={placeholder}  readOnly   />
+                    <input  id={inputID} name={name} value={value} placeholder={placeholder} readOnly   />
                 </div>
                 {
                     active &&

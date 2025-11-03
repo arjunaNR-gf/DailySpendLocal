@@ -4,6 +4,9 @@
     height: 50px;
     display: flex;
     background-color: #04171f;
+    column-gap: 10px;
+    padding-bottom: 30px;
+
 
 }
 
@@ -13,6 +16,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    column-gap: 10px;
     color: #04171f;
     font-size: 14px;
     border-radius: 4px;
