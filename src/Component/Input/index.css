@@ -43,7 +43,7 @@ input:focus {
 /* Responsive Tweaks */
 @media screen and (max-width: 620px) {
   #inpt {
-    height: 54px;
+    height: 34px;
     font-weight: 700;
     border-radius: 6px;
     font-size: 19px;

@@ -3,6 +3,11 @@
     line-height: 150%;
   }
 
+  .dailyspend--main--app{
+    width: 100%;
+    margin: 1px 1px;
+  }
+
   h2{
     font-size: 45px;
   }
@@ -213,7 +218,7 @@
     align-Items: center;
   }
  h2{
-    font-size: 35px;
+    font-size: 25px;
     text-transform: uppercase;
   }
   .dailyspend-view-header-context
@@ -251,6 +256,16 @@
   }
   .dailyspend--display--item
   {
-    height: 440px;
+    height: 240px;
    }
+
+   .dailyspend--add--item-block{
+    height: 165px;
+   }
+
+       input {
+        width: 100%;
+        font-size: 15px;
+        font-weight:bold;
+       }
 }
