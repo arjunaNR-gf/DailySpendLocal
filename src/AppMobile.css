@@ -137,7 +137,6 @@
     flex-direction: column;
     height: 235px; 
     box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px 12px;
-    overflow: hidden;
   }
 
   input {
@@ -261,10 +260,11 @@
 
    .dailyspend--add--item-block{
     height: 165px;
+    padding: 10p 10px;
    }
 
        input {
-        width: 100%;
+        width: 260px;
         font-size: 15px;
         font-weight:bold;
        }
