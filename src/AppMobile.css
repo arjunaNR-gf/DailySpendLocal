@@ -4,7 +4,7 @@
   }
 
   h2{
-    font-size: 55px;
+    font-size: 45px;
   }
 
   .windowcls>.menu--main--header {
@@ -130,8 +130,9 @@
   .dailyspend--add--item-block {
     position: relative;
     flex-direction: column;
-    /* height: 275px; */
+    height: 235px; 
     box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px 12px;
+    overflow: hidden;
   }
 
   input {
