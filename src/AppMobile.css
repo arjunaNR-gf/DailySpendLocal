@@ -130,7 +130,7 @@
   .dailyspend--add--item-block {
     position: relative;
     flex-direction: column;
-    height: 275px;
+    /* height: 275px; */
     box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px 12px;
   }
 
