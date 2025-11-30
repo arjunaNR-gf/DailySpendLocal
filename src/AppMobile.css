@@ -204,7 +204,7 @@
 @media screen and (max-width: 550px) {
   .mobilecls>.menu--main--header>.mobile-menu-header-close {
     padding: 1px 10px;
-    width: 100%;
+    width: 90%;
     height: 30px;
     display: flex;
     flex-Direction: row;
@@ -250,6 +250,6 @@
   }
   .dailyspend--display--item
   {
-    height: 640px;
+    height: 440px;
    }
 }
