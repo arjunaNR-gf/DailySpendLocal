@@ -121,21 +121,7 @@ body {
 
 }
 
-.dailyspend--add--item-block {
-  position: relative;
-  background-color: 'var(--body--bg)';
-  width: 100%;
-  height: 135px;
-  padding: 4rem 1.2rem;
-  border: 1px solid gray;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.45rem;
-  position: relative;
-  border-radius: 4px;
-}
+
 
 .display--lastupdate {
   display: flex;

@@ -1,0 +1,41 @@
+.payment-menu-divider {
+
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+.dailyspend--add--item-block {
+    position: relative;
+    background-color: 'var(--body--bg)';
+    width: auto;
+    height: 135px;
+    padding: 4rem 1.2rem;
+    /* border: 1px solid gray; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.45rem;
+    position: relative;
+    border-radius: 4px;
+}
+
+
+@media screen and (max-width: 620px) {
+
+    .payment-menu-divider {
+
+        display: flex;
+        flex-direction: column;
+        margin-top: 14%;
+
+    }
+
+    .dailyspend--add--item-block {
+        border: 1px solid gray; 
+    }
+}

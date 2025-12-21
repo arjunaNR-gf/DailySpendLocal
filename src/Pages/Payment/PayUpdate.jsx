@@ -5,6 +5,7 @@ import { getDatabase, push, ref, set, get, remove } from 'firebase/database';
 import { FB_API, Get_sync } from '../../ServiceForBackEnd/FireBaseConfig/FirebaseService';
 import Dropdown from '../../Component/Dropdown/Dropdown';
 import DailySpendPieChart from '../../Component/Chart/mySpendChart';
+import './index.css'
 
 
 const PayUpdate = (profileData) => {
@@ -45,7 +46,7 @@ const PayUpdate = (profileData) => {
             }))
         }
         else {
-          ''
+            ''
         }
     }
 
@@ -75,7 +76,7 @@ const PayUpdate = (profileData) => {
                 }))
             }, 40);
         }
-        
+
     }
 
 
@@ -236,35 +237,33 @@ const PayUpdate = (profileData) => {
 
     return (
         <>
+            <div className='payment-menu-divider'>
 
-            <DailySpendPieChart dataval={dataStoreDb} />
+                <div className='dailyspend--add--item-block'>
+                    {notification.activeStatus == true ?
+                        <div className='notification'>
 
-
-            <div className='dailyspend--add--item-block'>
-                {notification.activeStatus == true ?
-                    <div className='notification'>
-
-                        <p>{notification.subject}</p>
-                        <div className='notification--icon'></div>
-                        <div className='rectangle'></div>
-                    </div> : ''
-                }
-
-                <div className='display--lastupdate'>
-                    Last Update was on {lastupdateInfo}
-                </div>
-
-                <div className='dailyspend--add--item payment--input'>
-
-
-
-
-                    {listActive == true ? <Dropdown size="full" placement="top" dataAry={paymentMenu} inputID={inputID} placeholder={inputPlaceHolder} onClickmeth={apply_pay_name} onClickNormal={false} />
-                        :
-                        <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
-
+                            <p>{notification.subject}</p>
+                            <div className='notification--icon'></div>
+                            <div className='rectangle'></div>
+                        </div> : ''
                     }
-                    {/* 
+
+                    <div className='display--lastupdate'>
+                        Last Update was on {lastupdateInfo}
+                    </div>
+
+                    <div className='dailyspend--add--item payment--input'>
+
+
+
+
+                        {listActive == true ? <Dropdown size="full" placement="top" dataAry={paymentMenu} inputID={inputID} placeholder={inputPlaceHolder} onClickmeth={apply_pay_name} onClickNormal={false} />
+                            :
+                            <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
+
+                        }
+                        {/* 
                         // <div ref={selectDrpDownDivref} className='spendList_display_screen'>
                         //     {
                         //         paymentMenu.map((item, index) => {
@@ -276,12 +275,17 @@ const PayUpdate = (profileData) => {
 
 
 
-                    {push_ready_verification() == true ?
-                        <button onClick={() => { push_Db() }}>PUSH</button> :
-                        <button onClick={(e) => { on_submit_item(e) }}>{btnText}</button>}
+                        {push_ready_verification() == true ?
+                            <button onClick={() => { push_Db() }}>PUSH</button> :
+                            <button onClick={(e) => { on_submit_item(e) }}>{btnText}</button>}
+                    </div>
+                    <p>@dailyspend.com</p>
                 </div>
-                <p>@dailyspend.com</p>
+
+                <DailySpendPieChart dataval={dataStoreDb} />
+
             </div>
+
         </>
     )
 }

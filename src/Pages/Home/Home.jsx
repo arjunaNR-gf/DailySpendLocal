@@ -127,6 +127,7 @@ const Home = ({ authenticate }) => {
     }
 
     useEffect(() => {
+        console.log('server online check!')
         getServerstatus()
             .then(res => { if (res.data === 'ON') { setServerStatus('Y') } else { setServerStatus('N') } })
             .catch((error) => {
@@ -322,10 +323,8 @@ const Home = ({ authenticate }) => {
                             <div><MdCurrencyRupee size="40" color='black' /> {totalSpendCurrentMonth() + ".00"}</div>
                         </div>
 
-
                         <table>
                             <thead>
-
                                 <th>
                                     < CgProductHunt size="40" />Descriptions
                                 </th>
@@ -342,44 +341,41 @@ const Home = ({ authenticate }) => {
                                 }
                             </thead>
                         </table>
-                            <div className='view-item-scroll'>
-                                <table>
+                        <div className='view-item-scroll'>
+                            <table>
 
-                                    <tbody>
-                                        {
-                                            localDB.map((item, i) => {
-                                                return <tr>
-                                                    <td key={'desc' + item.PayID}> <CgProductHunt size="30" />  {paymentMenu.length>0 && paymentMenu.filter(itm => itm.paymentID == item.Description)[0].paymentDesc}</td> 
-                                                    <td key={'payment' + item.PayID}><MdDateRange size="30" /> {item.paymentDate}</td>
-                                                    <td key={'amount' + item.PayID}> <MdCurrencyRupee size="30" color='gray' /> {item.Amount}</td>
+                                <tbody>
+                                    {
+                                        localDB.map((item, i) => {
+                                            return <tr>
+                                                <td key={'desc' + item.PayID}> <CgProductHunt size="30" />  {paymentMenu.length > 0 && paymentMenu.filter(itm => itm.paymentID == item.Description)[0].paymentDesc}</td>
+                                                <td key={'payment' + item.PayID}><MdDateRange size="30" /> {item.paymentDate}</td>
+                                                <td key={'amount' + item.PayID}> <MdCurrencyRupee size="30" color='gray' /> {item.Amount}</td>
 
-                                                    <td key={item.PayID + i + 'btn'}>
-                                                        <button className={`serverstatus ${serverStatus}`} onClick={() => pushToLocalSql(item.PayID)}>P</button>
-                                                        <button className={`useraccess` + haveAccess} onClick={() => RemoveItemFromFB(item.PayID)}>D</button>
-                                                    </td>
-                                                </tr>
-                                            })
-                                        }
-                                        {/* <tr style={{
+                                                <td key={item.PayID + i + 'btn'}>
+                                                    <button className={`serverstatus ${serverStatus}`} onClick={() => pushToLocalSql(item.PayID)}>P</button>
+                                                    <button className={`useraccess` + haveAccess} onClick={() => RemoveItemFromFB(item.PayID)}>D</button>
+                                                </td>
+                                            </tr>
+                                        })
+                                    }
+                                    {/* <tr style={{
                                     display: "Flex", alignItems: "center", color: "black", fontSize: "14PX", padding: "10px", backgroundColor: "#8FBC8F"
                                 }}> Total :{totalSpendCurrentMonth()} </tr> */}
 
-                                    </tbody>
-                                </table>
-                            </div>
+                                </tbody>
+                            </table>
+                        </div>
 
                         {/* <div className='btn--push--local--db'>
                             <button onClick={() => { }}>PUSH</button>
                         </div> */}
                     </div>
                     :
-                    pushMenu == 'profile' && profileData?.length > 0 ?
-                        <ProfilePage />
-                        :
+                    pushMenu == 'profile' && profileData?.length > 0 ?<ProfilePage /> :
                         pushMenu == 'profileByMenu' ? <PayInfoByMenu /> :
-                            pushMenu == 'payment' ?
-                                <PayUpdate profileData={profileView.ViewData} />
-                                : pushMenu == 'Chart' ? <Chart /> : ''
+                            pushMenu == 'payment' ? <PayUpdate profileData={profileView.ViewData} /> :
+                              pushMenu == 'Chart' ? <Chart /> : ''
                 }
             </div>
         </>

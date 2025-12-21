@@ -49,4 +49,10 @@ input:focus {
     font-size: 19px;
     border: 1px solid var(--body--txt-tx);
   }
+   input {
+        width: 260px;
+        height: 50px;
+        font-size: 15px;
+        font-weight:bold;
+       }
 }
