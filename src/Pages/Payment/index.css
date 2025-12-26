@@ -5,7 +5,6 @@
     margin-top: 20px;
     align-items: center;
     justify-content: space-around;
-
 }
 
 .dailyspend--add--item-block {
@@ -24,6 +23,18 @@
     border-radius: 4px;
 }
 
+.dailyspend--add--item {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+
+}
+
+.payment-menu-divider
+{
+    border: 1px solid gray;
+}
 
 @media screen and (max-width: 620px) {
 

@@ -9,7 +9,7 @@ body {
   --body--bg:#042739;
   --body--txt:#02a879;
   --body-header:#22cc9d;
-  --body--bg--notification:white;
+  --body--bg--notification:rgb(10, 112, 10);
   --header--menu-bck:rgb(4, 40, 56);
   --payment--block--bck:rgb(7, 57, 77);
   --footer--font-bck:rgb(183, 178, 178);

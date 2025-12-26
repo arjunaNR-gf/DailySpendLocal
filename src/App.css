@@ -113,13 +113,7 @@ body {
 
 }
 
-.dailyspend--add--item {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  position: relative;
 
-}
 
 
 
@@ -154,7 +148,7 @@ body {
   justify-content: center;
   padding: 1rem;
   border-radius: 0.4rem;
-  box-shadow: 0 0 40px 20px rgba(232, 233, 235, 0.5);
+  /* box-shadow: 0 0 40px 20px rgba(232, 233, 235, 0.5); */
   border: 1px solid rgb(12, 223, 223);
   text-align: center;
   gap: 1rem;
@@ -656,8 +650,7 @@ ul {
 .dailyspend-view-header-context>div
 {
   width: auto;
-  height: 50px;
-  padding: 55px 45px;
+  padding: 15px 45px;
   border-radius:6px ;
   background-color: #328b72;
   color: var(--body--bg);
@@ -687,3 +680,4 @@ ul {
   text-align: end;
 
 }
+

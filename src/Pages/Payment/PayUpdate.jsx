@@ -9,12 +9,11 @@ import './index.css'
 
 
 const PayUpdate = (profileData) => {
-    const [btnText, setBtnText] = useState('NEXT..')
+    const [btnText, setBtnText] = useState('NEXT >')
     const [inputText, setInputText] = useState('date')
     const [inputID, setInputId] = useState('byDate')
     const [inputPlaceHolder, setPlaceHolder] = useState('Enter The' + inputID + '....')
     const [item, setItem] = useState({ paymentDate: '', Item_Name: '', Spent_Price: '' })
-    //const [innerNavigationFlag, setinnerNavigationFlag] = useState("paymentDate")
     const [paymentMenu, setPaymentMenu] = useState([])
     const [lastupdateInfo, setLastUpdateInfo] = useState()
     const [listActive, setListActive] = useState(false);
@@ -171,19 +170,13 @@ const PayUpdate = (profileData) => {
 
 
     const push_Db = () => {
-        //pushing data to arry to set ready before pushing to local db
-        // let guid_ID = uuidv4();
-        // db[guid_ID] = []
-        // db['spendByDay'] = db['spendByDay'] ?? []
-        // db['spendByDay'].push(item)
         OnclickSubmit();
-        //clearing the item  and set for next round][]
         setTimeout(() => {
             Clear_data()
         }, 20);
     }
 
-    const [notification, setNotification] = useState({ activeStatus: false, subject: 'Payment Info Added Successfully....!' })
+    const [notification, setNotification] = useState({ activeStatus: true, subject: 'Payment Info Added Successfully....!' })
 
     const Clear_data = () => {
         setItem({ paymentDate: '', Item_Name: '', Spent_Price: '' })
@@ -201,7 +194,7 @@ const PayUpdate = (profileData) => {
                     setNotification((prevStatus) => ({
                         ...prevStatus,
                         activeStatus: true,
-                        subject: 'Item Added  Sucessfully....!'
+                        subject: 'Item Added Sucessfully!'
                     }))
                 }, 100);
                 setTimeout(() => {
@@ -242,7 +235,6 @@ const PayUpdate = (profileData) => {
                 <div className='dailyspend--add--item-block'>
                     {notification.activeStatus == true ?
                         <div className='notification'>
-
                             <p>{notification.subject}</p>
                             <div className='notification--icon'></div>
                             <div className='rectangle'></div>
@@ -254,14 +246,9 @@ const PayUpdate = (profileData) => {
                     </div>
 
                     <div className='dailyspend--add--item payment--input'>
-
-
-
-
                         {listActive == true ? <Dropdown size="full" placement="top" dataAry={paymentMenu} inputID={inputID} placeholder={inputPlaceHolder} onClickmeth={apply_pay_name} onClickNormal={false} />
                             :
                             <input type={inputText} id={inputID} placeholder={inputPlaceHolder}></input>
-
                         }
                         {/* 
                         // <div ref={selectDrpDownDivref} className='spendList_display_screen'>
