@@ -18,7 +18,6 @@ const PayUpdate = (profileData) => {
     const [lastupdateInfo, setLastUpdateInfo] = useState()
     const [listActive, setListActive] = useState(false);
     const [flag, setflag] = useState(0)
-
     const [dataStoreDb, setDataStoreDb] = useState([])
 
 
@@ -176,7 +175,7 @@ const PayUpdate = (profileData) => {
         }, 20);
     }
 
-    const [notification, setNotification] = useState({ activeStatus: true, subject: 'Payment Info Added Successfully....!' })
+    const [notification, setNotification] = useState({ activeStatus: false, subject: 'Payment Info Added Successfully....!' })
 
     const Clear_data = () => {
         setItem({ paymentDate: '', Item_Name: '', Spent_Price: '' })
