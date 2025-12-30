@@ -3,6 +3,10 @@
     line-height: 150%;
   }
 
+  .dailyspend--head {
+    height: 110px;
+  }
+
   .dailyspend--main--app{
     width: 100%;
     margin: 1px 1px;
@@ -175,7 +179,7 @@
 
   .select--menu {
     width: 100%;
-    padding-bottom: 4.5rem;
+    padding-bottom: 2.5rem;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -216,11 +220,16 @@
     justify-Content: end;
     align-Items: center;
   }
+
+    .dailyspend--head {
+    height: 110px;
+  }
+
  h2{
     font-size: 25px;
     text-transform: uppercase;
   }
-  .dailyspend-view-header-context
+.dailyspend-view-header-context
 {
   display: flex;
   flex-direction: column;
@@ -255,7 +264,7 @@
   }
   .dailyspend--display--item
   {
-    height: 240px;
+    height: 660px;
    }
 
    .dailyspend--add--item-block{
